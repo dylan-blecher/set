@@ -12,7 +12,7 @@ public class Card {
     private final Number number;
 
     public Card(Colour colour, Shape shape, Fill fill, Number number) {
-        // add error checking for input?
+        // TODO: add error checking for input?
         this.colour = colour;
         this.shape = shape;
         this.fill = fill;
@@ -22,15 +22,12 @@ public class Card {
     public Colour getColour() {
         return colour;
     }
-
     public Shape getShape() {
         return shape;
     }
-
     public Fill getFill() {
         return fill;
     }
-
     public Number getNumber() {
         return number;
     }
