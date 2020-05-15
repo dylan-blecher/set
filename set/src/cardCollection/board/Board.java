@@ -26,4 +26,8 @@ public class Board extends CardCollection {
             cardNum++;
         }
     }
+
+    public Card getCard(int index) {
+        return getCards().get(index);
+    }
 }

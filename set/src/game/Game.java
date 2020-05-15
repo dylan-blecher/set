@@ -6,10 +6,11 @@ import src.player.Player;
 import static src.cardCollection.board.Dealer.setupBoard;
 import static src.cardCollection.deck.DeckBuilder.buildDeck;
 import static src.game.Referee.setExists;
-import static src.move.MoveCompleter.completeMove;
+import static src.move.MoveCompleter.move;
 import static src.player.PlayersSetup.setupPlayers;
 
 public class Game {
+    // TODO: change this players array to be a map from ID to player structure
     private Player[] players;
     private Board board;
     private Deck deck;
@@ -19,17 +20,16 @@ public class Game {
         this.players = setupPlayers();
         this.deck    = buildDeck();
         this.board   = setupBoard(this.deck);
-
-        while (!gameIsOver()) {
+        while (gameIsNotOver()) {
+//            TODO: might not want to display board every time - only if the board changed since previous move...
             this.board.display();
-            completeMove();
+            move(board, deck, players);
         }
-
-
+        // TODO: print winner info or whatever :)
     }
 
-    private boolean gameIsOver() {
-        return board.size() > 0 || setExists(board);
+    private boolean gameIsNotOver() {
+        return deck.size() > 0 || setExists(board);
     }
 }
 

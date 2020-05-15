@@ -1,5 +1,14 @@
 package src.move;
 
+import src.cardCollection.board.Board;
+import src.cardCollection.deck.Deck;
+import src.player.Player;
+
+import java.util.Scanner;
+
+import static src.cardCollection.set.Set.SET_SIZE;
+import static src.move.MoveType.*;
+
 public class MoveCompleter {
     // class should not be instantiatable
     private MoveCompleter() throws UnsupportedOperationException {
@@ -7,15 +16,52 @@ public class MoveCompleter {
         throw new UnsupportedOperationException("Kindly stop using reflection to get around this being private xo");
     }
 
-    public static Move completeMove() {
-        Move move = readMove();
-        validateMove(move);
-        playMove(move);
+    public static Move move(Board board, Deck deck, Player[] players) {
+        Move move;
+
+        while (true) {
+            try {
+                move = readMove(players);
+                move.validateMove(board, deck);
+                break;
+            } catch(UnsupportedOperationException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        move.enactMove(board, deck);
         return move;
     }
 
-    private static Move readMove() {
-        return new Move(MoveType.CHOOSE_SET);
+    private static Move readMove(Player[] players) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter 3 for 3 more cards. Enter 0 if you would like to select a set. Enter 1 to see a set.");
+        int moveType = scanner.nextInt();
+
+//        TODO: TRY TURN THIS INTO A SWITCH STATEMENT
+        if (moveType == DRAW_3.getValue()) {
+            return new DrawThree();
+        } else if (moveType == CHOOSE_SET.getValue()) {
+            System.out.println("Enter your player number. ");
+            int playerID = scanner.nextInt() - 1;
+            if (playerID >= players.length || playerID < 0) {
+                throw new UnsupportedOperationException("You gave an invalid player number.");
+            }
+
+            System.out.println("Enter the 3 cards in your set. ");
+
+            int[] cardIDs = new int[SET_SIZE];
+            for (int i = 0; i < SET_SIZE; i++) {
+                cardIDs[i] = scanner.nextInt();
+            }
+
+            return new SelectSet(cardIDs, players[playerID]);
+        } else if (moveType == SHOW_SET.getValue()) {
+            return new ShowSet();
+        } else {
+//            TODO: create real type for this error...?
+            throw new UnsupportedOperationException("You failed to enter 0 or 3");
+        }
     }
 
     private static void validateMove(Move move) {

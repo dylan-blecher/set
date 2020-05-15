@@ -6,11 +6,14 @@ import java.util.List;
 
 public abstract class CardCollection {
     private List<Card> cards;
-    private int size;
 
     public CardCollection(List<Card> cards) {
         this.cards = cards;
-        this.size = cards.size();
+    }
+
+    // add card to the tail of the cards list
+    public void addCard(Card card) {
+        cards.add(card);
     }
 
     // remove card at head and return it
@@ -26,12 +29,11 @@ public abstract class CardCollection {
 
     // remove card at given index and return card removed
     public Card removeCard(int index) {
-        Card removedCard = this.cards.remove(index);
-        return removedCard;
+        return this.cards.remove(index);
     }
 
     public int size() {
-        return size;
+        return cards.size();
     }
 
     public List<Card> getCards() {

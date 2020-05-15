@@ -1,9 +1,10 @@
 package src.move;
 
-public class Move {
-    MoveType type;
+import src.cardCollection.board.Board;
+import src.cardCollection.deck.Deck;
 
-    public Move(MoveType type) {
-        this.type = type;
-    }
+public interface Move {
+    void validateMove(Board board, Deck deck);
+    // Always call validateMove before enactMove to check validity :)
+    void enactMove(Board board, Deck deck);
 }

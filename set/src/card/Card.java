@@ -6,6 +6,8 @@ import src.card.attributes.Fill;
 import src.card.attributes.Number;
 
 public class Card {
+    private static final String[] attributes = {"COLOUR", "FILL", "NUMBER", "SHAPE"};
+
     private final Colour colour;
     private final Shape shape;
     private final Fill fill;
@@ -30,5 +32,9 @@ public class Card {
     }
     public Number getNumber() {
         return number;
+    }
+
+    public static String[] getAttributes() {
+        return attributes;
     }
 }

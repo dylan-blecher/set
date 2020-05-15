@@ -17,11 +17,17 @@ public class Dealer {
 
     public static Board setupBoard(Deck deck) {
         deck.shuffle();
-        var cards = new LinkedList<Card>();
+        var boardCards = new LinkedList<Card>();
 
         for (int count = 0; count < BASE_BOARD_SIZE; count++)
-            cards.add(deck.removeCard());
+            boardCards.add(deck.removeCard());
 
-        return new Board(cards);
+        return new Board(boardCards);
+    }
+
+    // Moves the first card from the deck to the end of the board list
+    public static void addToBoardFromDeck(int numToAdd, Board board, Deck deck) {
+        for (int count = 0; count < numToAdd; count++)
+            board.addCard(deck.removeCard(0));
     }
 }

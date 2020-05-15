@@ -14,4 +14,14 @@ public class Set extends CardCollection {
             throw new UnsupportedOperationException("You are trying to create a set of incorrect size.");
     }
 
+    public void display() {
+        for (Card card: getCards()) {
+            System.out.println("---------------");
+            System.out.println(card.getColour());
+            System.out.println(card.getFill());
+            System.out.println(card.getNumber());
+            System.out.println(card.getShape());
+            System.out.println("--------------");
+        }
+    }
 }
