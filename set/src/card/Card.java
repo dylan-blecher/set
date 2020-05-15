@@ -1,9 +1,9 @@
 package src.card;
 
-import src.card.Attributes.Colour;
-import src.card.Attributes.Shape;
-import src.card.Attributes.Fill;
-import src.card.Attributes.Number;
+import src.card.attributes.Colour;
+import src.card.attributes.Shape;
+import src.card.attributes.Fill;
+import src.card.attributes.Number;
 
 public class Card {
     private final Colour colour;

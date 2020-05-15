@@ -1,18 +1,19 @@
-package src.deck;
+package src.cardCollection.deck;
+
+import src.card.Card;
+import src.card.attributes.Colour;
+import src.card.attributes.Fill;
+import src.card.attributes.Number;
+import src.card.attributes.Shape;
 
 import java.util.LinkedList;
-import src.card.Card;
-import src.card.Attributes.Colour;
-import src.card.Attributes.Shape;
-import src.card.Attributes.Fill;
-import src.card.Attributes.Number;
 
 public class DeckBuilder {
     // class should not be instantiatable, hence private
     // creates compilation error
     private DeckBuilder() throws UnsupportedOperationException {
         // creates runtime error if reflection is used to bypass private
-        throw new UnsupportedOperationException("Kindly stop using reflection to get around this being a private class xo");
+        throw new UnsupportedOperationException("Kindly stop using reflection to get around this being private xo");
     }
 
     public static Deck buildDeck() {
