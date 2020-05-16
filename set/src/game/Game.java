@@ -2,11 +2,14 @@ package src.game;
 
 import src.cardCollection.board.Board;
 import src.cardCollection.deck.Deck;
+import src.move.Move;
 import src.player.Player;
+
 import static src.cardCollection.board.Dealer.setupBoard;
 import static src.cardCollection.deck.DeckBuilder.buildDeck;
 import static src.game.Referee.setExists;
 import static src.move.MoveCompleter.move;
+import static src.move.MoveType.END_GAME;
 import static src.player.PlayersSetup.setupPlayers;
 
 public class Game {
@@ -23,9 +26,12 @@ public class Game {
         while (gameIsNotOver()) {
 //            TODO: might not want to display board every time - only if the board changed since previous move...
             this.board.display();
-            move(board, deck, players);
+            Move move = move(board, deck, players);
+            if (move.getMoveType() == END_GAME) break;
         }
-        // TODO: print winner info or whatever :)
+
+        Results results = new Results(players);
+        results.showResults();
     }
 
     private boolean gameIsNotOver() {

@@ -1,9 +1,11 @@
-package src.move;
+package src.move.moves;
 
 import src.card.Card;
 import src.cardCollection.board.Board;
 import src.cardCollection.deck.Deck;
 import src.cardCollection.set.Set;
+import src.move.Move;
+import src.move.MoveType;
 import src.player.Player;
 
 import java.util.LinkedList;
@@ -54,6 +56,10 @@ public class SelectSet implements Move {
             addToBoardFromDeck(SET_SIZE, board, deck);
     }
 
+    @Override
+    public MoveType getMoveType() {
+        return MoveType.SELECT_SET;
+    }
     public Player getPlayer() {
         return player;
     }

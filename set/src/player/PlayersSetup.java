@@ -14,6 +14,7 @@ public class PlayersSetup {
 
         System.out.println("How many players?");
         int nPlayers = scanner.nextInt();
+        scanner.nextLine();
         if (nPlayers < 1) {
             // TODO: customise this exception? re-ask for nPlayers
             throw new UnsupportedOperationException("Must have 1 or more player.");

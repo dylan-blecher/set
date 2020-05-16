@@ -7,4 +7,5 @@ public interface Move {
     void validateMove(Board board, Deck deck);
     // Always call validateMove before enactMove to check validity :)
     void enactMove(Board board, Deck deck);
+    MoveType getMoveType();
 }

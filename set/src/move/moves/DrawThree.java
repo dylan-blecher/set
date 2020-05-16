@@ -1,7 +1,9 @@
-package src.move;
+package src.move.moves;
 
 import src.cardCollection.board.Board;
 import src.cardCollection.deck.Deck;
+import src.move.Move;
+import src.move.MoveType;
 
 import static src.cardCollection.board.Dealer.addToBoardFromDeck;
 import static src.cardCollection.set.Set.SET_SIZE;
@@ -16,5 +18,10 @@ public class DrawThree implements Move {
 //    TODO: would it be better to actually instantiate a dealer person and pass them around instaed of just calling their static functions?
     public void enactMove(Board board, Deck deck) {
         addToBoardFromDeck(SET_SIZE, board, deck);
+    }
+
+    @Override
+    public MoveType getMoveType() {
+        return MoveType.DRAW_3;
     }
 }

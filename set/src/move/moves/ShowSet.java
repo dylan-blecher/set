@@ -1,8 +1,10 @@
-package src.move;
+package src.move.moves;
 
 import src.cardCollection.board.Board;
 import src.cardCollection.deck.Deck;
 import src.cardCollection.set.Set;
+import src.move.Move;
+import src.move.MoveType;
 
 import static src.game.Referee.getSet;
 
@@ -19,5 +21,10 @@ public class ShowSet implements Move {
             System.out.println("There are no sets on the board.");
         else
             set.display();
+    }
+
+    @Override
+    public MoveType getMoveType() {
+        return MoveType.SHOW_SET;
     }
 }

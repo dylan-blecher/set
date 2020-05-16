@@ -6,20 +6,29 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Player {
-    private int playerCount;
+    private int playerID;
     private String name;
-    int nSetsFound = 0;
     private List<Set> setsCollected = new LinkedList<>();
 
-    // TODO: store exact cards collected? should generalise deck to CardList and use inheritence :)
-
-    public Player(int playerCount, String name) {
-        this.playerCount = playerCount;
+    public Player(int playerID, String name) {
+        this.playerID = playerID;
         this.name = name;
     }
 
     public void collectSet(Set set) {
         setsCollected.add(set);
-        nSetsFound++;
+    }
+
+    public List<Set> getSetsCollected() {
+        return setsCollected;
+    }
+
+    public int getNSetsCollected() {
+        return setsCollected.size();
+    }
+
+    public void seeScore() {
+        // TODO: lol what a gross temporary solution below for plurals...
+        System.out.printf("%s (player %d) found %d set%s!\n", name, playerID, setsCollected.size(), setsCollected.size() == 1 ? "" : "s");
     }
 }
