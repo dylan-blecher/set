@@ -26,12 +26,20 @@ public class Game {
         while (gameIsNotOver()) {
 //            TODO: might not want to display board every time - only if the board changed since previous move...
             this.board.display();
-            Move move = move(board, deck, players);
+            Move move = null;
+            for (var player: players) {
+                // TODO Do i really needa pass players AND player?
+                move = move(board, deck, player, players);
+                if (move.getMoveType() == END_GAME) break;
+            }
+            // TODO: get rid of this check twice when i have threading... power move on queue
+            assert(move != null);
             if (move.getMoveType() == END_GAME) break;
+
         }
 
-        Results results = new Results(players);
-        results.showResults();
+        Result result = new Result(players);
+        result.showResult();
     }
 
     private boolean gameIsNotOver() {

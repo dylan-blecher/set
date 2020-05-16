@@ -2,16 +2,7 @@ package src.move;
 
 import src.cardCollection.board.Board;
 import src.cardCollection.deck.Deck;
-import src.move.moves.DrawThree;
-import src.move.moves.EndGame;
-import src.move.moves.SelectSet;
-import src.move.moves.ShowSet;
 import src.player.Player;
-
-import java.util.Scanner;
-
-import static src.cardCollection.set.Set.SET_SIZE;
-import static src.move.MoveType.*;
 
 public class MoveCompleter {
     // class should not be instantiatable
@@ -20,12 +11,13 @@ public class MoveCompleter {
         throw new UnsupportedOperationException("Kindly stop using reflection to get around this being private xo");
     }
 
-    public static Move move(Board board, Deck deck, Player[] players) {
+    public static Move move(Board board, Deck deck, Player player, Player[] players) {
         Move move;
 
         while (true) {
             try {
-                move = readMove(players);
+                move = player.getMove(player, players);
+                assert(move != null);
                 move.validateMove(board, deck);
                 break;
             } catch(UnsupportedOperationException e) {
@@ -37,42 +29,23 @@ public class MoveCompleter {
         return move;
     }
 
-    private static Move readMove(Player[] players) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter 0 if you would like to select a set");
-        System.out.println("Enter 1 to see a set.");
-        System.out.println("Enter 2 to end game now.");
-        System.out.println("Enter 3 for 3 more cards.");
-
-        int moveType = scanner.nextInt();
-
-//        TODO: TRY TURN THIS INTO A SWITCH STATEMENT
-        if (moveType == DRAW_3.getValue()) {
-            return new DrawThree();
-        } else if (moveType == SELECT_SET.getValue()) {
-            System.out.println("Enter your player number. ");
-            int playerID = scanner.nextInt() - 1;
-            if (playerID >= players.length || playerID < 0) {
-                throw new UnsupportedOperationException("You gave an invalid player number.");
-            }
-
-            System.out.println("Enter the 3 cards in your set. ");
-
-            int[] cardIDs = new int[SET_SIZE];
-            for (int i = 0; i < SET_SIZE; i++)
-                cardIDs[i] = scanner.nextInt();
-
-            return new SelectSet(cardIDs, players[playerID]);
-        } else if (moveType == SHOW_SET.getValue()) {
-            return new ShowSet();
-        } else if (moveType == END_GAME.getValue()) {
-            return new EndGame();
-        } else {
-//            TODO: create real type for this error...?
-            throw new UnsupportedOperationException("You failed to enter 0 or 3");
-        }
-    }
-
-    // TODO: various types of moves... one would be to display 3 more cards... allow this indefinitely? yes. but also show if they ask if there is a possible set :) but wait... can i display a board that big?
-
+//    TODO:
+    // move readMove into player class or atleast nextMove should be in player
+    // actionQueue class - has a queue. pass to queue which is private. part of game runner, not player. it's own package
+    // serialised = packing and unpacking
+//    write AI's that are correct a percentage of the time and has delays
+    // action queue, players making their own moves, then threads
+    // change END_GAME to be DROP_OUT
+    // players communicate with eachother through the game (send request for 3 more)
+    // similar can't find set for SHOW_SET, no one gets it - discard pile
+    // all other players agree
+    // byzantine generals problem - timeouts - accept request if not in 10 seconds
+    // mutual exclusion for move Making
+    // how to add fixes without fucking the system'
+    // 2 threads, 1 queue per player - one player thread adds job, one player thread sends job to server
+    // queue is size 1 for now because we don't have blocking problem (waiting for server)
+    // protobuf (google product to send information to a server - serialisation library)
+    // graphics
+    // move should have a playerID field.
 }
+

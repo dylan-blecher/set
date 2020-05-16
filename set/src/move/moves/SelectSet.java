@@ -5,6 +5,7 @@ import src.cardCollection.board.Board;
 import src.cardCollection.deck.Deck;
 import src.cardCollection.set.Set;
 import src.move.Move;
+import src.move.PlayerMove;
 import src.move.MoveType;
 import src.player.Player;
 
@@ -16,13 +17,12 @@ import static src.cardCollection.board.Dealer.addToBoardFromDeck;
 import static src.cardCollection.set.Set.SET_SIZE;
 import static src.game.Referee.isSet;
 
-public class SelectSet implements Move {
+public class SelectSet extends PlayerMove implements Move {
     private int[] cardIDs;
-    private Player player;
 
-    public SelectSet(int[] cardIDs, Player player) {
+    public SelectSet(Player player, int[] cardIDs) {
+        super(player);
         this.cardIDs = cardIDs;
-        this.player = player;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SelectSet implements Move {
         for (int cardID: cardIDs)
             board.removeCard(cardID);
 
-        player.collectSet(new Set(setCards));
+        getPlayer().collectSet(new Set(setCards));
 
         if (board.size() < BASE_BOARD_SIZE && deck.size() >= SET_SIZE)
             addToBoardFromDeck(SET_SIZE, board, deck);
@@ -59,8 +59,5 @@ public class SelectSet implements Move {
     @Override
     public MoveType getMoveType() {
         return MoveType.SELECT_SET;
-    }
-    public Player getPlayer() {
-        return player;
     }
 }

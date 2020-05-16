@@ -3,15 +3,21 @@ package src.move.moves;
 import src.cardCollection.board.Board;
 import src.cardCollection.deck.Deck;
 import src.move.Move;
+import src.move.PlayerMove;
 import src.move.MoveType;
+import src.player.Player;
 
 import static src.cardCollection.board.Dealer.addToBoardFromDeck;
 import static src.cardCollection.set.Set.SET_SIZE;
-// TODO: Move the 3 types of moves into a moves directory?
-public class DrawThree implements Move {
+
+public class DrawThree extends PlayerMove implements Move {
+    public DrawThree(Player player) {
+        super(player);
+    }
+
     @Override
     public void validateMove(Board board, Deck deck) {
-        if (deck.size() < 3) throw new UnsupportedOperationException("Not enough cards left to draw three.");
+        if (deck.size() < SET_SIZE) throw new UnsupportedOperationException("Not enough cards left to draw SET_SIZE.");
     }
 
     @Override
