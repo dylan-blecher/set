@@ -89,7 +89,7 @@ public class PlayerInteractor {
         System.out.println("Enter 5 to disagree to request.");
     }
 
-    public static Move getMoveRequestResponse(Player player, RequestMove request) {
+    public static RespondToRequest getMoveRequestResponse(Player player, RequestMove request) {
         promptForMoveRequestResponse(player, request.getMoveType());
         MoveType response = getMoveType(player.giveMoveRequestResponse());
         return new RespondToRequest(player.getID(), response, request);

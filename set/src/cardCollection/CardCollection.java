@@ -71,8 +71,8 @@ public abstract class CardCollection {
         return null;
     }
 
-    public int size() {
-        return cards.length;
+    public int nCards() {
+        return cards.length - nEmptySpots();
     }
 
     public Card[] getCards() {

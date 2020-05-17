@@ -15,7 +15,7 @@ public class Result {
         playersByID.putAll(inactivePlayers);
 
         playersSortedByResults = new ArrayList<>(playersByID.values());
-        playersSortedByResults.sort(Comparator.comparing(Player::getNSetsCollected));
+        playersSortedByResults.sort((left, right) -> right.getNSetsCollected() - left.getNSetsCollected());
     }
 
     // sort results based on sets found

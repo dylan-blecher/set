@@ -18,6 +18,7 @@ public class RequestShowSet extends RequestMove implements MoveRunner {
         return MoveType.REQUEST_SHOW_SET;
     }
 
+    @Override
     public void enactRequestedMove(Board board, Deck deck) {
         Set set = getSet(board);
         if (set == null)

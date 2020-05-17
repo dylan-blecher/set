@@ -10,6 +10,7 @@ import src.move.moves.LeaveGame;
 import src.move.moves.SelectSet;
 import src.move.moves.RequestShowSet;
 
+import static src.cardCollection.board.Board.MAX_BOARD_SIZE;
 import static src.cardCollection.set.Set.SET_SIZE;
 import static src.cardCollection.set.Set.isSet;
 
@@ -66,7 +67,7 @@ public class Referee {
     }
 
     private static void validateREQUEST_DRAW_THREE(RequestDrawThree move, Board board, Deck deck) {
-        if (deck.size() < SET_SIZE)
+        if (deck.nCards() < SET_SIZE)
             throw new UnsupportedOperationException("Not enough cards left to draw SET_SIZE.");
         if (board.nEmptySpots() == 0)
             throw new UnsupportedOperationException("Board is full.");
@@ -84,7 +85,7 @@ public class Referee {
         Card[] potentialSet = new Card[3];
         int index = 0;
         for (int cardPosition: move.getCardPositions()) {
-            if (cardPosition >= board.size() || cardPosition < 0)
+            if (cardPosition >= MAX_BOARD_SIZE || cardPosition < 0)
                 throw new UnsupportedOperationException("Card position ID entered is not on the board!");
             potentialSet[index++] = board.getCard(cardPosition);
         }

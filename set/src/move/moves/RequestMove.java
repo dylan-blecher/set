@@ -12,8 +12,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import static src.cardCollection.board.Dealer.addToBoardFromDeck;
-import static src.cardCollection.set.Set.SET_SIZE;
 import static src.player.PlayerInteractor.getMoveRequestResponse;
 
 public abstract class RequestMove extends Move implements MoveRunner {
@@ -22,7 +20,8 @@ public abstract class RequestMove extends Move implements MoveRunner {
 
     public RequestMove(int playerID) {
         super(playerID);
-        this.IDsOfPlayersInAgreement = new LinkedList<>();
+        IDsOfPlayersInAgreement = new LinkedList<>();
+        IDsOfPlayersInAgreement.add(playerID);
     }
 
     @Override
@@ -31,9 +30,9 @@ public abstract class RequestMove extends Move implements MoveRunner {
         // ask all other players if they agree to your requested move. All players must be in agreement for move to happen.
         for (Player activePlayer: players.getActivePlayers().values()) {
             if (activePlayer == actingPlayer) continue;
-            getMoveRequestResponse(activePlayer, this);
+            RespondToRequest response = getMoveRequestResponse(activePlayer, this);
+            response.enactMove(board, deck, players);
         }
-        addToBoardFromDeck(SET_SIZE, board, deck);
     }
 
     public void addAgreement(int ID) {

@@ -27,9 +27,8 @@ public class RespondToRequest extends Move implements MoveRunner {
                 requestMove.rejectMove();
         }
 
-        if (requestMove.allInAgreement(players.getActivePlayers().keySet())) {
+        if (requestMove.allInAgreement(players.getActivePlayers().keySet()))
             requestMove.enactRequestedMove(board, deck);
-        }
     }
 
     @Override
