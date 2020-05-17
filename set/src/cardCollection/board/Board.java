@@ -3,31 +3,37 @@ package src.cardCollection.board;
 import src.card.Card;
 import src.cardCollection.CardCollection;
 
-import java.util.List;
-
 public class Board extends CardCollection {
     public static final int BASE_BOARD_SIZE = 12;
+    public static final int MAX_BOARD_SIZE = 21;
 
-    public Board(List<Card> cards) {
+    public Board(Card[] cards) {
         super(cards);
-        if (cards.size() != BASE_BOARD_SIZE)
+        if (cards.length != BASE_BOARD_SIZE)
+            throw new UnsupportedOperationException("You are trying to create a board of incorrect size.");
+    }
+
+    public Board(int nCards) {
+        super(nCards);
+        if (nCards != MAX_BOARD_SIZE)
             throw new UnsupportedOperationException("You are trying to create a board of incorrect size.");
     }
 
     public void display() {
         int cardNum = 0;
         for (Card card: getCards()) {
-            System.out.printf("------%d------\n", cardNum);
-            System.out.println(card.getColour());
-            System.out.println(card.getFill());
-            System.out.println(card.getNumber());
-            System.out.println(card.getShape());
-            System.out.println("--------------");
+            if (cardNum % 3 == 0) System.out.println();
+
+            System.out.printf("Card %d: ", cardNum);
+            if (card == null) {
+                System.out.print("null     ");
+            } else {
+                System.out.print(card.getColour() + " " + card.getFill() + " " + card.getNumber() + " " + card.getShape() + "    ");
+            }
+
             cardNum++;
         }
-    }
 
-    public Card getCard(int index) {
-        return getCards().get(index);
+        System.out.println("\n\n");
     }
 }

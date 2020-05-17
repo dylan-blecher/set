@@ -1,24 +1,27 @@
 package src.game;
 
 import src.player.Player;
-import src.player.PlayerComparator;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class Result {
-    // ascendingly sorted by nSets each player found.
+    // descendingly sorted by value (i.e. nSets) each player found.
     // key: playerID, value: player
-    private Player[] playerResults;
+    List<Player> playersSortedByResults;
 
-    public Result(Player[] players) {
-        this.playerResults = players.clone();
-        Arrays.sort(this.playerResults, new PlayerComparator());
+    public Result(Map<Integer, Player> activePlayers, Map<Integer, Player> inactivePlayers) {
+        HashMap<Integer, Player> playersByID = new HashMap<>();
+        playersByID.putAll(activePlayers);
+        playersByID.putAll(inactivePlayers);
+
+        playersSortedByResults = new ArrayList<>(playersByID.values());
+        playersSortedByResults.sort(Comparator.comparing(Player::getNSetsCollected));
     }
 
     // sort results based on sets found
     public void showResult() {
         System.out.println("RESULTS:");
-        for (int i = playerResults.length - 1; i >= 0; i--)
-            playerResults[i].seeScore();
+        for (Player player: playersSortedByResults)
+            player.seeScore();
     }
 }

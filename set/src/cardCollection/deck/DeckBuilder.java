@@ -6,7 +6,7 @@ import src.card.attributes.Fill;
 import src.card.attributes.Number;
 import src.card.attributes.Shape;
 
-import java.util.LinkedList;
+import static src.cardCollection.deck.Deck.INITIAL_DECK_SIZE;
 
 public class DeckBuilder {
     // class should not be instantiatable, hence private
@@ -17,14 +17,16 @@ public class DeckBuilder {
     }
 
     public static Deck buildDeck() {
-        var cards = new LinkedList<Card>();
+        Deck deck = new Deck(INITIAL_DECK_SIZE);
 
+        // TODO: cardID might be unnecessary...
+        int cardID = 0;
         for (Colour colour: Colour.values())
             for (Shape shape: Shape.values())
                 for (Fill fill: Fill.values())
                     for (Number number: Number.values())
-                        cards.add(new Card(colour, shape, fill, number));
+                        deck.addCard(new Card(cardID++, colour, shape, fill, number));
 
-        return new Deck(cards);
+        return deck;
     }
 }

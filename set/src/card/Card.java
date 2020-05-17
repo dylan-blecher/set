@@ -8,17 +8,23 @@ import src.card.attributes.Number;
 public class Card {
     private static final String[] attributes = {"COLOUR", "FILL", "NUMBER", "SHAPE"};
 
+    private final int cardID;
     private final Colour colour;
     private final Shape shape;
     private final Fill fill;
     private final Number number;
 
-    public Card(Colour colour, Shape shape, Fill fill, Number number) {
+    public Card(int cardID, Colour colour, Shape shape, Fill fill, Number number) {
         // TODO: add error checking for input?
+        this.cardID = cardID;
         this.colour = colour;
         this.shape = shape;
         this.fill = fill;
         this.number = number;
+    }
+
+    public int getCardID() {
+        return cardID;
     }
 
     public Colour getColour() {

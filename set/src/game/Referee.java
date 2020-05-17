@@ -1,18 +1,17 @@
 package src.game;
 
 import src.card.Card;
-import src.card.attributes.Colour;
-import src.card.attributes.Fill;
-import src.card.attributes.Number;
-import src.card.attributes.Shape;
 import src.cardCollection.board.Board;
+import src.cardCollection.deck.Deck;
 import src.cardCollection.set.Set;
-
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
+import src.move.MoveRunner;
+import src.move.moves.RequestDrawThree;
+import src.move.moves.LeaveGame;
+import src.move.moves.SelectSet;
+import src.move.moves.RequestShowSet;
 
 import static src.cardCollection.set.Set.SET_SIZE;
+import static src.cardCollection.set.Set.isSet;
 
 // TODO: This is a bit gross because Set is a thing in Java.util so I'm overriding :/
 
@@ -38,12 +37,7 @@ public class Referee {
                 if (card1 == card2) continue;
                 for (Card card3 : board.getCards()) {
                     if (card3 == card2 || card3 == card1) continue;
-
-                    List<Card> potentialSet = new LinkedList<>();
-                    potentialSet.add(card1);
-                    potentialSet.add(card2);
-                    potentialSet.add(card3);
-
+                    Card[] potentialSet = {card1, card2, card3};
                     if (isSet(potentialSet)) return new Set(potentialSet);
                 }
             }
@@ -52,51 +46,50 @@ public class Referee {
         return null;
     }
 
-    // To check if 3 cards make a Set, use a mathematical set to find out how many of each unique versions of
-    // each attribute is present. i.e. create a dictionary which maps each enum (e.g. Colour) to a number.
-    // If the number is 1 or 3, it's a set. Otherwise, it's not.
-    public static boolean isSet(List<Card> potentialSet) {
-        if (potentialSet.size() != SET_SIZE) return false;
-        return colourSet(potentialSet) &&
-               fillSet(potentialSet)   &&
-               numberSet(potentialSet) &&
-               shapeSet(potentialSet);
+    public static void validateMove(MoveRunner moveRunner, Board board, Deck deck) {
+        if (moveRunner == null) throw new UnsupportedOperationException("Invalid move type.");
+
+        switch (moveRunner.getMoveType()) {
+            case LEAVE_GAME:
+                validateDROP_OUT((LeaveGame) moveRunner, board, deck);
+                break;
+            case REQUEST_SHOW_SET:
+                validateSHOW_SET((RequestShowSet) moveRunner, board, deck);
+                break;
+            case REQUEST_DRAW_THREE:
+                validateREQUEST_DRAW_THREE((RequestDrawThree) moveRunner, board, deck);
+                break;
+            case SELECT_SET:
+                validateSELECT_SET((SelectSet) moveRunner, board, deck);
+                break;
+        }
     }
 
-//    TODO: is there a way to simplify the below 4 functions into 1 function with a function pointer as arg?
-    private static boolean colourSet(List<Card> potentialSet) {
-        HashSet<Colour> enum_set = new HashSet<>();
-
-        for (Card card: potentialSet)
-            enum_set.add(card.getColour());
-
-        return enum_set.size() == 1 || enum_set.size() == 3;
+    private static void validateREQUEST_DRAW_THREE(RequestDrawThree move, Board board, Deck deck) {
+        if (deck.size() < SET_SIZE)
+            throw new UnsupportedOperationException("Not enough cards left to draw SET_SIZE.");
+        if (board.nEmptySpots() == 0)
+            throw new UnsupportedOperationException("Board is full.");
     }
 
-    private static boolean fillSet(List<Card> potentialSet) {
-        HashSet<Fill> enum_set = new HashSet<>();
-
-        for (Card card: potentialSet)
-            enum_set.add(card.getFill());
-
-        return enum_set.size() == 1 || enum_set.size() == 3;
+    private static void validateDROP_OUT(LeaveGame move, Board board, Deck deck) {
+        // always valid :)
     }
 
-    private static boolean numberSet(List<Card> potentialSet) {
-        HashSet<Number> enum_set = new HashSet<>();
-
-        for (Card card: potentialSet)
-            enum_set.add(card.getNumber());
-
-        return enum_set.size() == 1 || enum_set.size() == 3;
+    private static void validateSHOW_SET(RequestShowSet move, Board board, Deck deck) {
+        // always valid :)
     }
 
-    private static boolean shapeSet(List<Card> potentialSet) {
-        HashSet<Shape> enum_set = new HashSet<>();
+    private static void validateSELECT_SET(SelectSet move, Board board, Deck deck) {
+        Card[] potentialSet = new Card[3];
+        int index = 0;
+        for (int cardPosition: move.getCardPositions()) {
+            if (cardPosition >= board.size() || cardPosition < 0)
+                throw new UnsupportedOperationException("Card position ID entered is not on the board!");
+            potentialSet[index++] = board.getCard(cardPosition);
+        }
 
-        for (Card card: potentialSet)
-            enum_set.add(card.getShape());
-
-        return enum_set.size() == 1 || enum_set.size() == 3;
+        if (!isSet(potentialSet))
+            throw new UnsupportedOperationException("The cards you selected do not form a set.");
     }
 }
