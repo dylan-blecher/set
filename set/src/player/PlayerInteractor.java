@@ -1,10 +1,10 @@
 package src.player;
 // this class serves to interact with the player
-// for example, PlayerInteractor is responsible for finding out the player's moves
+// for example, PlayerInteractor is responsible for finding out the player's actions
 
-import src.move.Move;
-import src.move.MoveType;
-import src.move.moves.*;
+import src.action.ActionType;
+import src.action.Action;
+import src.action.ActionSelectSet;
 
 import java.util.Scanner;
 
@@ -19,61 +19,59 @@ public class PlayerInteractor {
         throw new UnsupportedOperationException("Kindly stop using reflection to get around this being private xo");
     }
 
-    public static void promptForMove() {
+    public static void promptForAction() {
         System.out.println("Enter 0 if you would like to select a set.");
         System.out.println("Enter 1 to request to see a set.");
         System.out.println("Enter 2 to leave game now.");
         System.out.println("Enter 3 to request 3 more cards.");
     }
 
-    // returns a Move or null if the move was invalid
-    public static Move getMove(Player player) {
-        promptForMove();
-        MoveType moveType = getMoveType(player.giveMoveType());
+    // returns an action or null if the action was invalid
+    public static Action getAction(Player player) {
+        promptForAction();
+        ActionType actionType = getActionType(player.giveActionType());
 
-        Move move;
-        switch (moveType) {
+        Action action;
+        switch (actionType) {
             case SELECT_SET:
-                move = getSelectSet(player.getID());
+                action = getSelectSet(player.getID(), actionType);
                 break;
             case REQUEST_SHOW_SET:
-                move = new RequestShowSet(player.getID());
-                break;
-            case LEAVE_GAME:
-                move = new LeaveGame(player.getID());
-                break;
             case REQUEST_DRAW_THREE:
-                move = new RequestDrawThree(player.getID());
+            case LEAVE_GAME:
+                action = new Action(actionType, player.getID());
                 break;
             default:
-                move = null;
+                action = null;
         }
 
-        player.addMoveToQueue(move);
-        return player.getNextMoveFromQueue();
+        if (action != null)
+            player.addActionToQueue(action);
+
+        return player.getNextActionFromQueue();
     }
 
-    // TODO: various types of moves... one would be to display 3 more cards... allow this indefinitely? yes. but also show if they ask if there is a possible set :) but wait... can i display a board that big?
-    private static Move getSelectSet(int playerID) {
+    // TODO: various types of actions... one would be to display 3 more cards... allow this indefinitely? yes. but also show if they ask if there is a possible set :) but wait... can i display a board that big?
+    private static Action getSelectSet(int playerID, ActionType actionType) {
         System.out.println("Enter your player number. ");
         // TODO: this player resetting is just temporary until threading works.
         playerID = scanner.nextInt() - 1;
         System.out.println("Enter the 3 cards in your set. ");
 
-        int[] cardIDs = new int[SET_SIZE];
+        int[] cardPositions = new int[SET_SIZE];
         for (int i = 0; i < SET_SIZE; i++)
-            cardIDs[i] = scanner.nextInt();
+            cardPositions[i] = scanner.nextInt();
 
-        return new SelectSet(playerID, cardIDs);
+        return new ActionSelectSet(actionType, playerID, cardPositions);
     }
 
-    private static MoveType getMoveType(int moveInt) {
+    private static ActionType getActionType(int actionInt) {
         // TODO: Validate input
         // turn input int into an enum
-        return MoveType.valueOf(moveInt);
+        return ActionType.valueToEnum(actionInt);
     }
 
-    private static void promptForMoveRequestResponse(Player actingPlayer, MoveType request) {
+    private static void promptForActionRequestResponse(Player actingPlayer, ActionType request) {
         String message = String.format("%s (player %d) has requested to ", actingPlayer.getName(), actingPlayer.getID() + 1);
 
         switch (request) {
@@ -87,11 +85,5 @@ public class PlayerInteractor {
         System.out.println(message);
         System.out.println("Enter 4 to agree to request.");
         System.out.println("Enter 5 to disagree to request.");
-    }
-
-    public static RespondToRequest getMoveRequestResponse(Player player, RequestMove request) {
-        promptForMoveRequestResponse(player, request.getMoveType());
-        MoveType response = getMoveType(player.giveMoveRequestResponse());
-        return new RespondToRequest(player.getID(), response, request);
     }
 }

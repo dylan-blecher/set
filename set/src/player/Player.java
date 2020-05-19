@@ -1,8 +1,8 @@
 package src.player;
 
+import src.action.Action;
+import src.action.actionQueue.ActionQueue;
 import src.cardCollection.set.Set;
-import src.move.Move;
-import src.move.movesToDo.MoveQueue;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Player {
     private int ID;
     private String name;
-    private MoveQueue movesToDo = new MoveQueue();
+    private ActionQueue movesToDo = new ActionQueue();
     private List<Set> setsCollected = new LinkedList<>();
     private Scanner scanner = new Scanner(System.in);
 
@@ -30,7 +30,7 @@ public class Player {
         System.out.printf("%s (player %d) found %d set%s!\n", name, ID + 1, setsCollected.size(), setsCollected.size() == 1 ? "" : "s");
     }
 
-    public int giveMoveType() {
+    public int giveActionType() {
         return scanner.nextInt();
     }
 
@@ -58,11 +58,11 @@ public class Player {
         return name;
     }
 
-    public void addMoveToQueue(Move move) {
-        movesToDo.addMove(move);
+    public void addActionToQueue(Action playerAction) {
+        movesToDo.addAction(playerAction);
     }
 
-    public Move getNextMoveFromQueue() {
+    public Action getNextActionFromQueue() {
         return movesToDo.getNext();
     }
 }

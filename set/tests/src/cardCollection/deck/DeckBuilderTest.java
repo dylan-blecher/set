@@ -7,6 +7,6 @@ import static src.cardCollection.deck.DeckBuilder.buildDeck;
 class DeckBuilderTest {
     @Test
     public void testBuildDeck() {
-        assertEquals(81, buildDeck().size());
+        assertEquals(81, buildDeck().nCards());
     }
 }
