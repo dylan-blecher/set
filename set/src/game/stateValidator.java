@@ -1,7 +1,7 @@
 package src.game;
 
 import src.action.Action;
-import src.action.ActionSelectSet;
+import src.action.PlayerActionSelectSet;
 import src.card.Card;
 import src.cardCollection.board.Board;
 import src.cardCollection.deck.Deck;
@@ -64,7 +64,7 @@ public class stateValidator {
                 validateREQUEST_DRAW_THREE(board, deck);
                 break;
             case SELECT_SET:
-                validateSELECT_SET((ActionSelectSet) action, board);
+                validateSELECT_SET((PlayerActionSelectSet) action, board);
                 break;
         }
     }
@@ -93,7 +93,7 @@ public class stateValidator {
         // always valid :)
     }
 
-    private static void validateSELECT_SET(ActionSelectSet action, Board board) {
+    private static void validateSELECT_SET(PlayerActionSelectSet action, Board board) {
         Card[] potentialSet = new Card[3];
         int index = 0;
         for (int cardPosition: action.getCardPositions()) {

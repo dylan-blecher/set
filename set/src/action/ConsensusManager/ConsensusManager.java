@@ -2,6 +2,7 @@ package src.action.ConsensusManager;
 
 import src.action.Action;
 import src.action.ActionType;
+import src.action.PlayerAction;
 import src.action.actionQueue.ActionQueue;
 
 import java.util.HashMap;
@@ -27,18 +28,19 @@ public class ConsensusManager {
             playersAgreeingToMove.put(moveType, new HashSet<>());
     }
 
-    public static void update(ActionType actionType, int playerID) {
-        switch(actionType) {
+    public static void update(Action action) {
+        ActionType actionType = action.getType();
+        switch(action.getType()) {
             case REQUEST_DRAW_THREE:
             case REQUEST_SHOW_SET:
-                addAgreement(actionType, playerID);
+                addAgreement(actionType, ((PlayerAction)action).getPlayerID());
                 break;
             case SELECT_SET:
             case DRAW_THREE:
                 resetRequests();
                 break;
             case LEAVE_GAME:
-                removePlayer(playerID);
+                removePlayer(((PlayerAction)action).getPlayerID());
                 break;
             case SHOW_SET:
                 resetRequest(REQUEST_SHOW_SET);
@@ -49,10 +51,10 @@ public class ConsensusManager {
     // TODO: This can probably be better implemented with a listener on when these lists become full
     public static void updateMoveQueue(int nActivePlayers, ActionQueue actions) {
         if (isConsensus(REQUEST_DRAW_THREE, nActivePlayers))
-            actions.addAction(new Action(DRAW_THREE, playersAgreeingToMove.get(REQUEST_DRAW_THREE)));
+            actions.addAction(new Action(DRAW_THREE));
 
         if (isConsensus(REQUEST_SHOW_SET, nActivePlayers))
-            actions.addAction(new Action(SHOW_SET, playersAgreeingToMove.get(REQUEST_SHOW_SET)));
+            actions.addAction(new Action(SHOW_SET));
     }
 
     private static void addAgreement(ActionType actionType, int playerID) {

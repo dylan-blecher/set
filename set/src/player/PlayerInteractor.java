@@ -2,9 +2,10 @@ package src.player;
 // this class serves to interact with the player
 // for example, PlayerInteractor is responsible for finding out the player's actions
 
-import src.action.ActionType;
 import src.action.Action;
-import src.action.ActionSelectSet;
+import src.action.ActionType;
+import src.action.PlayerAction;
+import src.action.PlayerActionSelectSet;
 
 import java.util.Scanner;
 
@@ -39,7 +40,7 @@ public class PlayerInteractor {
             case REQUEST_SHOW_SET:
             case REQUEST_DRAW_THREE:
             case LEAVE_GAME:
-                action = new Action(actionType, player.getID());
+                action = new PlayerAction(actionType, player.getID());
                 break;
             default:
                 action = null;
@@ -62,7 +63,7 @@ public class PlayerInteractor {
         for (int i = 0; i < SET_SIZE; i++)
             cardPositions[i] = scanner.nextInt();
 
-        return new ActionSelectSet(actionType, playerID, cardPositions);
+        return new PlayerActionSelectSet(actionType, playerID, cardPositions);
     }
 
     private static ActionType getActionType(int actionInt) {

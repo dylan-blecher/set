@@ -20,10 +20,10 @@ public class ActionEnactor {
         var actionType = action.getType();
         switch (actionType) {
             case LEAVE_GAME:
-                enactLeaveGame(action, players);
+                enactLeaveGame((PlayerAction) action, players);
                 break;
             case SELECT_SET:
-                enactSelectSet((ActionSelectSet) action, board, deck, players);
+                enactSelectSet((PlayerActionSelectSet) action, board, deck, players);
                 break;
             case DRAW_THREE:
                 enactDrawThree(board, deck);
@@ -33,11 +33,11 @@ public class ActionEnactor {
                 break;
         }
 
-        ConsensusManager.update(action.getType(), action.getPlayerID());
+        ConsensusManager.update(action);
         ConsensusManager.updateMoveQueue(players.getNActivePlayers(), actions);
     }
 
-    private static void enactLeaveGame(Action playerAction, Players players) {
+    private static void enactLeaveGame(PlayerAction playerAction, Players players) {
         int playerID = playerAction.getPlayerID();
         String name = players.getActivePlayers().get(playerID).getName();
         players.dropPlayerFromGame(playerID);
@@ -56,7 +56,7 @@ public class ActionEnactor {
             set.display();
     }
 
-    private static void enactSelectSet(ActionSelectSet action, Board board, Deck deck, Players players) {
+    private static void enactSelectSet(PlayerActionSelectSet action, Board board, Deck deck, Players players) {
         var setCards = new Card[3];
         int index = 0;
         for (int cardPosition: action.getCardPositions())
