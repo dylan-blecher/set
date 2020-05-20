@@ -22,7 +22,7 @@ public class Game {
     private ActionQueue actions;
 
     public Game() {
-        setupGame();
+        // setupGame();
     }
 
     // the reason this is not immediately initialised with the attributes above is
