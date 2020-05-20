@@ -19,6 +19,7 @@ public class Game {
     private Players players;
     private Board board;
     private Deck deck;
+    private ActionQueue actions;
 
     public Game() {
         setupGame();
@@ -30,6 +31,7 @@ public class Game {
         this.players          = new Players();
         this.deck             = buildDeck();
         this.board            = setupBoard(this.deck);
+        this.actions          = new ActionQueue();
     }
 
     public void run() {
@@ -47,18 +49,18 @@ public class Game {
 
             // user ports
             // use publish subscribe instead of spinning?
-            while (ActionQueue.isEmpty()) {
+            while (actions.isEmpty()) {
                 for (var player : players.getActivePlayers().values()) {
                     // can't model it perfectly yet... players will run int heir own thread so they can have a move
                     // without calling getMove(). But for now, they can't because it's not multi-threaded...
                     // right now, getMove will actually interact with user, but when threaded, all it does is
                     // gets a move from the users queue if they have one
                     // if (player.hasMove()) {
-                    ActionQueue.addAction(getAction(player));
+                    actions.addAction(getAction(player));
                 }
             }
 
-            Action action = ActionQueue.getNext();
+            Action action = actions.getNext();
             assert(action != null);
 
             try {
@@ -69,7 +71,7 @@ public class Game {
                 continue;
             }
 
-            ActionEnactor.enact(action, board, deck, players);
+            ActionEnactor.enact(action, board, deck, players, actions);
         }
 
         Result result = new Result(players.getActivePlayers(), players.getInactivePlayers());

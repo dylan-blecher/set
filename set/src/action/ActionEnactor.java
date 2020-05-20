@@ -1,6 +1,7 @@
 package src.action;
 
 import src.action.ConsensusManager.ConsensusManager;
+import src.action.actionQueue.ActionQueue;
 import src.card.Card;
 import src.cardCollection.board.Board;
 import src.cardCollection.deck.Deck;
@@ -15,7 +16,7 @@ import static src.game.stateValidator.getSet;
 public class ActionEnactor {
     // TODO: ENFORCE THAT THIS AND CONSENSUS MANAGER CANNOT BE INSTANTIATED WITH PRIVATE CONSTRUCTOR
     // TODO: not sure if i like the fact that I'm passing players around here!
-    public static void enact(Action action, Board board, Deck deck, Players players) {
+    public static void enact(Action action, Board board, Deck deck, Players players, ActionQueue actions) {
         var actionType = action.getType();
         switch (actionType) {
             case LEAVE_GAME:
@@ -33,7 +34,7 @@ public class ActionEnactor {
         }
 
         ConsensusManager.update(action.getType(), action.getPlayerID());
-        ConsensusManager.updateMoveQueue(players.getNActivePlayers());
+        ConsensusManager.updateMoveQueue(players.getNActivePlayers(), actions);
     }
 
     private static void enactLeaveGame(Action playerAction, Players players) {

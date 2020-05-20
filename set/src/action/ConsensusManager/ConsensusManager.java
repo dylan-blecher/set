@@ -16,6 +16,12 @@ public class ConsensusManager {
     // map from MoveType to a list of players in consensus for that move
     private static final Map<ActionType, Set<Integer>> playersAgreeingToMove = new HashMap<>();
 
+    // class should not be instantiatable
+    private ConsensusManager() throws UnsupportedOperationException {
+        // creates runtime error if reflection is used to bypass private
+        throw new UnsupportedOperationException("Kindly stop using reflection to get around this being private xo");
+    }
+
     static {
         for (var moveType: getMoveTypesThatRequireConsensus())
             playersAgreeingToMove.put(moveType, new HashSet<>());
@@ -41,12 +47,12 @@ public class ConsensusManager {
     }
 
     // TODO: This can probably be better implemented with a listener on when these lists become full
-    public static void updateMoveQueue(int nActivePlayers) {
+    public static void updateMoveQueue(int nActivePlayers, ActionQueue actions) {
         if (isConsensus(REQUEST_DRAW_THREE, nActivePlayers))
-            ActionQueue.addAction(new Action(DRAW_THREE, playersAgreeingToMove.get(REQUEST_DRAW_THREE)));
+            actions.addAction(new Action(DRAW_THREE, playersAgreeingToMove.get(REQUEST_DRAW_THREE)));
 
         if (isConsensus(REQUEST_SHOW_SET, nActivePlayers))
-            ActionQueue.addAction(new Action(SHOW_SET, playersAgreeingToMove.get(REQUEST_SHOW_SET)));
+            actions.addAction(new Action(SHOW_SET, playersAgreeingToMove.get(REQUEST_SHOW_SET)));
     }
 
     private static void addAgreement(ActionType actionType, int playerID) {

@@ -15,14 +15,14 @@ import java.util.Queue;
 // Why do we prioritise requestType? completed requests get first priority because they've been on the queue for ages
 // (ever since someone first requested them)
 public class ActionQueue {
-    private final static Queue<ActionQueueEntry> pq = new PriorityQueue<>(new ActionComparator());
-    public static Action getNext() {
+    private final Queue<ActionQueueEntry> pq = new PriorityQueue<>(new ActionComparator());
+    public Action getNext() {
         return pq.remove().getPlayerAction();
     }
-    public static void addAction(Action action) {
+    public void addAction(Action action) {
         pq.add(new ActionQueueEntry(action));
     }
-    public static boolean isEmpty() {
+    public boolean isEmpty() {
         return pq.size() == 0;
     }
 }
