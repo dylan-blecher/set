@@ -11,7 +11,6 @@ import static src.cardCollection.board.Dealer.setupBoard;
 import static src.cardCollection.deck.DeckBuilder.buildDeck;
 import static src.game.stateValidator.setExists;
 import static src.game.stateValidator.validateAction;
-import static src.player.PlayerInteractor.getAction;
 
 public class Game {
     // TODO: change this players array to be a map from ID to player structure
@@ -56,7 +55,7 @@ public class Game {
                     // right now, getMove will actually interact with user, but when threaded, all it does is
                     // gets a move from the users queue if they have one
                     // if (player.hasMove()) {
-                    actions.addAction(getAction(player));
+//                    actions.addAction(getAction(player));
                 }
             }
 

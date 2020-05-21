@@ -28,35 +28,29 @@ public class PlayerInteractor {
     }
 
     // returns an action or null if the action was invalid
-    public static Action getAction(Player player) {
+    public static Action getAction(int playerID) {
         promptForAction();
-        ActionType actionType = getActionType(player.giveActionType());
+        ActionType actionType = getActionType(Player.giveActionType());
 
         Action action;
         switch (actionType) {
             case SELECT_SET:
-                action = getSelectSet(player.getID(), actionType);
+                action = getSelectSet(playerID, actionType);
                 break;
             case REQUEST_SHOW_SET:
             case REQUEST_DRAW_THREE:
             case LEAVE_GAME:
-                action = new PlayerAction(actionType, player.getID());
+                action = new PlayerAction(actionType, playerID);
                 break;
             default:
                 action = null;
         }
 
-        if (action != null)
-            player.addActionToQueue(action);
-
-        return player.getNextActionFromQueue();
+        return action;
     }
 
     // TODO: various types of actions... one would be to display 3 more cards... allow this indefinitely? yes. but also show if they ask if there is a possible set :) but wait... can i display a board that big?
     private static Action getSelectSet(int playerID, ActionType actionType) {
-        System.out.println("Enter your player number. ");
-        // TODO: this player resetting is just temporary until threading works.
-        playerID = scanner.nextInt() - 1;
         System.out.println("Enter the 3 cards in your set. ");
 
         int[] cardPositions = new int[SET_SIZE];

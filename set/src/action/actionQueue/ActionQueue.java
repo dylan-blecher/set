@@ -22,6 +22,9 @@ public class ActionQueue {
     public void addAction(Action action) {
         pq.add(new ActionQueueEntry(action));
     }
+    public int size() {
+        return pq.size();
+    }
     public boolean isEmpty() {
         return pq.size() == 0;
     }

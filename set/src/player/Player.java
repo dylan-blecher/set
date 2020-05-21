@@ -1,7 +1,5 @@
 package src.player;
 
-import src.action.Action;
-import src.action.actionQueue.ActionQueue;
 import src.cardCollection.set.Set;
 
 import java.util.LinkedList;
@@ -11,9 +9,8 @@ import java.util.Scanner;
 public class Player {
     private int ID;
     private String name;
-    private ActionQueue movesToDo = new ActionQueue();
     private List<Set> setsCollected = new LinkedList<>();
-    private Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
 
     public Player(int ID, String name) {
         this.ID = ID;
@@ -30,17 +27,10 @@ public class Player {
         System.out.printf("%s (player %d) found %d set%s!\n", name, ID + 1, setsCollected.size(), setsCollected.size() == 1 ? "" : "s");
     }
 
-    public int giveActionType() {
+    public static int giveActionType() {
         return scanner.nextInt();
     }
 
-    public int giveMoveRequestResponse() {
-        return scanner.nextInt();
-    }
-
-    public boolean hasMove() {
-        return !movesToDo.isEmpty();
-    }
 
     public List<Set> getSetsCollected() {
         return setsCollected;
@@ -56,13 +46,5 @@ public class Player {
 
     public String getName() {
         return name;
-    }
-
-    public void addActionToQueue(Action playerAction) {
-        movesToDo.addAction(playerAction);
-    }
-
-    public Action getNextActionFromQueue() {
-        return movesToDo.getNext();
     }
 }
