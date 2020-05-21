@@ -26,7 +26,6 @@ class SocketWriter {
     }
 
     public void close() throws IOException {
-        System.out.println("writerclose");
         writer.close();
         if (!socket.isClosed()) socket.close();
     }
