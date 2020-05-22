@@ -32,7 +32,7 @@ public enum ActionType {
             map.put(actionType.getValue(), actionType);
     }
 
-    public static ActionType valueToEnum(int moveType) {
+    public static ActionType valueOf(int moveType) {
         return map.get(moveType);
     }
 

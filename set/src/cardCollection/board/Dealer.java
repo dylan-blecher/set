@@ -16,7 +16,7 @@ public class Dealer {
 
     public static Board setupBoard(Deck deck) {
         deck.shuffle();
-        var board = new Board(MAX_BOARD_SIZE);
+        Board board = new Board(MAX_BOARD_SIZE);
         addToBoardFromDeck(BASE_BOARD_SIZE, board, deck);
         return board;
     }

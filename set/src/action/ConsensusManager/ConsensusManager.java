@@ -24,8 +24,8 @@ public class ConsensusManager {
     }
 
     static {
-        for (var moveType: getMoveTypesThatRequireConsensus())
-            playersAgreeingToMove.put(moveType, new HashSet<>());
+        for (ActionType actionType: getMoveTypesThatRequireConsensus())
+            playersAgreeingToMove.put(actionType, new HashSet<>());
     }
 
     public static void update(Action action) {
@@ -50,11 +50,10 @@ public class ConsensusManager {
 
     // TODO: This can probably be better implemented with a listener on when these lists become full
     public static void updateMoveQueue(int nActivePlayers, ActionQueue actions) {
-        if (isConsensus(REQUEST_DRAW_THREE, nActivePlayers))
-            actions.addAction(new Action(DRAW_THREE));
-
-        if (isConsensus(REQUEST_SHOW_SET, nActivePlayers))
-            actions.addAction(new Action(SHOW_SET));
+        synchronized (actions) {
+            if (isConsensus(REQUEST_DRAW_THREE, nActivePlayers)) actions.addAction(new Action(DRAW_THREE));
+            if (isConsensus(REQUEST_SHOW_SET, nActivePlayers)) actions.addAction(new Action(SHOW_SET));
+        }
     }
 
     private static void addAgreement(ActionType actionType, int playerID) {
@@ -62,7 +61,7 @@ public class ConsensusManager {
     }
 
     private static void removePlayer(int playerID) {
-        for (var moveType: playersAgreeingToMove.keySet())
+        for (ActionType moveType: playersAgreeingToMove.keySet())
             playersAgreeingToMove.get(moveType).remove(playerID);
     }
 

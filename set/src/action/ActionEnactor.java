@@ -17,7 +17,7 @@ public class ActionEnactor {
     // TODO: ENFORCE THAT THIS AND CONSENSUS MANAGER CANNOT BE INSTANTIATED WITH PRIVATE CONSTRUCTOR
     // TODO: not sure if i like the fact that I'm passing players around here!
     public static void enact(Action action, Board board, Deck deck, Players players, ActionQueue actions) {
-        var actionType = action.getType();
+        ActionType actionType = action.getType();
         switch (actionType) {
             case LEAVE_GAME:
                 enactLeaveGame((PlayerAction) action, players);
@@ -39,7 +39,7 @@ public class ActionEnactor {
 
     private static void enactLeaveGame(PlayerAction playerAction, Players players) {
         int playerID = playerAction.getPlayerID();
-        String name = players.getActivePlayers().get(playerID).getName();
+        String name = players.getPlayer(playerID).getName();
         players.dropPlayerFromGame(playerID);
         int nPlayers = players.getNActivePlayers();
 
@@ -57,7 +57,7 @@ public class ActionEnactor {
     }
 
     private static void enactSelectSet(PlayerActionSelectSet action, Board board, Deck deck, Players players) {
-        var setCards = new Card[3];
+        Card[] setCards = new Card[3];
         int index = 0;
         for (int cardPosition: action.getCardPositions())
             setCards[index++] = board.removeCard(cardPosition);

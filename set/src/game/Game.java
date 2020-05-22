@@ -2,15 +2,21 @@ package src.game;
 
 import src.action.Action;
 import src.action.ActionEnactor;
+import src.action.PlayerAction;
 import src.action.actionQueue.ActionQueue;
 import src.cardCollection.board.Board;
 import src.cardCollection.deck.Deck;
+import src.player.Player;
 import src.player.Players;
 
+import java.util.Map;
+
+import static src.action.ActionType.SELECT_SET;
 import static src.cardCollection.board.Dealer.setupBoard;
 import static src.cardCollection.deck.DeckBuilder.buildDeck;
 import static src.game.stateValidator.setExists;
 import static src.game.stateValidator.validateAction;
+import static src.server.Server.tellPlayer;
 
 public class Game {
     // TODO: change this players array to be a map from ID to player structure
@@ -20,53 +26,47 @@ public class Game {
     private Deck deck;
     private ActionQueue actions;
 
-    public Game() {
-        // setupGame();
+    public Game(Map<Integer, Player> activePlayers, ActionQueue actions) {
+         setupGame(activePlayers, actions);
     }
 
     // the reason this is not immediately initialised with the attributes above is
     // in case I want to add replay() functionality, where it sets up a new game :)
-    private void setupGame() {
-        this.players          = new Players();
+    private void setupGame(Map<Integer, Player> activePlayers, ActionQueue actions) {
+        this.players          = new Players(activePlayers);
         this.deck             = buildDeck();
         this.board            = setupBoard(this.deck);
-        this.actions          = new ActionQueue();
+        this.actions          = actions;
     }
 
     public void run() {
+        System.out.println("RAN THE GAME :)");
         while (gameIsNotOver()) {
 //            TODO: might not want to display board every time - only if the board changed since previous move...
             this.board.display();
 
-            // move all moves from player queue onto game queue. loop through all players adding one move at a time until no players have moves left
-            // jks just until you've got one from each
-            // TODO: for now, this is a hacky solution... when i have threads, i won't have to ask the player
-            // to add to their own queue... that's something a separate thread should be doing all the time - waiting on input
-            // go one by one
-            // for each player, ask them to Identify themself first
-            // ask which player and then jump into their thread
-
             // user ports
             // use publish subscribe instead of spinning?
-            while (actions.isEmpty()) {
-                for (var player : players.getActivePlayers().values()) {
-                    // can't model it perfectly yet... players will run int heir own thread so they can have a move
-                    // without calling getMove(). But for now, they can't because it's not multi-threaded...
-                    // right now, getMove will actually interact with user, but when threaded, all it does is
-                    // gets a move from the users queue if they have one
-                    // if (player.hasMove()) {
-//                    actions.addAction(getAction(player));
+            Action action;
+            synchronized (actions) {
+                try {
+                    if (actions.isEmpty()) {
+                        System.out.println("about to wait");
+                        actions.wait();
+                        System.out.println("finished wait");
+                    }
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
                 }
+                action = actions.getNext();
             }
 
-            Action action = actions.getNext();
             assert(action != null);
 
             try {
                 validateAction(action, board, deck);
             } catch(UnsupportedOperationException e) {
-                // this error message needs to be sent to the user (sent to that thread), not printed to stdout...
-                System.out.println(e.getMessage());
+                warnInvalidity(action, e.getMessage());
                 continue;
             }
 
@@ -75,6 +75,14 @@ public class Game {
 
         Result result = new Result(players.getActivePlayers(), players.getInactivePlayers());
         result.showResult();
+    }
+
+    private void warnInvalidity(Action action, String errorMessage) {
+        if (action.getType() == SELECT_SET) {
+            tellPlayer((PlayerAction)action, errorMessage);
+        } else {
+            System.out.println(errorMessage);
+        }
     }
 
     private boolean gameIsNotOver() {

@@ -2,7 +2,6 @@ package src.player;
 // this class serves to interact with the player
 // for example, PlayerInteractor is responsible for finding out the player's actions
 
-import src.action.Action;
 import src.action.ActionType;
 import src.action.PlayerAction;
 import src.action.PlayerActionSelectSet;
@@ -28,11 +27,11 @@ public class PlayerInteractor {
     }
 
     // returns an action or null if the action was invalid
-    public static Action getAction(int playerID) {
+    public static PlayerAction getAction(int playerID) {
         promptForAction();
         ActionType actionType = getActionType(Player.giveActionType());
 
-        Action action;
+        PlayerAction action;
         switch (actionType) {
             case SELECT_SET:
                 action = getSelectSet(playerID, actionType);
@@ -50,7 +49,7 @@ public class PlayerInteractor {
     }
 
     // TODO: various types of actions... one would be to display 3 more cards... allow this indefinitely? yes. but also show if they ask if there is a possible set :) but wait... can i display a board that big?
-    private static Action getSelectSet(int playerID, ActionType actionType) {
+    private static PlayerAction getSelectSet(int playerID, ActionType actionType) {
         System.out.println("Enter the 3 cards in your set. ");
 
         int[] cardPositions = new int[SET_SIZE];
@@ -63,22 +62,15 @@ public class PlayerInteractor {
     private static ActionType getActionType(int actionInt) {
         // TODO: Validate input
         // turn input int into an enum
-        return ActionType.valueToEnum(actionInt);
+        return ActionType.valueOf(actionInt);
     }
 
-    private static void promptForActionRequestResponse(Player actingPlayer, ActionType request) {
-        String message = String.format("%s (player %d) has requested to ", actingPlayer.getName(), actingPlayer.getID() + 1);
+    public static String readPlayerName() {
+        System.out.println("Name of player?");
+        return scanner.nextLine();
+    }
 
-        switch (request) {
-            case REQUEST_SHOW_SET:
-                message += "have a set on the board revealed.";
-                break;
-            case REQUEST_DRAW_THREE:
-                message += "have three more cards drawn onto the board.";
-        }
-
-        System.out.println(message);
-        System.out.println("Enter 4 to agree to request.");
-        System.out.println("Enter 5 to disagree to request.");
+    public static void farewellPlayer(int playerID) {
+        System.out.println("Adios muchacho :)");
     }
 }

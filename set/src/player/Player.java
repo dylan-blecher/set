@@ -31,7 +31,6 @@ public class Player {
         return scanner.nextInt();
     }
 
-
     public List<Set> getSetsCollected() {
         return setsCollected;
     }
