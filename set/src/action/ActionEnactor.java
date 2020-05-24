@@ -1,7 +1,7 @@
 package src.action;
 
 import src.action.ConsensusManager.ConsensusManager;
-import src.action.actionQueue.ActionQueue;
+import src.action.actionQueue.SynchronisedActionQueue;
 import src.card.Card;
 import src.cardCollection.board.Board;
 import src.cardCollection.deck.Deck;
@@ -16,7 +16,7 @@ import static src.game.stateValidator.getSet;
 public class ActionEnactor {
     // TODO: ENFORCE THAT THIS AND CONSENSUS MANAGER CANNOT BE INSTANTIATED WITH PRIVATE CONSTRUCTOR
     // TODO: not sure if i like the fact that I'm passing players around here!
-    public static void enact(Action action, Board board, Deck deck, Players players, ActionQueue actions) {
+    public static void enact(Action action, Board board, Deck deck, Players players, SynchronisedActionQueue actions) {
         ActionType actionType = action.getType();
         switch (actionType) {
             case LEAVE_GAME:

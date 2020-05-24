@@ -3,7 +3,7 @@ package src.action.ConsensusManager;
 import src.action.Action;
 import src.action.ActionType;
 import src.action.PlayerAction;
-import src.action.actionQueue.ActionQueue;
+import src.action.actionQueue.SynchronisedActionQueue;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -49,11 +49,9 @@ public class ConsensusManager {
     }
 
     // TODO: This can probably be better implemented with a listener on when these lists become full
-    public static void updateMoveQueue(int nActivePlayers, ActionQueue actions) {
-        synchronized (actions) {
-            if (isConsensus(REQUEST_DRAW_THREE, nActivePlayers)) actions.addAction(new Action(DRAW_THREE));
-            if (isConsensus(REQUEST_SHOW_SET, nActivePlayers)) actions.addAction(new Action(SHOW_SET));
-        }
+    public static void updateMoveQueue(int nActivePlayers, SynchronisedActionQueue actions) {
+        if (isConsensus(REQUEST_DRAW_THREE, nActivePlayers)) actions.addAction(new Action(DRAW_THREE));
+        if (isConsensus(REQUEST_SHOW_SET, nActivePlayers)) actions.addAction(new Action(SHOW_SET));
     }
 
     private static void addAgreement(ActionType actionType, int playerID) {

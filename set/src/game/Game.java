@@ -3,7 +3,7 @@ package src.game;
 import src.action.Action;
 import src.action.ActionEnactor;
 import src.action.PlayerAction;
-import src.action.actionQueue.ActionQueue;
+import src.action.actionQueue.SynchronisedActionQueue;
 import src.cardCollection.board.Board;
 import src.cardCollection.deck.Deck;
 import src.player.Player;
@@ -24,15 +24,15 @@ public class Game {
     private Players players;
     private Board board;
     private Deck deck;
-    private ActionQueue actions;
+    private SynchronisedActionQueue actions;
 
-    public Game(Map<Integer, Player> activePlayers, ActionQueue actions) {
+    public Game(Map<Integer, Player> activePlayers, SynchronisedActionQueue actions) {
          setupGame(activePlayers, actions);
     }
 
     // the reason this is not immediately initialised with the attributes above is
     // in case I want to add replay() functionality, where it sets up a new game :)
-    private void setupGame(Map<Integer, Player> activePlayers, ActionQueue actions) {
+    private void setupGame(Map<Integer, Player> activePlayers, SynchronisedActionQueue actions) {
         this.players          = new Players(activePlayers);
         this.deck             = buildDeck();
         this.board            = setupBoard(this.deck);
@@ -40,28 +40,11 @@ public class Game {
     }
 
     public void run() {
-        System.out.println("RAN THE GAME :)");
         while (gameIsNotOver()) {
 //            TODO: might not want to display board every time - only if the board changed since previous move...
             this.board.display();
 
-            // user ports
-            // use publish subscribe instead of spinning?
-            Action action;
-            synchronized (actions) {
-                try {
-                    if (actions.isEmpty()) {
-                        System.out.println("about to wait");
-                        actions.wait();
-                        System.out.println("finished wait");
-                    }
-                } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
-                }
-                action = actions.getNext();
-            }
-
-            assert(action != null);
+            Action action = actions.getNext();
 
             try {
                 validateAction(action, board, deck);

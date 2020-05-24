@@ -4,7 +4,7 @@ import src.action.Action;
 import src.action.ActionType;
 import src.action.PlayerAction;
 import src.action.PlayerActionSelectSet;
-import src.action.actionQueue.ActionQueue;
+import src.action.actionQueue.SynchronisedActionQueue;
 import src.networkHelpers.SocketReader;
 import src.networkHelpers.SocketWriter;
 import src.player.PlayerInteractor;
@@ -22,7 +22,7 @@ import static src.player.PlayerInteractor.readPlayerName;
 
 public class PlayerClient {
     private final static int GAME_PORT = 9090;
-    private final static ActionQueue actions = new ActionQueue();
+    private final static SynchronisedActionQueue actions = new SynchronisedActionQueue();
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Optional<Integer> playerID = Optional.empty();
@@ -104,9 +104,9 @@ public class PlayerClient {
 // thread that gets actions by scanning stdin and adds to actions queue
 class ActionQueueDrainer implements Runnable {
     private final SocketWriter toServer;
-    private final ActionQueue actions;
+    private final SynchronisedActionQueue actions;
 
-    public ActionQueueDrainer(ActionQueue actions, SocketWriter toServer) {
+    public ActionQueueDrainer(SynchronisedActionQueue actions, SocketWriter toServer) {
         this.actions = actions;
         this.toServer = toServer;
     }

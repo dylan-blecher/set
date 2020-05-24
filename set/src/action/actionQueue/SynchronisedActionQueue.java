@@ -14,19 +14,35 @@ import java.util.Queue;
 // Actions are prioritised first by if they are requestType and then by the order (time) in which the action was added
 // Why do we prioritise requestType? completed requests get first priority because they've been on the queue for ages
 // (ever since someone first requested them)
-public class ActionQueue {
+public class SynchronisedActionQueue {
     private final Queue<ActionQueueEntry> pq = new PriorityQueue<>(new ActionComparator());
     public Action getNext() {
-        return pq.remove().getPlayerAction();
+        synchronized (pq) {
+            try {
+                if (pq.size() == 0) pq.wait();
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+                return null;
+            }
+
+            return pq.remove().getAction();
+        }
     }
     public void addAction(Action action) {
-        pq.add(new ActionQueueEntry(action));
+        synchronized (pq) {
+            pq.add(new ActionQueueEntry(action));
+            if (pq.size() == 1) pq.notify();
+        }
     }
     public int size() {
-        return pq.size();
+        synchronized (pq) {
+            return pq.size();
+        }
     }
     public boolean isEmpty() {
-        return pq.size() == 0;
+        synchronized (pq) {
+            return pq.size() == 0;
+        }
     }
 }
 
@@ -36,7 +52,7 @@ class ActionComparator implements Comparator<ActionQueueEntry> {
     public int compare(ActionQueueEntry m1, ActionQueueEntry m2) {
         // compare type
         // .. TODO: make function that gets action priority!
-        int typeComparison = m2.getPlayerAction().getType().getPriority().compareTo(m1.getPlayerAction().getType().getPriority());
+        int typeComparison = m2.getAction().getType().getPriority().compareTo(m1.getAction().getType().getPriority());
         if (typeComparison != 0) return typeComparison;
 
         // compare time
@@ -61,7 +77,7 @@ class ActionQueueEntry {
         return enqueueTime;
     }
 
-    public Action getPlayerAction() {
+    public Action getAction() {
         return action;
     }
 }

@@ -45,7 +45,7 @@ public class stateValidator {
     }
 
     public static void validateAction(Action action, Board board, Deck deck) {
-        if (action == null) throw new UnsupportedOperationException("Invalid action type.");
+        if (action == null) throw new UnsupportedOperationException("null action type.");
 
         switch (action.getType()) {
             case SHOW_SET:
@@ -66,6 +66,8 @@ public class stateValidator {
             case SELECT_SET:
                 validateSELECT_SET((PlayerActionSelectSet) action, board);
                 break;
+            default:
+                throw new UnsupportedOperationException("Invalid action type.");
         }
     }
 

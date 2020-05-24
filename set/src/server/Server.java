@@ -4,7 +4,7 @@ import src.action.Action;
 import src.action.ActionType;
 import src.action.PlayerAction;
 import src.action.PlayerActionSelectSet;
-import src.action.actionQueue.ActionQueue;
+import src.action.actionQueue.SynchronisedActionQueue;
 import src.game.Game;
 import src.networkHelpers.Interactor;
 import src.networkHelpers.SocketReader;
@@ -27,8 +27,8 @@ public class Server {
     private static final Map<Integer, Interactor> playerClientInteractors = new HashMap<>();
 
     public void start() {
-        List<Thread> playerListeners = new LinkedList<>();
-        ActionQueue actions          = new ActionQueue();
+        List<Thread> playerListeners       = new LinkedList<>();
+        SynchronisedActionQueue actions    = new SynchronisedActionQueue();
         Map<Integer, Player> activePlayers = new HashMap<>();
 
         // this is used only temporarily to setup
@@ -45,6 +45,7 @@ public class Server {
                 SocketReader fromPlayerClient = new SocketReader(clientSocket);
 
                 String msg = fromPlayerClient.readLine();
+                System.out.println(msg);
                 String[] splitMsg = msg.split("@", 2);
                 String command = splitMsg[0];
                 if (command.equals("REQUEST_PLAYER_ID")) {
@@ -123,9 +124,9 @@ class ClientCommunicator implements Runnable {
     private final int playerId;
     private final SocketWriter toPlayerClient;
     private final SocketReader fromPlayerClient;
-    private final ActionQueue actions;
+    private final SynchronisedActionQueue actions;
 
-    public ClientCommunicator(int playerId, SocketWriter toPlayerClient, SocketReader fromPlayerClient, ActionQueue actions) {
+    public ClientCommunicator(int playerId, SocketWriter toPlayerClient, SocketReader fromPlayerClient, SynchronisedActionQueue actions) {
 
         this.playerId = playerId;
         this.toPlayerClient = toPlayerClient;
@@ -144,19 +145,14 @@ class ClientCommunicator implements Runnable {
                 // deserialize action and add to action queue
                 Action action = deserializeAction(line);
                 System.out.println("player interactor about to take control of actions");
-                synchronized (actions) {
-                    actions.addAction(action);
-                    System.out.println("player interactor added action ");
-                    if (actions.size() == 1) {
-                        System.out.println("playerinteractor notified");
-                        actions.notify();
-                    }
-                }
-//                    if (action.getType() == LEAVE_GAME) {
-//                        toClientSocket.close();
-//                        fromClientSocket.close();
-//                        break;
-//                    }
+                actions.addAction(action);
+
+                // TODO: the below if statement breaks the player process with an infinite null loop... why? because there are 2 threads in the player process that are still running even after connection is shut off... fix this!
+//                if (action.getType() == LEAVE_GAME) {
+//                    toPlayerClient.close();
+//                        fromPlayerClient.close();
+//                    break;
+//                }
 
                 line = fromPlayerClient.readLine();
             }
