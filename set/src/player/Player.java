@@ -27,10 +27,6 @@ public class Player {
         System.out.printf("%s (player %d) found %d set%s!\n", name, ID + 1, setsCollected.size(), setsCollected.size() == 1 ? "" : "s");
     }
 
-    public static int giveActionType() {
-        return scanner.nextInt();
-    }
-
     public List<Set> getSetsCollected() {
         return setsCollected;
     }

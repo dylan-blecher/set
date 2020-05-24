@@ -29,7 +29,7 @@ public class PlayerInteractor {
     // returns an action or null if the action was invalid
     public static PlayerAction getAction(int playerID) {
         promptForAction();
-        ActionType actionType = getActionType(Player.giveActionType());
+        ActionType actionType = getActionType(scanner.nextInt());
 
         PlayerAction action;
         switch (actionType) {
@@ -70,7 +70,7 @@ public class PlayerInteractor {
         return scanner.nextLine();
     }
 
-    public static void farewellPlayer(int playerID) {
+    public static void farewellPlayer() {
         System.out.println("Adios muchacho :)");
     }
 }

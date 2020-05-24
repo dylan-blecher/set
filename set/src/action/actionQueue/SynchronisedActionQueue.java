@@ -34,16 +34,6 @@ public class SynchronisedActionQueue {
             if (pq.size() == 1) pq.notify();
         }
     }
-    public int size() {
-        synchronized (pq) {
-            return pq.size();
-        }
-    }
-    public boolean isEmpty() {
-        synchronized (pq) {
-            return pq.size() == 0;
-        }
-    }
 }
 
 // put RequestType first, if it's the same, time first.

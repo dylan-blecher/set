@@ -40,7 +40,8 @@ public class PlayerClient {
                 writer = new BufferedWriter(new OutputStreamWriter(fromServerSocket.getOutputStream()));
                 String playerName = readPlayerName();
                 System.out.println("REQUEST_PLAYER_ID");
-                writer.write("REQUEST_PLAYER_ID" + "@" + playerName + "\n");
+                String joinGameRequestMsg = "REQUEST_PLAYER_ID" + "@" + playerName + "\n";
+                writer.write(joinGameRequestMsg);
                 writer.flush();
 
                 // exponential backoff yay
@@ -50,7 +51,7 @@ public class PlayerClient {
                     System.out.println(msg);
                     if (msg.equals("REQUEST_PLAYER_ID")) {
                         System.out.println("TRYING TO GET PLAYER ID");
-                        writer.write(msg + "\n");
+                        writer.write(joinGameRequestMsg);
                         writer.flush();
                         Thread.sleep(delay);
                         delay *= 2;
@@ -82,16 +83,11 @@ public class PlayerClient {
         while (true) {
             PlayerAction action = PlayerInteractor.getAction(playerID.get());
             if (action != null) {
-                synchronized (actions) {
-                    actions.addAction(action);
-                    System.out.println("adding action to playerqueue");
-                    if (actions.size() == 1) {
-                        System.out.println("player side notifying");
-                        actions.notify();
-                    }
-                }
+                actions.addAction(action);
+                System.out.println("adding action to playerqueue");
+
                 if (action.getType() == LEAVE_GAME) {
-                    farewellPlayer(action.getPlayerID());
+                    farewellPlayer();
                     break;
                 }
             }
@@ -115,20 +111,7 @@ class ActionQueueDrainer implements Runnable {
     public void run() {
 // other thread sends a move to server as soon as there is one
         while (true) {
-            Action action = null;
-            synchronized (actions) {
-                try {
-                    if (actions.isEmpty()) {
-                        System.out.println("start client wait");
-                        actions.wait();
-                        System.out.println("finish client wait");
-                    }
-                } catch (InterruptedException e) {
-                    continue;
-                }
-
-                action = actions.getNext();
-            }
+            Action action = actions.getNext();
 
             assert(action != null);
 
