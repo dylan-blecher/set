@@ -1,14 +1,17 @@
 package src.action;
 
-public class PlayerAction extends Action {
-    private final int playerID;
+import src.proto.ActionProtos;
 
+public class PlayerAction extends Action {
     public PlayerAction(ActionType type, int playerID) {
-        super(type);
-        this.playerID = playerID;
+        this(ActionProtos.Action.newBuilder().setType(type.proto).setPlayerID(playerID).build());
+    }
+
+    public PlayerAction(ActionProtos.Action action) {
+        super(action);
     }
 
     public int getPlayerID() {
-        return playerID;
+        return proto.getPlayerID();
     }
 }

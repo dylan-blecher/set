@@ -8,14 +8,13 @@ import src.action.actionQueue.SynchronisedActionQueue;
 import src.networkHelpers.SocketReader;
 import src.networkHelpers.SocketWriter;
 import src.player.PlayerInteractor;
-import src.proto.ActionProtos;
 
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.List;
 import java.util.Optional;
 
 import static src.action.ActionType.LEAVE_GAME;
@@ -46,12 +45,12 @@ public class PlayerClient {
             stream.write(protoAction.toByteArray());
         }*/
 
-        try (FileInputStream stream = new FileInputStream("proto_out")) {
-            byte[] serializedProto = stream.readAllBytes();
-            ActionProtos.Action protoAction = ActionProtos.Action.parseFrom(serializedProto);
-            System.out.println("from bytes");
-            System.out.println(protoAction);
-        }
+//        try (FileInputStream stream = new FileInputStream("proto_out")) {
+//            byte[] serializedProto = stream.readAllBytes();
+//            ActionProtos.Action protoAction = ActionProtos.Action.parseFrom(serializedProto);
+//            System.out.println("from bytes");
+//            System.out.println(protoAction);
+//        }
 
 
 
@@ -77,7 +76,7 @@ public class PlayerClient {
                 // exponential backoff yay
                 long delay = 25;
                 while (!playerID.isPresent()) {
-                    String msg = fromServer.readLine();
+                    String msg = fromServer.readLine().toString();
                     System.out.println(msg);
                     if (msg.equals("REQUEST_PLAYER_ID")) {
                         System.out.println("TRYING TO GET PLAYER ID");
@@ -170,7 +169,7 @@ class ActionQueueDrainer implements Runnable {
         String serializedAction = actionType + "@" + action.getPlayerID();
 
         if (actionType == ActionType.SELECT_SET) {
-            int[] cardPositions = ((PlayerActionSelectSet) action).getCardPositions();
+            List<Integer> cardPositions = ((PlayerActionSelectSet) action).getCardPositions();
             for (int cardPosition: cardPositions) {
                 serializedAction += "@" + cardPosition;
             }

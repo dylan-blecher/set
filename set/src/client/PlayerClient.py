@@ -1,12 +1,22 @@
 from queue import Queue
 from socket import gethostname
 from enum import Enum
-from Structures import PlayerAction, PlayerActionSelectSet, SocketMessage
+from Structures import (
+    ActionType,
+    PlayerAction,
+    PlayerActionSelectSet,
+    SocketMessage
+)
 
 import socket
 import time
 import threading
 import json
+
+from src.client import server_communicator
+
+from google.protobuf.internal.encoder import _VarintEncoder
+
 
 SET_SIZE = 3
 GAME_PORT = 9090        # The port used by the server
@@ -22,6 +32,15 @@ def runPlayer():
         fromServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         fromServer.connect((HOST, GAME_PORT))
 
+        action = PlayerActionSelectSet.build(
+            ActionType.SELECT_SET,
+            playerID=2403,
+            cardPositions=[94, 98, 5]
+        )
+        server_communicator.send_message(fromServer, action.proto)
+        while True:
+            continue
+
         joinGameRequest = SocketMessage("REQUEST_PLAYER_ID", readPlayerName())
         # not sure if encode is necessary...
         fromServer.sendall(serialise(joinGameRequest).encode())
@@ -33,10 +52,12 @@ def runPlayer():
             msgType = msg.getMessageType()
             
             if msgType == "REQUEST_PLAYER_ID":
+                print("still sending playerID")
                 fromServer.sendall(serialise(joinGameRequest).encode())
                 time.sleep(delay)
                 delay *= 2
             elif msgType == "GIVE_PLAYER_ID":
+                print("got player id?")
                 playerID = int(msg.getMessage())
                 fromServer.shutdown(socket.SHUT_WR) # can't write to fromServer anymore - it's one way!
 
@@ -45,6 +66,7 @@ def runPlayer():
         toServer.shutdown(socket.SHUT_RD)           # can't read from toServer anymore - it's one way!
         confirmationOfID = joinGameRequest = SocketMessage("CONFIRM_PLAYER_ID", str(playerID))
         toServer.sendall(serialise(confirmationOfID).encode())
+        print("sent confirmation of id")
     
     except Exception as e:
         print(str(e))
@@ -61,6 +83,7 @@ def runPlayer():
     feedbackThread.start()
 
     playerRequestsToLeave = False
+    print("start get action loop")
     while not playerRequestsToLeave:
         action = getAction(playerID)
         if action != None:
@@ -86,19 +109,8 @@ class ActionQueueDrainer(threading.Thread):
             assert(action != None)
             self.sendAction(action)
 
-    def sendAction(self, action):
-        self.toServer.sendall((self.serializeAction(action) + "\n").encode())
-
-
-    def serializeAction(self, action):
-        actionType = action.getActionType()
-        serializedAction = "@".join([ActionType(actionType).name, str(action.getPlayerID())])
-        
-        if actionType == ActionType.SELECT_SET:
-            serializedAction = "@".join([serializedAction, "@".join([str(num) for num in action.getCardPositions()])])
-        
-        print(serializedAction)
-        return serializedAction
+    def sendAction(self, action: PlayerAction) -> None:
+        self.toServer.sendall(action.proto.SerializeToString())
 
 class FeedbackGetter(threading.Thread):
     def __init__(self, fromServer):
@@ -170,12 +182,6 @@ def deserialise(jsonDictionary):
 def serialise(obj):
     return json.dumps(obj.__dict__)
 
-
-class ActionType(Enum):
-    SELECT_SET = 0
-    REQUEST_SHOW_SET = 1
-    LEAVE_GAME = 2
-    REQUEST_DRAW_THREE = 3
 
 class StructureType(Enum):
     ERROR_MESSAGE = 0

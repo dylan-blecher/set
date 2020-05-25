@@ -1,14 +1,15 @@
 package src.action;
 
-public class PlayerActionSelectSet extends PlayerAction {
-    int[] cardPositions;
+import src.proto.ActionProtos;
 
-    public PlayerActionSelectSet(ActionType type, int playerID, int[] cardPositions) {
-        super(type, playerID);
-        this.cardPositions = cardPositions;
+import java.util.List;
+
+public class PlayerActionSelectSet extends PlayerAction {
+    public PlayerActionSelectSet(ActionType type, int playerID, List<Integer> cardPositions) {
+        super(ActionProtos.Action.newBuilder().setType(type.proto).setPlayerID(playerID).addAllCardPositions(cardPositions).build());
     }
 
-    public int[] getCardPositions() {
-        return cardPositions;
+    public List<Integer> getCardPositions() {
+        return proto.getCardPositionsList();
     }
 }

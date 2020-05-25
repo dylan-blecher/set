@@ -6,6 +6,8 @@ import src.action.ActionType;
 import src.action.PlayerAction;
 import src.action.PlayerActionSelectSet;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 import static src.cardCollection.set.Set.SET_SIZE;
@@ -52,10 +54,11 @@ public class PlayerInteractor {
     private static PlayerAction getSelectSet(int playerID, ActionType actionType) {
         System.out.println("Enter the 3 cards in your set. ");
 
-        int[] cardPositions = new int[SET_SIZE];
-        for (int i = 0; i < SET_SIZE; i++)
-            cardPositions[i] = scanner.nextInt();
-
+        List<Integer> cardPositions = new LinkedList<>();
+        for (int i = 0; i < SET_SIZE; i++) {
+            cardPositions.add(scanner.nextInt());
+        }
+        
         return new PlayerActionSelectSet(actionType, playerID, cardPositions);
     }
 

@@ -1,33 +1,19 @@
 package src.action;
 
+import src.proto.ActionProtos;
 
 public class Action {
-    private final ActionType actionType;
+    public final ActionProtos.Action proto;
 
-    public Action(ActionType actionType) {
-        this.actionType = actionType;
+    public Action(ActionProtos.Action action) {
+        proto = action;
     }
 
-    public ActionType getType() { return actionType; }
+    public Action(ActionType type) {
+        this(ActionProtos.Action.newBuilder().setType(type.proto).build());
+    }
+
+    public ActionType getType() { return ActionType.fromProto(proto.getType()); }
 }
 
 
-//package src.action;
-//
-//
-//        import src.proto.ActionProtos;
-//
-//public class Action {
-//    private final ActionProtos.Action proto;
-//
-//    public Action(ActionProtos.Action action) {
-//        proto = action;
-//    }
-//    public Action(ActionType type) {
-//        this.type = type;
-//    }
-//
-//    public ActionType getType() { return type; }
-//}
-//
-//

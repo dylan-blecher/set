@@ -5,7 +5,9 @@ import src.action.Action;
 import src.action.PlayerAction;
 import src.action.PlayerActionSelectSet;
 
-import static org.junit.Assert.*;
+import java.util.List;
+
+import static org.junit.Assert.assertSame;
 import static src.action.ActionType.*;
 
 public class ActionQueueTest {
@@ -45,7 +47,7 @@ public class ActionQueueTest {
         assertSame(actions.getNext().getType(), LEAVE_GAME);
     }
 
-    private int[] getExampleCardPositions() {
-        return new int[]{1, 2, 3};
+    private List<Integer> getExampleCardPositions() {
+        return List.of(1, 2, 3);
     }
 }

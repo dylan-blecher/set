@@ -13,8 +13,8 @@ public class SocketReader {
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
-    public String readLine() throws IOException {
-        return reader.readLine();
+    public byte[] readLine() throws IOException {
+        return reader.readLine().getBytes();
     }
 
     public void close() throws IOException {

@@ -20,10 +20,18 @@ public final class ActionProtos {
   public enum ActionType
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
+     * <pre>
+     * default value for empty variable
+     * </pre>
+     *
      * <code>UNKNOWN_ACTION_TYPE = 0;</code>
      */
     UNKNOWN_ACTION_TYPE(0),
     /**
+     * <pre>
+     * player actions
+     * </pre>
+     *
      * <code>SELECT_SET = 1;</code>
      */
     SELECT_SET(1),
@@ -39,14 +47,34 @@ public final class ActionProtos {
      * <code>REQUEST_DRAW_THREE = 4;</code>
      */
     REQUEST_DRAW_THREE(4),
+    /**
+     * <pre>
+     * not player actions
+     * </pre>
+     *
+     * <code>SHOW_SET = 1000;</code>
+     */
+    SHOW_SET(1000),
+    /**
+     * <code>DRAW_THREE = 1001;</code>
+     */
+    DRAW_THREE(1001),
     UNRECOGNIZED(-1),
     ;
 
     /**
+     * <pre>
+     * default value for empty variable
+     * </pre>
+     *
      * <code>UNKNOWN_ACTION_TYPE = 0;</code>
      */
     public static final int UNKNOWN_ACTION_TYPE_VALUE = 0;
     /**
+     * <pre>
+     * player actions
+     * </pre>
+     *
      * <code>SELECT_SET = 1;</code>
      */
     public static final int SELECT_SET_VALUE = 1;
@@ -62,6 +90,18 @@ public final class ActionProtos {
      * <code>REQUEST_DRAW_THREE = 4;</code>
      */
     public static final int REQUEST_DRAW_THREE_VALUE = 4;
+    /**
+     * <pre>
+     * not player actions
+     * </pre>
+     *
+     * <code>SHOW_SET = 1000;</code>
+     */
+    public static final int SHOW_SET_VALUE = 1000;
+    /**
+     * <code>DRAW_THREE = 1001;</code>
+     */
+    public static final int DRAW_THREE_VALUE = 1001;
 
 
     public final int getNumber() {
@@ -93,6 +133,8 @@ public final class ActionProtos {
         case 2: return REQUEST_SHOW_SET;
         case 3: return LEAVE_GAME;
         case 4: return REQUEST_DRAW_THREE;
+        case 1000: return SHOW_SET;
+        case 1001: return DRAW_THREE;
         default: return null;
       }
     }
@@ -171,21 +213,21 @@ public final class ActionProtos {
     int getPlayerID();
 
     /**
-     * <code>repeated int32 cardIDs = 3;</code>
-     * @return A list containing the cardIDs.
+     * <code>repeated int32 cardPositions = 3;</code>
+     * @return A list containing the cardPositions.
      */
-    java.util.List<java.lang.Integer> getCardIDsList();
+    java.util.List<java.lang.Integer> getCardPositionsList();
     /**
-     * <code>repeated int32 cardIDs = 3;</code>
-     * @return The count of cardIDs.
+     * <code>repeated int32 cardPositions = 3;</code>
+     * @return The count of cardPositions.
      */
-    int getCardIDsCount();
+    int getCardPositionsCount();
     /**
-     * <code>repeated int32 cardIDs = 3;</code>
+     * <code>repeated int32 cardPositions = 3;</code>
      * @param index The index of the element to return.
-     * @return The cardIDs at the given index.
+     * @return The cardPositions at the given index.
      */
-    int getCardIDs(int index);
+    int getCardPositions(int index);
   }
   /**
    * Protobuf type {@code action.Action}
@@ -201,7 +243,7 @@ public final class ActionProtos {
     }
     private Action() {
       type_ = 0;
-      cardIDs_ = emptyIntList();
+      cardPositions_ = emptyIntList();
     }
 
     @java.lang.Override
@@ -248,21 +290,21 @@ public final class ActionProtos {
             }
             case 24: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                cardIDs_ = newIntList();
+                cardPositions_ = newIntList();
                 mutable_bitField0_ |= 0x00000001;
               }
-              cardIDs_.addInt(input.readInt32());
+              cardPositions_.addInt(input.readInt32());
               break;
             }
             case 26: {
               int length = input.readRawVarint32();
               int limit = input.pushLimit(length);
               if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
-                cardIDs_ = newIntList();
+                cardPositions_ = newIntList();
                 mutable_bitField0_ |= 0x00000001;
               }
               while (input.getBytesUntilLimit() > 0) {
-                cardIDs_.addInt(input.readInt32());
+                cardPositions_.addInt(input.readInt32());
               }
               input.popLimit(limit);
               break;
@@ -283,7 +325,7 @@ public final class ActionProtos {
             e).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          cardIDs_.makeImmutable(); // C
+          cardPositions_.makeImmutable(); // C
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -332,33 +374,33 @@ public final class ActionProtos {
       return playerID_;
     }
 
-    public static final int CARDIDS_FIELD_NUMBER = 3;
-    private com.google.protobuf.Internal.IntList cardIDs_;
+    public static final int CARDPOSITIONS_FIELD_NUMBER = 3;
+    private com.google.protobuf.Internal.IntList cardPositions_;
     /**
-     * <code>repeated int32 cardIDs = 3;</code>
-     * @return A list containing the cardIDs.
+     * <code>repeated int32 cardPositions = 3;</code>
+     * @return A list containing the cardPositions.
      */
     @java.lang.Override
     public java.util.List<java.lang.Integer>
-        getCardIDsList() {
-      return cardIDs_;
+        getCardPositionsList() {
+      return cardPositions_;
     }
     /**
-     * <code>repeated int32 cardIDs = 3;</code>
-     * @return The count of cardIDs.
+     * <code>repeated int32 cardPositions = 3;</code>
+     * @return The count of cardPositions.
      */
-    public int getCardIDsCount() {
-      return cardIDs_.size();
+    public int getCardPositionsCount() {
+      return cardPositions_.size();
     }
     /**
-     * <code>repeated int32 cardIDs = 3;</code>
+     * <code>repeated int32 cardPositions = 3;</code>
      * @param index The index of the element to return.
-     * @return The cardIDs at the given index.
+     * @return The cardPositions at the given index.
      */
-    public int getCardIDs(int index) {
-      return cardIDs_.getInt(index);
+    public int getCardPositions(int index) {
+      return cardPositions_.getInt(index);
     }
-    private int cardIDsMemoizedSerializedSize = -1;
+    private int cardPositionsMemoizedSerializedSize = -1;
 
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
@@ -381,12 +423,12 @@ public final class ActionProtos {
       if (playerID_ != 0) {
         output.writeInt32(2, playerID_);
       }
-      if (getCardIDsList().size() > 0) {
+      if (getCardPositionsList().size() > 0) {
         output.writeUInt32NoTag(26);
-        output.writeUInt32NoTag(cardIDsMemoizedSerializedSize);
+        output.writeUInt32NoTag(cardPositionsMemoizedSerializedSize);
       }
-      for (int i = 0; i < cardIDs_.size(); i++) {
-        output.writeInt32NoTag(cardIDs_.getInt(i));
+      for (int i = 0; i < cardPositions_.size(); i++) {
+        output.writeInt32NoTag(cardPositions_.getInt(i));
       }
       unknownFields.writeTo(output);
     }
@@ -407,17 +449,17 @@ public final class ActionProtos {
       }
       {
         int dataSize = 0;
-        for (int i = 0; i < cardIDs_.size(); i++) {
+        for (int i = 0; i < cardPositions_.size(); i++) {
           dataSize += com.google.protobuf.CodedOutputStream
-            .computeInt32SizeNoTag(cardIDs_.getInt(i));
+            .computeInt32SizeNoTag(cardPositions_.getInt(i));
         }
         size += dataSize;
-        if (!getCardIDsList().isEmpty()) {
+        if (!getCardPositionsList().isEmpty()) {
           size += 1;
           size += com.google.protobuf.CodedOutputStream
               .computeInt32SizeNoTag(dataSize);
         }
-        cardIDsMemoizedSerializedSize = dataSize;
+        cardPositionsMemoizedSerializedSize = dataSize;
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -437,8 +479,8 @@ public final class ActionProtos {
       if (type_ != other.type_) return false;
       if (getPlayerID()
           != other.getPlayerID()) return false;
-      if (!getCardIDsList()
-          .equals(other.getCardIDsList())) return false;
+      if (!getCardPositionsList()
+          .equals(other.getCardPositionsList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -454,9 +496,9 @@ public final class ActionProtos {
       hash = (53 * hash) + type_;
       hash = (37 * hash) + PLAYERID_FIELD_NUMBER;
       hash = (53 * hash) + getPlayerID();
-      if (getCardIDsCount() > 0) {
-        hash = (37 * hash) + CARDIDS_FIELD_NUMBER;
-        hash = (53 * hash) + getCardIDsList().hashCode();
+      if (getCardPositionsCount() > 0) {
+        hash = (37 * hash) + CARDPOSITIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getCardPositionsList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -595,7 +637,7 @@ public final class ActionProtos {
 
         playerID_ = 0;
 
-        cardIDs_ = emptyIntList();
+        cardPositions_ = emptyIntList();
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -627,10 +669,10 @@ public final class ActionProtos {
         result.type_ = type_;
         result.playerID_ = playerID_;
         if (((bitField0_ & 0x00000001) != 0)) {
-          cardIDs_.makeImmutable();
+          cardPositions_.makeImmutable();
           bitField0_ = (bitField0_ & ~0x00000001);
         }
-        result.cardIDs_ = cardIDs_;
+        result.cardPositions_ = cardPositions_;
         onBuilt();
         return result;
       }
@@ -685,13 +727,13 @@ public final class ActionProtos {
         if (other.getPlayerID() != 0) {
           setPlayerID(other.getPlayerID());
         }
-        if (!other.cardIDs_.isEmpty()) {
-          if (cardIDs_.isEmpty()) {
-            cardIDs_ = other.cardIDs_;
+        if (!other.cardPositions_.isEmpty()) {
+          if (cardPositions_.isEmpty()) {
+            cardPositions_ = other.cardPositions_;
             bitField0_ = (bitField0_ & ~0x00000001);
           } else {
-            ensureCardIDsIsMutable();
-            cardIDs_.addAll(other.cardIDs_);
+            ensureCardPositionsIsMutable();
+            cardPositions_.addAll(other.cardPositions_);
           }
           onChanged();
         }
@@ -810,80 +852,80 @@ public final class ActionProtos {
         return this;
       }
 
-      private com.google.protobuf.Internal.IntList cardIDs_ = emptyIntList();
-      private void ensureCardIDsIsMutable() {
+      private com.google.protobuf.Internal.IntList cardPositions_ = emptyIntList();
+      private void ensureCardPositionsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          cardIDs_ = mutableCopy(cardIDs_);
+          cardPositions_ = mutableCopy(cardPositions_);
           bitField0_ |= 0x00000001;
          }
       }
       /**
-       * <code>repeated int32 cardIDs = 3;</code>
-       * @return A list containing the cardIDs.
+       * <code>repeated int32 cardPositions = 3;</code>
+       * @return A list containing the cardPositions.
        */
       public java.util.List<java.lang.Integer>
-          getCardIDsList() {
+          getCardPositionsList() {
         return ((bitField0_ & 0x00000001) != 0) ?
-                 java.util.Collections.unmodifiableList(cardIDs_) : cardIDs_;
+                 java.util.Collections.unmodifiableList(cardPositions_) : cardPositions_;
       }
       /**
-       * <code>repeated int32 cardIDs = 3;</code>
-       * @return The count of cardIDs.
+       * <code>repeated int32 cardPositions = 3;</code>
+       * @return The count of cardPositions.
        */
-      public int getCardIDsCount() {
-        return cardIDs_.size();
+      public int getCardPositionsCount() {
+        return cardPositions_.size();
       }
       /**
-       * <code>repeated int32 cardIDs = 3;</code>
+       * <code>repeated int32 cardPositions = 3;</code>
        * @param index The index of the element to return.
-       * @return The cardIDs at the given index.
+       * @return The cardPositions at the given index.
        */
-      public int getCardIDs(int index) {
-        return cardIDs_.getInt(index);
+      public int getCardPositions(int index) {
+        return cardPositions_.getInt(index);
       }
       /**
-       * <code>repeated int32 cardIDs = 3;</code>
+       * <code>repeated int32 cardPositions = 3;</code>
        * @param index The index to set the value at.
-       * @param value The cardIDs to set.
+       * @param value The cardPositions to set.
        * @return This builder for chaining.
        */
-      public Builder setCardIDs(
+      public Builder setCardPositions(
           int index, int value) {
-        ensureCardIDsIsMutable();
-        cardIDs_.setInt(index, value);
+        ensureCardPositionsIsMutable();
+        cardPositions_.setInt(index, value);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated int32 cardIDs = 3;</code>
-       * @param value The cardIDs to add.
+       * <code>repeated int32 cardPositions = 3;</code>
+       * @param value The cardPositions to add.
        * @return This builder for chaining.
        */
-      public Builder addCardIDs(int value) {
-        ensureCardIDsIsMutable();
-        cardIDs_.addInt(value);
+      public Builder addCardPositions(int value) {
+        ensureCardPositionsIsMutable();
+        cardPositions_.addInt(value);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated int32 cardIDs = 3;</code>
-       * @param values The cardIDs to add.
+       * <code>repeated int32 cardPositions = 3;</code>
+       * @param values The cardPositions to add.
        * @return This builder for chaining.
        */
-      public Builder addAllCardIDs(
+      public Builder addAllCardPositions(
           java.lang.Iterable<? extends java.lang.Integer> values) {
-        ensureCardIDsIsMutable();
+        ensureCardPositionsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, cardIDs_);
+            values, cardPositions_);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated int32 cardIDs = 3;</code>
+       * <code>repeated int32 cardPositions = 3;</code>
        * @return This builder for chaining.
        */
-      public Builder clearCardIDs() {
-        cardIDs_ = emptyIntList();
+      public Builder clearCardPositions() {
+        cardPositions_ = emptyIntList();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
@@ -955,13 +997,14 @@ public final class ActionProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014action.proto\022\006action\"M\n\006Action\022 \n\004type" +
+      "\n\014action.proto\022\006action\"S\n\006Action\022 \n\004type" +
       "\030\001 \001(\0162\022.action.ActionType\022\020\n\010playerID\030\002" +
-      " \001(\005\022\017\n\007cardIDs\030\003 \003(\005*s\n\nActionType\022\027\n\023U" +
-      "NKNOWN_ACTION_TYPE\020\000\022\016\n\nSELECT_SET\020\001\022\024\n\020" +
-      "REQUEST_SHOW_SET\020\002\022\016\n\nLEAVE_GAME\020\003\022\026\n\022RE" +
-      "QUEST_DRAW_THREE\020\004B\031\n\tsrc.protoB\014ActionP" +
-      "rotosb\006proto3"
+      " \001(\005\022\025\n\rcardPositions\030\003 \003(\005*\223\001\n\nActionTy" +
+      "pe\022\027\n\023UNKNOWN_ACTION_TYPE\020\000\022\016\n\nSELECT_SE" +
+      "T\020\001\022\024\n\020REQUEST_SHOW_SET\020\002\022\016\n\nLEAVE_GAME\020" +
+      "\003\022\026\n\022REQUEST_DRAW_THREE\020\004\022\r\n\010SHOW_SET\020\350\007" +
+      "\022\017\n\nDRAW_THREE\020\351\007B\031\n\tsrc.protoB\014ActionPr" +
+      "otosb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -972,7 +1015,7 @@ public final class ActionProtos {
     internal_static_action_Action_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_action_Action_descriptor,
-        new java.lang.String[] { "Type", "PlayerID", "CardIDs", });
+        new java.lang.String[] { "Type", "PlayerID", "CardPositions", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

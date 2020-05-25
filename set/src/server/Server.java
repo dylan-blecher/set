@@ -8,6 +8,7 @@ import src.networkHelpers.Interactor;
 import src.networkHelpers.SocketReader;
 import src.networkHelpers.SocketWriter;
 import src.player.Player;
+import src.proto.ActionProtos;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -43,7 +44,26 @@ public class Server {
                 System.out.println("ANOTHER clientSocket");
                 SocketReader fromPlayerClient = new SocketReader(clientSocket);
 
-                SocketMessage socketMessage = (SocketMessage) deserialise(fromPlayerClient.readLine(), SocketMessage.class);
+//                ByteBuffer bf = ByteBuffer.allocate(1024);
+//                BufferedInputStream fromClient = new BufferedInputStream(clientSocket.getInputStream());
+//                while (true) {
+//                    int b = fromClient.read();
+//                    if (b == 0) {
+//                        break;
+//                    }
+//                    bf.put((byte)b);
+//                }
+//                bf.flip();
+
+                // opposite of parseDelimitedFrom is writeDelimitedTo()
+                ActionProtos.Action protoAction = ActionProtos.Action.parseDelimitedFrom(clientSocket.getInputStream());
+                Action action = new Action(protoAction);
+                System.out.println("received proto");
+                System.out.println(action.proto);
+                int x = 3;
+                while (x != 4) continue;
+
+                SocketMessage socketMessage = (SocketMessage) deserialise(fromPlayerClient.readLine().toString(), SocketMessage.class);
                 String command = socketMessage.getMessageType();
                 if (command.equals("REQUEST_PLAYER_ID")) {
                     SocketWriter toPlayerClient = new SocketWriter(clientSocket);
@@ -136,7 +156,8 @@ class ClientCommunicator implements Runnable {
         try {
             while (true) {
                 // deserialize action and add to action queue
-                Action action = (Action) deserialise(fromPlayerClient.readLine(), Action.class);
+                ActionProtos.Action protoAction = ActionProtos.Action.parseFrom(fromPlayerClient.readLine());
+                Action action = new Action(protoAction);
                 System.out.println("player interactor about to take control of actions");
                 actions.addAction(action);
 

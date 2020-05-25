@@ -7,14 +7,37 @@ option java_outer_classname = "ActionProtos";
 
 message Action {
   ActionType type        = 1;
-  int32 playerID         = 2;
-  repeated int32 cardIDs = 3;
+  uint32 playerID         = 2;
+  repeated int32 cardPositions = 3;
+}
+
+message JoinGameRequest {
+  string name = 1;
+}
+
+message ConfirmPlayerId {
+  uint32 playerId = 1;
+}
+
+message ClientRequest {
+  oneof request {
+    JoinGameRequest joinGame = 1;
+    ConfirmPlayerId confirmPlayerId = 2;
+    Action action = 3;
+  }
 }
 
 enum ActionType {
-  UNKNOWN_ACTION_TYPE = 0; // default value for empty variable
+  // default value for empty variable
+  UNKNOWN_ACTION_TYPE = 0;
+
+  // player actions
   SELECT_SET          = 1;
   REQUEST_SHOW_SET    = 2;
   LEAVE_GAME          = 3;
   REQUEST_DRAW_THREE  = 4;
+
+  // not player actions
+  SHOW_SET            = 1000;
+  DRAW_THREE          = 1001;
 }
