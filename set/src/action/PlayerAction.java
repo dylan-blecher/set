@@ -3,8 +3,8 @@ package src.action;
 public class PlayerAction extends Action {
     private final int playerID;
 
-    public PlayerAction(ActionType actionType, int playerID) {
-        super(actionType);
+    public PlayerAction(ActionType type, int playerID) {
+        super(type);
         this.playerID = playerID;
     }
 

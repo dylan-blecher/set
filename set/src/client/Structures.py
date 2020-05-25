@@ -16,3 +16,14 @@ class PlayerActionSelectSet(PlayerAction):
 
 	def getCardPositions(self):
 		return self.cardPositions
+
+class SocketMessage:
+	def __init__(self, messageType, message):
+		self.messageType = messageType
+		self.message = message
+
+	def getmessageType(self):
+		return self.messageType
+
+	def getMessage(self):
+		return self.message

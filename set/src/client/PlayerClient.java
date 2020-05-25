@@ -8,8 +8,10 @@ import src.action.actionQueue.SynchronisedActionQueue;
 import src.networkHelpers.SocketReader;
 import src.networkHelpers.SocketWriter;
 import src.player.PlayerInteractor;
+import src.proto.ActionProtos;
 
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
@@ -20,11 +22,39 @@ import static src.action.ActionType.LEAVE_GAME;
 import static src.player.PlayerInteractor.farewellPlayer;
 import static src.player.PlayerInteractor.readPlayerName;
 
+
 public class PlayerClient {
     private final static int GAME_PORT = 9090;
     private final static SynchronisedActionQueue actions = new SynchronisedActionQueue();
 
     public static void main(String[] args) throws IOException, InterruptedException {
+
+        /*
+        List<Integer> cardIds = List.of(42, 69, 420);
+        ActionProtos.Action protoAction = ActionProtos.Action.newBuilder()
+            .setType(ActionProtos.ActionType.SELECT_SET)
+            .setPlayerID(1337)
+            .addAllCardIDs(cardIds)
+            .build();
+        System.out.println("raw proto");
+        System.out.println(protoAction);
+        System.out.println("raw proto to string");
+        System.out.println(protoAction.toString());
+        System.out.println("serialised proto");
+        System.out.println(protoAction.toByteArray());
+        try (FileOutputStream stream = new FileOutputStream("proto_out")) {
+            stream.write(protoAction.toByteArray());
+        }*/
+
+        try (FileInputStream stream = new FileInputStream("proto_out")) {
+            byte[] serializedProto = stream.readAllBytes();
+            ActionProtos.Action protoAction = ActionProtos.Action.parseFrom(serializedProto);
+            System.out.println("from bytes");
+            System.out.println(protoAction);
+        }
+
+
+
         Optional<Integer> playerID = Optional.empty();
         SocketReader fromServer;
         SocketWriter toServer;

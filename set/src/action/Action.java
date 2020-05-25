@@ -12,3 +12,22 @@ public class Action {
 }
 
 
+//package src.action;
+//
+//
+//        import src.proto.ActionProtos;
+//
+//public class Action {
+//    private final ActionProtos.Action proto;
+//
+//    public Action(ActionProtos.Action action) {
+//        proto = action;
+//    }
+//    public Action(ActionType type) {
+//        this.type = type;
+//    }
+//
+//    public ActionType getType() { return type; }
+//}
+//
+//

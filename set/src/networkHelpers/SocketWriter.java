@@ -13,6 +13,7 @@ public class SocketWriter {
         writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
     }
 
+    // TODO: is new line still necessary?
     public void write(String s) throws IOException {
         writer.write(s + "\n");
         writer.flush();

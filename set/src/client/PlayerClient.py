@@ -1,11 +1,12 @@
 from queue import Queue
 from socket import gethostname
 from enum import Enum
-from PlayerAction import PlayerAction, PlayerActionSelectSet
+from Structures import PlayerAction, PlayerActionSelectSet, SocketMessage
 
 import socket
 import time
 import threading
+import json
 
 SET_SIZE = 3
 GAME_PORT = 9090        # The port used by the server
@@ -20,26 +21,30 @@ def runPlayer():
     try:
         fromServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         fromServer.connect((HOST, GAME_PORT))
-        joinGameRequestMsg = "REQUEST_PLAYER_ID@{}\n".format(readPlayerName())
-        fromServer.sendall(joinGameRequestMsg.encode())
+
+        joinGameRequest = SocketMessage("REQUEST_PLAYER_ID", readPlayerName())
+        # not sure if encode is necessary...
+        fromServer.sendall(serialise(joinGameRequest).encode())
         
         delay = 0.025 # 25 milliseconds
         while playerID is None:
-            msg = fromServer.recv(256).decode()
-            if msg == joinGameRequestMsg:
-                fromServer.sendall(joinGameRequestMsg.encode())
+            jsonString = fromServer.recv(256).decode()
+            msg = json.loads(jsonString, object_hook=deserialise)
+            msgType = msg.getMessageType()
+            
+            if msgType == "REQUEST_PLAYER_ID":
+                fromServer.sendall(serialise(joinGameRequest).encode())
                 time.sleep(delay)
                 delay *= 2
-            else:
-                playerID = int(msg)
+            elif msgType == "GIVE_PLAYER_ID":
+                playerID = int(msg.getMessage())
                 fromServer.shutdown(socket.SHUT_WR) # can't write to fromServer anymore - it's one way!
-
 
         toServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         toServer.connect((HOST, GAME_PORT))  
         toServer.shutdown(socket.SHUT_RD)           # can't read from toServer anymore - it's one way!
-        confirmationOfIDMsg = str(playerID) + "\n"
-        toServer.sendall(confirmationOfIDMsg.encode())
+        confirmationOfID = joinGameRequest = SocketMessage("CONFIRM_PLAYER_ID", str(playerID))
+        toServer.sendall(serialise(confirmationOfID).encode())
     
     except Exception as e:
         print(str(e))
@@ -84,6 +89,7 @@ class ActionQueueDrainer(threading.Thread):
     def sendAction(self, action):
         self.toServer.sendall((self.serializeAction(action) + "\n").encode())
 
+
     def serializeAction(self, action):
         actionType = action.getActionType()
         serializedAction = "@".join([ActionType(actionType).name, str(action.getPlayerID())])
@@ -101,7 +107,12 @@ class FeedbackGetter(threading.Thread):
 
     def run(self):
         while True:
-            print(self.fromServer.recv(256).decode())
+            jsonString = self.fromServer.recv(256).decode()
+            jsonObj = json.loads(jsonString)
+            print(jsonObj["message"])
+            
+            # json.loads(s) # loads json data from a string
+            # json.dumps(j) # prints JSON object as a string
 
 def closeSocket(socket):
     if socket != None:
@@ -142,10 +153,31 @@ def getSelectSet(playerID, actionType):
 
     return PlayerActionSelectSet(actionType, playerID, cardPositions)
 
+def deserialise(jsonDictionary):
+    if '__type__' not in jsonDictionary:
+        return None
+
+    requiredType = jsonDictionary['__type__']
+    if requiredType == 'MESSAGE':
+        return SocketMessage(jsonDictionary['messageType'], jsonDictionary['message'])
+
+    # if requiredType == 'BOARD':
+    #     return Board(jsonDictionary['Cards'])
+
+    return None
+
+# returns the JSON string for a given object by first converting it to a dictionary
+def serialise(obj):
+    return json.dumps(obj.__dict__)
+
+
 class ActionType(Enum):
     SELECT_SET = 0
     REQUEST_SHOW_SET = 1
     LEAVE_GAME = 2
     REQUEST_DRAW_THREE = 3
+
+class StructureType(Enum):
+    ERROR_MESSAGE = 0
 
 runPlayer()

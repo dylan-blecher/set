@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package action;
 
-option java_package = "proto";
+option java_package = "src.proto";
 option java_outer_classname = "ActionProtos";
 
 message Action {
@@ -12,7 +12,7 @@ message Action {
 }
 
 enum ActionType {
-  UNKNOWN_ACTION_TYPE = 0;
+  UNKNOWN_ACTION_TYPE = 0; // default value for empty variable
   SELECT_SET          = 1;
   REQUEST_SHOW_SET    = 2;
   LEAVE_GAME          = 3;
