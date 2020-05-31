@@ -5,12 +5,12 @@ import src.action.PlayerAction;
 import src.action.actionQueue.SynchronisedActionQueue;
 import src.game.Game;
 import src.networkHelpers.Interactor;
-import src.networkHelpers.SocketReader;
-import src.networkHelpers.SocketWriter;
 import src.player.Player;
-import src.proto.ActionProtos;
+import src.proto.AllProtos;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
@@ -18,13 +18,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static java.lang.Integer.parseInt;
-import static src.server.JsonConverter.deserialise;
-import static src.server.JsonConverter.getJsonString;
-
 public class Server {
     private final static int GAME_PORT = 9090;
-    private static final Map<Integer, Interactor> playerClientInteractors = new HashMap<>();
+    private static final Map<Integer, Interactor> playerClientSockets = new HashMap<>();
 
     public void start() {
         List<Thread> playerListeners       = new LinkedList<>();
@@ -32,7 +28,7 @@ public class Server {
         Map<Integer, Player> activePlayers = new HashMap<>();
 
         // this is used only temporarily to setup
-        Map<Integer, SocketWriter> toPlayerClientWriters = new HashMap<>();
+        Map<Integer, Socket> toPlayerClientWriters = new HashMap<>();
 
         // open a port and accept message on it
         try (ServerSocket serverSocket = new ServerSocket(GAME_PORT)) {
@@ -42,7 +38,6 @@ public class Server {
             while (nPlayers < 2) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("ANOTHER clientSocket");
-                SocketReader fromPlayerClient = new SocketReader(clientSocket);
 
 //                ByteBuffer bf = ByteBuffer.allocate(1024);
 //                BufferedInputStream fromClient = new BufferedInputStream(clientSocket.getInputStream());
@@ -55,40 +50,44 @@ public class Server {
 //                }
 //                bf.flip();
 
-                // opposite of parseDelimitedFrom is writeDelimitedTo()
-                ActionProtos.Action protoAction = ActionProtos.Action.parseDelimitedFrom(clientSocket.getInputStream());
-                Action action = new Action(protoAction);
-                System.out.println("received proto");
-                System.out.println(action.proto);
-                int x = 3;
-                while (x != 4) continue;
-
-                SocketMessage socketMessage = (SocketMessage) deserialise(fromPlayerClient.readLine().toString(), SocketMessage.class);
-                String command = socketMessage.getMessageType();
-                if (command.equals("REQUEST_PLAYER_ID")) {
-                    SocketWriter toPlayerClient = new SocketWriter(clientSocket);
-                    toPlayerClient.write(getJsonString(new SocketMessage("GIVE_PLAYER_ID", newPlayerID)));
+                AllProtos.ClientRequest request = readClientRequest(clientSocket.getInputStream());
+                System.out.println(request);
+                // could use the following to get the proto message type, but this won't work in Python:
+                // request.getDescriptorForType().getName()
+                System.out.println((request.getDescriptorForType().getName()));
+                if (request.hasJoinGame()) {
+                    AllProtos.ServerResponse sendPlayerIDProto = buildSendPlayerIDProto(newPlayerID);
+                    OutputStream streamToClient = clientSocket.getOutputStream();
+                    writeServerResponse(sendPlayerIDProto, streamToClient);
                     System.out.println("sent player ID");
-                    toPlayerClientWriters.put(newPlayerID, toPlayerClient);
-                    activePlayers.put(newPlayerID, new Player(newPlayerID, socketMessage.getMessage()));
+                    toPlayerClientWriters.put(newPlayerID, clientSocket);
+
+                    String playerName = request.getJoinGame().getName();
+                    Player newPlayer = new Player(newPlayerID, playerName);
+                    activePlayers.put(newPlayerID, newPlayer);
+
                     newPlayerID++;
-                } else if (command.equals("CONFIRM_PLAYER_ID")) {
+                } else if (request.hasConfirmPlayerID()) {
+                    System.out.println("client confirmed their playerID");
                     // playerClient sent a playerID
-                    int playerID = parseInt(socketMessage.getMessage());
+                    int playerID = request.getConfirmPlayerID().getPlayerID();
 
                     if (!toPlayerClientWriters.containsKey(playerID)) {
                         clientSocket.close();
                         continue;
                     }
 
-                    SocketWriter toPlayerClient = toPlayerClientWriters.remove(playerID);
-                    Interactor playerInteractor = new Interactor(fromPlayerClient, toPlayerClient);
-                    playerClientInteractors.put(playerID, playerInteractor);
-                    Thread t = new Thread(new ClientCommunicator(playerID, toPlayerClient, fromPlayerClient, actions));
+                    Socket toPlayerSocket = toPlayerClientWriters.remove(playerID);
+                    Interactor playerInteractor = new Interactor(clientSocket.getInputStream(), toPlayerSocket.getOutputStream());
+                    playerClientSockets.put(playerID, playerInteractor);
+                    Thread t = new Thread(new ClientCommunicator(playerID, toPlayerSocket.getOutputStream(), clientSocket.getInputStream(), actions));
                     t.start();
                     playerListeners.add(t);
                     nPlayers++;
                 }
+//                System.out.println(action.proto);
+//                int x = 3;
+//                while (x != 4) continue;
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -96,11 +95,27 @@ public class Server {
 
         cleanUpFailedClients(toPlayerClientWriters, activePlayers);
         // get moves from players
+        System.out.println("run game now");
         Game game = new Game(activePlayers, actions);
         game.run();
 
         waitForPlayersToFinish(playerListeners);
         System.out.println("Laters.\n\n\n\n\n\n");
+    }
+
+    public static AllProtos.ClientRequest readClientRequest(InputStream streamFromClient) throws IOException {
+        return AllProtos.ClientRequest.parseDelimitedFrom(streamFromClient);
+    }
+
+    public static void writeServerResponse (AllProtos.ServerResponse responseProto, OutputStream streamToClient) throws IOException {
+        responseProto.writeDelimitedTo(streamToClient);
+    }
+
+    private AllProtos.ServerResponse buildSendPlayerIDProto(int playerID) {
+        return AllProtos.ServerResponse
+                .newBuilder()
+                .setPlayerID(playerID)
+                .build();
     }
 
     private static void waitForPlayersToFinish(List<Thread> playerListeners) {
@@ -112,7 +127,7 @@ public class Server {
         }
     }
 
-    private void cleanUpFailedClients(Map<Integer, SocketWriter> toPlayerClients, Map<Integer, Player> activePlayers) {
+    private void cleanUpFailedClients(Map<Integer, Socket> toPlayerClients, Map<Integer, Player> activePlayers) {
         // toPlayerClients should be empty UNLESS client never created a socket to listen to send to server
 //        TODO: abstract this in the same way i did in playerClient with SocketWriter and SocketReader
         for (int playerID: toPlayerClients.keySet()) {
@@ -126,50 +141,63 @@ public class Server {
         toPlayerClients = null;
     }
 
-    public static void tellPlayer(PlayerAction action, String errorMessage) {
+    public static void tellPlayer(PlayerAction action, String errorMessage) throws IOException {
         int playerID = action.getPlayerID();
-        try {
-            playerClientInteractors.get(playerID).getWriter().write(getJsonString(new SocketMessage("GIVE_ERROR_MESSAGE", errorMessage)));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        OutputStream streamToClient = playerClientSockets.get(playerID).getStreamToClient();
+        AllProtos.ServerResponse errorMessageProto = buildErrorMessage(errorMessage);
+
+        writeServerResponse(errorMessageProto, streamToClient);
+    }
+
+    private static AllProtos.ServerResponse buildErrorMessage(String errorMessage) {
+        return AllProtos.ServerResponse
+                .newBuilder()
+                .setErrorMessage(errorMessage)
+                .build();
     }
 }
 
 class ClientCommunicator implements Runnable {
     private final int playerId;
-    private final SocketWriter toPlayerClient;
-    private final SocketReader fromPlayerClient;
+    private final OutputStream streamToClient;
+    private final InputStream streamFromClient;
     private final SynchronisedActionQueue actions;
 
-    public ClientCommunicator(int playerId, SocketWriter toPlayerClient, SocketReader fromPlayerClient, SynchronisedActionQueue actions) {
+    public ClientCommunicator(int playerId, OutputStream streamToClient, InputStream streamFromClient, SynchronisedActionQueue actions) {
 
         this.playerId = playerId;
-        this.toPlayerClient = toPlayerClient;
-        this.fromPlayerClient = fromPlayerClient;
+        this.streamToClient = streamToClient;
+        this.streamFromClient = streamFromClient;
         this.actions = actions;
     }
 
     @Override
     public void run() {
         System.out.println("started a new thread");
-        try {
-            while (true) {
+        while (true) {
+            try {
                 // deserialize action and add to action queue
-                ActionProtos.Action protoAction = ActionProtos.Action.parseFrom(fromPlayerClient.readLine());
-                Action action = new Action(protoAction);
+                AllProtos.ClientRequest request = Server.readClientRequest(streamFromClient);
+
+                if (! request.hasAction()) {
+                    // TODO: instead, send response saying you needa send an action and ya didn't
+                    continue;
+                }
+
+                Action action = new Action(request.getAction());
+
                 System.out.println("player interactor about to take control of actions");
                 actions.addAction(action);
 
-                // TODO: the below if statement breaks the player process with an infinite null loop... why? because there are 2 threads in the player process that are still running even after connection is shut off... fix this!
+                // TODO: the bqelow if statement breaks the player process with an infinite null loop... why? because there are 2 threads in the player process that are still running even after connection is shut off... fix this!
 //                if (action.getType() == LEAVE_GAME) {
 //                    toPlayerClient.close();
 //                        fromPlayerClient.close();
 //                    break;
 //                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }
 }

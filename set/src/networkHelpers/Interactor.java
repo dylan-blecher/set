@@ -1,19 +1,21 @@
 package src.networkHelpers;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+
 public class Interactor {
-    private SocketReader reader;
-    private SocketWriter writer;
+    private InputStream streamFromClient;
+    private OutputStream streamToClient;
 
-    public Interactor(SocketReader reader, SocketWriter writer) {
-        this.reader = reader;
-        this.writer = writer;
+    public Interactor(InputStream streamFromClient, OutputStream streamToClient) {
+        this.streamFromClient = streamFromClient;
+        this.streamToClient = streamToClient;
     }
 
-    public SocketReader getReader() {
-        return reader;
+    public InputStream getStreamFromClient() {
+        return streamFromClient;
     }
-
-    public SocketWriter getWriter() {
-        return writer;
+    public OutputStream getStreamToClient() {
+        return streamToClient;
     }
 }

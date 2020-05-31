@@ -5,7 +5,13 @@ from Structures import (
     ActionType,
     PlayerAction,
     PlayerActionSelectSet,
-    SocketMessage
+)
+
+from src.proto.action_pb2 import (
+    ClientRequest as ClientRequestProto,
+    ServerResponse as ServerResponseProto,
+    JoinGameRequest as JoinGameRequestProto,
+    ConfirmPlayerID as ConfirmPlayerIDProto
 )
 
 import socket
@@ -32,40 +38,64 @@ def runPlayer():
         fromServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         fromServer.connect((HOST, GAME_PORT))
 
-        action = PlayerActionSelectSet.build(
-            ActionType.SELECT_SET,
-            playerID=2403,
-            cardPositions=[94, 98, 5]
-        )
-        server_communicator.send_message(fromServer, action.proto)
-        while True:
-            continue
+        # maybe i needa create this as a "ClientRequest type"
+        # action = PlayerActionSelectSet.build(
+        #     ActionType.SELECT_SET,
+        #     playerID=2403,
+        #     cardPositions=[94, 98, 5]
+        # )
 
-        joinGameRequest = SocketMessage("REQUEST_PLAYER_ID", readPlayerName())
-        # not sure if encode is necessary...
-        fromServer.sendall(serialise(joinGameRequest).encode())
+        # ActionProto(
+        #     type=_action_type_to_proto(actionType),
+        #     playerID=playerID
+        # )
+          
+        # playerIDRequestProto = ClientRequestProto()
+        # playerIDRequestProto.joinGame.name = readPlayerName()
+
+        playerIDRequestProto = ClientRequestProto(
+            joinGame=JoinGameRequestProto(
+                name=readPlayerName()
+            )
+        )
+
+        server_communicator._send_message(fromServer, playerIDRequestProto)
+
         
         delay = 0.025 # 25 milliseconds
         while playerID is None:
-            jsonString = fromServer.recv(256).decode()
-            msg = json.loads(jsonString, object_hook=deserialise)
-            msgType = msg.getMessageType()
+            time.sleep(delay)
+            delay *= 2
             
-            if msgType == "REQUEST_PLAYER_ID":
-                print("still sending playerID")
-                fromServer.sendall(serialise(joinGameRequest).encode())
-                time.sleep(delay)
-                delay *= 2
-            elif msgType == "GIVE_PLAYER_ID":
-                print("got player id?")
-                playerID = int(msg.getMessage())
-                fromServer.shutdown(socket.SHUT_WR) # can't write to fromServer anymore - it's one way!
+            try: 
+                print("ahh waiting")
+                serverResponseProto = server_communicator._receive_message(fromServer, ServerResponseProto)
+                print(serverResponseProto)
+                print("stuck here")
+                if serverResponseProto.HasField("playerID"):
+                    print("got player id")
+                    playerID = serverResponseProto.playerID
+                    fromServer.shutdown(socket.SHUT_WR) # can't write to fromServer anymore - it's one way!
 
+            except Exception as e:
+                print(str(e))
+                print("if we failed to _receive_message, we probably got the request for ID that we just put on!")
+                server_communicator._send_message(fromServer, playerIDRequestProto)
+                print("sent message again")
+        
+
+        
         toServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         toServer.connect((HOST, GAME_PORT))  
         toServer.shutdown(socket.SHUT_RD)           # can't read from toServer anymore - it's one way!
-        confirmationOfID = joinGameRequest = SocketMessage("CONFIRM_PLAYER_ID", str(playerID))
-        toServer.sendall(serialise(confirmationOfID).encode())
+
+        confirmPlayerIDProto = ClientRequestProto(
+            confirmPlayerID=ConfirmPlayerIDProto(
+                playerID=playerID
+            )
+        )
+        
+        server_communicator._send_message(toServer, confirmPlayerIDProto)
         print("sent confirmation of id")
     
     except Exception as e:
@@ -76,10 +106,13 @@ def runPlayer():
             closeSocket(fromServer)
         raise e
 
+
     actionQueueThread = ActionQueueDrainer(actions, toServer)
     feedbackThread = FeedbackGetter(fromServer)
 
     actionQueueThread.start()
+    # while True:
+    #     continue
     feedbackThread.start()
 
     playerRequestsToLeave = False
@@ -87,6 +120,7 @@ def runPlayer():
     while not playerRequestsToLeave:
         action = getAction(playerID)
         if action != None:
+            print("added action to queue!")
             actions.put(action)
 
             if action.getActionType() == ActionType.LEAVE_GAME:
@@ -108,9 +142,10 @@ class ActionQueueDrainer(threading.Thread):
             action = self.actions.get(block=True)
             assert(action != None)
             self.sendAction(action)
+            print("sent action!")
 
     def sendAction(self, action: PlayerAction) -> None:
-        self.toServer.sendall(action.proto.SerializeToString())
+        server_communicator._send_message(self.toServer, action.proto)
 
 class FeedbackGetter(threading.Thread):
     def __init__(self, fromServer):
@@ -119,17 +154,18 @@ class FeedbackGetter(threading.Thread):
 
     def run(self):
         while True:
-            jsonString = self.fromServer.recv(256).decode()
-            jsonObj = json.loads(jsonString)
-            print(jsonObj["message"])
-            
-            # json.loads(s) # loads json data from a string
-            # json.dumps(j) # prints JSON object as a string
+            try:
+                serverResponseProto = server_communicator._receive_message(self.fromServer, ServerResponseProto)
+        
+                if serverResponseProto.HasField("errorMessage"):
+                    print(serverResponseProto.errorMessage)
+            except Exception as e:
+                print(str(e))
 
-def closeSocket(socket):
-    if socket != None:
-        socket.shutdown(socket.SHUT_RDWR)
-        socket.close()
+def closeSocket(sock):
+    if sock != None:
+        sock.shutdown(socket.SHUT_RDWR)
+        sock.close()
 
 def farewellPlayer():
     print("Adios muchacho :)")
@@ -145,13 +181,13 @@ def promptForAction():
 
 def getAction(playerID):
     promptForAction()
-    actionType = ActionType(int(input())) # TODO: not sure if this works...
+    actionType = ActionType(int(input()) + 1) # TODO: not sure if this works...
     action = None
 
     if actionType == ActionType.SELECT_SET:
         action = getSelectSet(playerID, actionType)
     elif actionType == ActionType.REQUEST_SHOW_SET or actionType == ActionType.LEAVE_GAME or actionType == ActionType.REQUEST_DRAW_THREE:
-        action = PlayerAction(actionType, playerID)
+        action = PlayerAction.build(actionType, playerID)
     else:
         print("DIDN'T GET A VALID ACTION")
 
@@ -163,24 +199,7 @@ def getSelectSet(playerID, actionType):
     cardPositions = [int(x) for x in input().split()]
     print(cardPositions)
 
-    return PlayerActionSelectSet(actionType, playerID, cardPositions)
-
-def deserialise(jsonDictionary):
-    if '__type__' not in jsonDictionary:
-        return None
-
-    requiredType = jsonDictionary['__type__']
-    if requiredType == 'MESSAGE':
-        return SocketMessage(jsonDictionary['messageType'], jsonDictionary['message'])
-
-    # if requiredType == 'BOARD':
-    #     return Board(jsonDictionary['Cards'])
-
-    return None
-
-# returns the JSON string for a given object by first converting it to a dictionary
-def serialise(obj):
-    return json.dumps(obj.__dict__)
+    return PlayerActionSelectSet.build(actionType, playerID, cardPositions)
 
 
 class StructureType(Enum):

@@ -3,11 +3,13 @@ syntax = "proto3";
 package action;
 
 option java_package = "src.proto";
-option java_outer_classname = "ActionProtos";
+option java_outer_classname = "AllProtos";
 
+// TODO:  Separate into files
+// Client messages
 message Action {
-  ActionType type        = 1;
-  uint32 playerID         = 2;
+  ActionType type              = 1;
+  uint32 playerID              = 2;
   repeated int32 cardPositions = 3;
 }
 
@@ -15,15 +17,50 @@ message JoinGameRequest {
   string name = 1;
 }
 
-message ConfirmPlayerId {
-  uint32 playerId = 1;
+message ConfirmPlayerID {
+  uint32 playerID = 1;
 }
 
 message ClientRequest {
   oneof request {
     JoinGameRequest joinGame = 1;
-    ConfirmPlayerId confirmPlayerId = 2;
+    ConfirmPlayerID confirmPlayerID = 2;
     Action action = 3;
+  }
+}
+
+// Server messages
+message PlayerID {
+  uint32 playerID = 1;
+}
+
+message Card {
+  CardColour colour = 1;
+  CardNumber number = 2;
+  CardShape shape = 3;
+  CardFill fill = 4;
+}
+
+message Board {
+  repeated Card cards = 1;
+}
+
+message Consensus {
+  uint32 nActivePlayers = 1;
+  uint32 nInAgreement = 2;
+}
+
+message State {
+  Board board = 1;
+  Consensus drawThree = 2;
+  Consensus showSet = 3;
+}
+
+message ServerResponse {
+  oneof response {
+    uint32 playerID = 1;
+    Board board = 2;
+    string errorMessage = 3;
   }
 }
 
@@ -40,4 +77,32 @@ enum ActionType {
   // not player actions
   SHOW_SET            = 1000;
   DRAW_THREE          = 1001;
+}
+
+enum CardColour {
+  UNKNOWN_COLOUR = 0;
+  RED = 1;
+  GREEN = 2;
+  PURPLE = 3;
+}
+
+enum CardFill {
+  UNKNOWN_FILL = 0;
+  OPEN = 1;
+  STRIPED = 2;
+  SOLID = 3;
+}
+
+enum CardNumber {
+  UNKNOWN_NUMBER = 0;
+  ONE = 1;
+  TWO = 2;
+  THREE = 3;
+}
+
+enum CardShape {
+  UNKNOWN_SHAPE = 0;
+  DIAMOND = 1;
+  SQUIGGLE = 2;
+  OVAL = 3;
 }

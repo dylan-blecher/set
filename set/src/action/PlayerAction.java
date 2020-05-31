@@ -1,13 +1,13 @@
 package src.action;
 
-import src.proto.ActionProtos;
+import src.proto.AllProtos;
 
 public class PlayerAction extends Action {
     public PlayerAction(ActionType type, int playerID) {
-        this(ActionProtos.Action.newBuilder().setType(type.proto).setPlayerID(playerID).build());
+        super(AllProtos.Action.newBuilder().setType(type.proto).setPlayerID(playerID).build());
     }
 
-    public PlayerAction(ActionProtos.Action action) {
+    public PlayerAction(AllProtos.Action action) {
         super(action);
     }
 

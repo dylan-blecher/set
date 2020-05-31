@@ -1,16 +1,19 @@
 package src.action;
 
-import src.proto.ActionProtos;
+import src.proto.AllProtos;
 
 public class Action {
-    public final ActionProtos.Action proto;
-
-    public Action(ActionProtos.Action action) {
-        proto = action;
-    }
+    public final AllProtos.Action proto;
 
     public Action(ActionType type) {
-        this(ActionProtos.Action.newBuilder().setType(type.proto).build());
+        this(AllProtos.Action
+                .newBuilder()
+                .setType(type.proto)
+                .build());
+    }
+
+    public Action(AllProtos.Action action) {
+        proto = action;
     }
 
     public ActionType getType() { return ActionType.fromProto(proto.getType()); }

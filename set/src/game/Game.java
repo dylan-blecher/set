@@ -9,6 +9,7 @@ import src.cardCollection.deck.Deck;
 import src.player.Player;
 import src.player.Players;
 
+import java.io.IOException;
 import java.util.Map;
 
 import static src.action.ActionType.SELECT_SET;
@@ -62,7 +63,12 @@ public class Game {
 
     private void warnInvalidity(Action action, String errorMessage) {
         if (action.getType() == SELECT_SET) {
-            tellPlayer((PlayerAction)action, errorMessage);
+            try {
+                tellPlayer((PlayerAction)action, errorMessage);
+            } catch (IOException e) {
+                // TODO: If the player doesn't receive the errorMessage, handle it - implement re-join game if connection cuts - deadletter queue
+                return;
+            }
         } else {
             System.out.println(errorMessage);
         }

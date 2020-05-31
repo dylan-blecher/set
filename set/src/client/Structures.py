@@ -3,7 +3,8 @@ from typing import List
 
 from src.proto.action_pb2 import (
 	Action as ActionProto,
-	ActionType as ActionTypeProto
+	ActionType as ActionTypeProto,
+	ClientRequest as ClientRequestProto
 )
 
 
@@ -30,6 +31,8 @@ class PlayerAction:
 	def __init__(self, proto: ActionProto) -> None:
 		self.proto = proto
 
+	# can't overload __init__ in python, so we do the below to create the class with 
+	# different parameters
 	@classmethod
 	def build(
 		cls,
@@ -37,17 +40,19 @@ class PlayerAction:
 		playerID: int
 	) -> "PlayerAction":
 		return cls(
-			ActionProto(
-				type=_action_type_to_proto(actionType),
-				playerID=playerID
+			ClientRequestProto(
+				action=ActionProto(
+					type=_action_type_to_proto(actionType),
+					playerID=playerID
+				)
 			)
 		)
 
 	def getActionType(self) -> ActionType:
-		return ActionType(self.proto.actionType)
+		return ActionType(self.proto.action.type)
 
 	def getPlayerID(self) -> int:
-		return self.proto.playerID
+		return self.proto.action.playerID
 
 
 class PlayerActionSelectSet(PlayerAction):
@@ -59,23 +64,14 @@ class PlayerActionSelectSet(PlayerAction):
 		cardPositions: List[int]
 	):
 		return cls(
-			ActionProto(
-				type=_action_type_to_proto(actionType),
-				playerID=playerID,
-				cardPositions=cardPositions
+			ClientRequestProto(
+				action=ActionProto(
+					type=_action_type_to_proto(actionType),
+					playerID=playerID,
+					cardPositions=cardPositions
+				)
 			)
 		)
 
 	def getCardPositions(self) -> List[int]:
-		return list(self.proto.cardPositions)
-
-class SocketMessage:
-	def __init__(self, messageType, message):
-		self.messageType = messageType
-		self.message = message
-
-	def getmessageType(self):
-		return self.messageType
-
-	def getMessage(self):
-		return self.message
+		return list(self.proto.action.cardPositions)
