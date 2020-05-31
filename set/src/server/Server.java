@@ -2,6 +2,7 @@ package src.server;
 
 import src.action.Action;
 import src.action.PlayerAction;
+import src.action.PlayerActionSelectSet;
 import src.action.actionQueue.SynchronisedActionQueue;
 import src.game.Game;
 import src.networkHelpers.Interactor;
@@ -183,8 +184,20 @@ class ClientCommunicator implements Runnable {
                     // TODO: instead, send response saying you needa send an action and ya didn't
                     continue;
                 }
+                Action action = null;
 
-                Action action = new Action(request.getAction());
+                AllProtos.Action actionProto = request.getAction();
+                switch (actionProto.getType()) {
+                    case REQUEST_SHOW_SET:
+                    case REQUEST_DRAW_THREE:
+                    case LEAVE_GAME:
+                        action = new PlayerAction(actionProto);
+                        break;
+                    case SELECT_SET:
+                        action = new PlayerActionSelectSet(actionProto);
+                }
+
+                assert(action != null);
 
                 System.out.println("player interactor about to take control of actions");
                 actions.addAction(action);
