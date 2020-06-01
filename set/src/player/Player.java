@@ -20,7 +20,7 @@ public class Player {
     }
 
     public void collectSet(Set set) {
-        proto.getSetsCollectedList().add(set.proto);
+        proto.getSetsCollectedList().add(set.getProto());
     }
 
     // TODO: Maybe this should be elsewhere... player shouldn't be responsible for reliably saying their score? idk...

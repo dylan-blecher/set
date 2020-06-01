@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\tsrc.protoB\tAllProtos',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0c\x61\x63tion.proto\x12\x06\x61\x63tion\"S\n\x06\x41\x63tion\x12 \n\x04type\x18\x01 \x01(\x0e\x32\x12.action.ActionType\x12\x10\n\x08playerID\x18\x02 \x01(\r\x12\x15\n\rcardPositions\x18\x03 \x03(\x05\"\x1f\n\x0fJoinGameRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"#\n\x0f\x43onfirmPlayerID\x12\x10\n\x08playerID\x18\x01 \x01(\r\"\x9d\x01\n\rClientRequest\x12+\n\x08joinGame\x18\x01 \x01(\x0b\x32\x17.action.JoinGameRequestH\x00\x12\x32\n\x0f\x63onfirmPlayerID\x18\x02 \x01(\x0b\x32\x17.action.ConfirmPlayerIDH\x00\x12 \n\x06\x61\x63tion\x18\x03 \x01(\x0b\x32\x0e.action.ActionH\x00\x42\t\n\x07request\"\x1c\n\x08PlayerID\x12\x10\n\x08playerID\x18\x01 \x01(\r\"\x90\x01\n\x04\x43\x61rd\x12\"\n\x06\x63olour\x18\x01 \x01(\x0e\x32\x12.action.CardColour\x12\"\n\x06number\x18\x02 \x01(\x0e\x32\x12.action.CardNumber\x12 \n\x05shape\x18\x03 \x01(\x0e\x32\x11.action.CardShape\x12\x1e\n\x04\x66ill\x18\x04 \x01(\x0e\x32\x10.action.CardFill\"m\n\x0b\x43onsensuses\x12\x16\n\x0enActivePlayers\x18\x01 \x01(\r\x12#\n\x1bnPlayersRequestingDrawThree\x18\x02 \x01(\r\x12!\n\x19nPlayersRequestingShowSet\x18\x03 \x01(\r\"-\n\x0e\x43\x61rdCollection\x12\x1b\n\x05\x63\x61rds\x18\x01 \x03(\x0b\x32\x0c.action.Card\"Q\n\x06Player\x12\n\n\x02ID\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\x12-\n\rsetsCollected\x18\x03 \x03(\x0b\x32\x16.action.CardCollection\"o\n\x05State\x12\x1b\n\x05\x62oard\x18\x01 \x03(\x0b\x32\x0c.action.Card\x12(\n\x0b\x63onsensuses\x18\x02 \x01(\x0b\x32\x13.action.Consensuses\x12\x1f\n\x07players\x18\x03 \x03(\x0b\x32\x0e.action.Player\"h\n\x0eServerResponse\x12\x12\n\x08playerID\x18\x01 \x01(\rH\x00\x12\x1e\n\x05state\x18\x02 \x01(\x0b\x32\r.action.StateH\x00\x12\x16\n\x0c\x65rrorMessage\x18\x03 \x01(\tH\x00\x42\n\n\x08response*\x93\x01\n\nActionType\x12\x17\n\x13UNKNOWN_ACTION_TYPE\x10\x00\x12\x0e\n\nSELECT_SET\x10\x01\x12\x14\n\x10REQUEST_SHOW_SET\x10\x02\x12\x0e\n\nLEAVE_GAME\x10\x03\x12\x16\n\x12REQUEST_DRAW_THREE\x10\x04\x12\r\n\x08SHOW_SET\x10\xe8\x07\x12\x0f\n\nDRAW_THREE\x10\xe9\x07*@\n\nCardColour\x12\x12\n\x0eUNKNOWN_COLOUR\x10\x00\x12\x07\n\x03RED\x10\x01\x12\t\n\x05GREEN\x10\x02\x12\n\n\x06PURPLE\x10\x03*>\n\x08\x43\x61rdFill\x12\x10\n\x0cUNKNOWN_FILL\x10\x00\x12\x08\n\x04OPEN\x10\x01\x12\x0b\n\x07STRIPED\x10\x02\x12\t\n\x05SOLID\x10\x03*=\n\nCardNumber\x12\x12\n\x0eUNKNOWN_NUMBER\x10\x00\x12\x07\n\x03ONE\x10\x01\x12\x07\n\x03TWO\x10\x02\x12\t\n\x05THREE\x10\x03*C\n\tCardShape\x12\x11\n\rUNKNOWN_SHAPE\x10\x00\x12\x0b\n\x07\x44IAMOND\x10\x01\x12\x0c\n\x08SQUIGGLE\x10\x02\x12\x08\n\x04OVAL\x10\x03\x42\x16\n\tsrc.protoB\tAllProtosb\x06proto3'
+  serialized_pb=b'\n\x0c\x61\x63tion.proto\x12\x06\x61\x63tion\"S\n\x06\x41\x63tion\x12 \n\x04type\x18\x01 \x01(\x0e\x32\x12.action.ActionType\x12\x10\n\x08playerID\x18\x02 \x01(\r\x12\x15\n\rcardPositions\x18\x03 \x03(\x05\"\x1f\n\x0fJoinGameRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"#\n\x0f\x43onfirmPlayerID\x12\x10\n\x08playerID\x18\x01 \x01(\r\"\x9d\x01\n\rClientRequest\x12+\n\x08joinGame\x18\x01 \x01(\x0b\x32\x17.action.JoinGameRequestH\x00\x12\x32\n\x0f\x63onfirmPlayerID\x18\x02 \x01(\x0b\x32\x17.action.ConfirmPlayerIDH\x00\x12 \n\x06\x61\x63tion\x18\x03 \x01(\x0b\x32\x0e.action.ActionH\x00\x42\t\n\x07request\"\x1c\n\x08PlayerID\x12\x10\n\x08playerID\x18\x01 \x01(\r\"\x90\x01\n\x04\x43\x61rd\x12\"\n\x06\x63olour\x18\x01 \x01(\x0e\x32\x12.action.CardColour\x12\"\n\x06number\x18\x02 \x01(\x0e\x32\x12.action.CardNumber\x12 \n\x05shape\x18\x03 \x01(\x0e\x32\x11.action.CardShape\x12\x1e\n\x04\x66ill\x18\x04 \x01(\x0e\x32\x10.action.CardFill\"m\n\x0b\x43onsensuses\x12\x16\n\x0enActivePlayers\x18\x01 \x01(\r\x12#\n\x1bnPlayersRequestingDrawThree\x18\x02 \x01(\r\x12!\n\x19nPlayersRequestingShowSet\x18\x03 \x01(\r\"-\n\x0e\x43\x61rdCollection\x12\x1b\n\x05\x63\x61rds\x18\x01 \x03(\x0b\x32\x0c.action.Card\"Q\n\x06Player\x12\n\n\x02ID\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\x12-\n\rsetsCollected\x18\x03 \x03(\x0b\x32\x16.action.CardCollection\"u\n\x05State\x12\x1b\n\x05\x62oard\x18\x01 \x03(\x0b\x32\x0c.action.Card\x12(\n\x0b\x63onsensuses\x18\x02 \x01(\x0b\x32\x13.action.Consensuses\x12%\n\ractivePlayers\x18\x03 \x03(\x0b\x32\x0e.action.Player\"$\n\x0bRevealedSet\x12\x15\n\rcardPositions\x18\x01 \x03(\r\"/\n\x06Result\x12%\n\rrankedPlayers\x18\x01 \x03(\x0b\x32\x0e.action.Player\"\xb6\x01\n\x0eServerResponse\x12\x12\n\x08playerID\x18\x01 \x01(\rH\x00\x12\x1e\n\x05state\x18\x02 \x01(\x0b\x32\r.action.StateH\x00\x12\x16\n\x0c\x65rrorMessage\x18\x03 \x01(\tH\x00\x12*\n\x0brevealedSet\x18\x04 \x01(\x0b\x32\x13.action.RevealedSetH\x00\x12 \n\x06result\x18\x05 \x01(\x0b\x32\x0e.action.ResultH\x00\x42\n\n\x08response*\x93\x01\n\nActionType\x12\x17\n\x13UNKNOWN_ACTION_TYPE\x10\x00\x12\x0e\n\nSELECT_SET\x10\x01\x12\x14\n\x10REQUEST_SHOW_SET\x10\x02\x12\x0e\n\nLEAVE_GAME\x10\x03\x12\x16\n\x12REQUEST_DRAW_THREE\x10\x04\x12\r\n\x08SHOW_SET\x10\xe8\x07\x12\x0f\n\nDRAW_THREE\x10\xe9\x07*@\n\nCardColour\x12\x12\n\x0eUNKNOWN_COLOUR\x10\x00\x12\x07\n\x03RED\x10\x01\x12\t\n\x05GREEN\x10\x02\x12\n\n\x06PURPLE\x10\x03*>\n\x08\x43\x61rdFill\x12\x10\n\x0cUNKNOWN_FILL\x10\x00\x12\x08\n\x04OPEN\x10\x01\x12\x0b\n\x07STRIPED\x10\x02\x12\t\n\x05SOLID\x10\x03*=\n\nCardNumber\x12\x12\n\x0eUNKNOWN_NUMBER\x10\x00\x12\x07\n\x03ONE\x10\x01\x12\x07\n\x03TWO\x10\x02\x12\t\n\x05THREE\x10\x03*C\n\tCardShape\x12\x11\n\rUNKNOWN_SHAPE\x10\x00\x12\x0b\n\x07\x44IAMOND\x10\x01\x12\x0c\n\x08SQUIGGLE\x10\x02\x12\x08\n\x04OVAL\x10\x03\x42\x16\n\tsrc.protoB\tAllProtosb\x06proto3'
 )
 
 _ACTIONTYPE = _descriptor.EnumDescriptor(
@@ -68,8 +68,8 @@ _ACTIONTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=977,
-  serialized_end=1124,
+  serialized_start=1149,
+  serialized_end=1296,
 )
 _sym_db.RegisterEnumDescriptor(_ACTIONTYPE)
 
@@ -104,8 +104,8 @@ _CARDCOLOUR = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1126,
-  serialized_end=1190,
+  serialized_start=1298,
+  serialized_end=1362,
 )
 _sym_db.RegisterEnumDescriptor(_CARDCOLOUR)
 
@@ -140,8 +140,8 @@ _CARDFILL = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1192,
-  serialized_end=1254,
+  serialized_start=1364,
+  serialized_end=1426,
 )
 _sym_db.RegisterEnumDescriptor(_CARDFILL)
 
@@ -176,8 +176,8 @@ _CARDNUMBER = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1256,
-  serialized_end=1317,
+  serialized_start=1428,
+  serialized_end=1489,
 )
 _sym_db.RegisterEnumDescriptor(_CARDNUMBER)
 
@@ -212,8 +212,8 @@ _CARDSHAPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1319,
-  serialized_end=1386,
+  serialized_start=1491,
+  serialized_end=1558,
 )
 _sym_db.RegisterEnumDescriptor(_CARDSHAPE)
 
@@ -637,7 +637,7 @@ _STATE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='players', full_name='action.State.players', index=2,
+      name='activePlayers', full_name='action.State.activePlayers', index=2,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -656,7 +656,71 @@ _STATE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=757,
-  serialized_end=868,
+  serialized_end=874,
+)
+
+
+_REVEALEDSET = _descriptor.Descriptor(
+  name='RevealedSet',
+  full_name='action.RevealedSet',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='cardPositions', full_name='action.RevealedSet.cardPositions', index=0,
+      number=1, type=13, cpp_type=3, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=876,
+  serialized_end=912,
+)
+
+
+_RESULT = _descriptor.Descriptor(
+  name='Result',
+  full_name='action.Result',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='rankedPlayers', full_name='action.Result.rankedPlayers', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=914,
+  serialized_end=961,
 )
 
 
@@ -689,6 +753,20 @@ _SERVERRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='revealedSet', full_name='action.ServerResponse.revealedSet', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='result', full_name='action.ServerResponse.result', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -706,8 +784,8 @@ _SERVERRESPONSE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=870,
-  serialized_end=974,
+  serialized_start=964,
+  serialized_end=1146,
 )
 
 _ACTION.fields_by_name['type'].enum_type = _ACTIONTYPE
@@ -731,8 +809,11 @@ _CARDCOLLECTION.fields_by_name['cards'].message_type = _CARD
 _PLAYER.fields_by_name['setsCollected'].message_type = _CARDCOLLECTION
 _STATE.fields_by_name['board'].message_type = _CARD
 _STATE.fields_by_name['consensuses'].message_type = _CONSENSUSES
-_STATE.fields_by_name['players'].message_type = _PLAYER
+_STATE.fields_by_name['activePlayers'].message_type = _PLAYER
+_RESULT.fields_by_name['rankedPlayers'].message_type = _PLAYER
 _SERVERRESPONSE.fields_by_name['state'].message_type = _STATE
+_SERVERRESPONSE.fields_by_name['revealedSet'].message_type = _REVEALEDSET
+_SERVERRESPONSE.fields_by_name['result'].message_type = _RESULT
 _SERVERRESPONSE.oneofs_by_name['response'].fields.append(
   _SERVERRESPONSE.fields_by_name['playerID'])
 _SERVERRESPONSE.fields_by_name['playerID'].containing_oneof = _SERVERRESPONSE.oneofs_by_name['response']
@@ -742,6 +823,12 @@ _SERVERRESPONSE.fields_by_name['state'].containing_oneof = _SERVERRESPONSE.oneof
 _SERVERRESPONSE.oneofs_by_name['response'].fields.append(
   _SERVERRESPONSE.fields_by_name['errorMessage'])
 _SERVERRESPONSE.fields_by_name['errorMessage'].containing_oneof = _SERVERRESPONSE.oneofs_by_name['response']
+_SERVERRESPONSE.oneofs_by_name['response'].fields.append(
+  _SERVERRESPONSE.fields_by_name['revealedSet'])
+_SERVERRESPONSE.fields_by_name['revealedSet'].containing_oneof = _SERVERRESPONSE.oneofs_by_name['response']
+_SERVERRESPONSE.oneofs_by_name['response'].fields.append(
+  _SERVERRESPONSE.fields_by_name['result'])
+_SERVERRESPONSE.fields_by_name['result'].containing_oneof = _SERVERRESPONSE.oneofs_by_name['response']
 DESCRIPTOR.message_types_by_name['Action'] = _ACTION
 DESCRIPTOR.message_types_by_name['JoinGameRequest'] = _JOINGAMEREQUEST
 DESCRIPTOR.message_types_by_name['ConfirmPlayerID'] = _CONFIRMPLAYERID
@@ -752,6 +839,8 @@ DESCRIPTOR.message_types_by_name['Consensuses'] = _CONSENSUSES
 DESCRIPTOR.message_types_by_name['CardCollection'] = _CARDCOLLECTION
 DESCRIPTOR.message_types_by_name['Player'] = _PLAYER
 DESCRIPTOR.message_types_by_name['State'] = _STATE
+DESCRIPTOR.message_types_by_name['RevealedSet'] = _REVEALEDSET
+DESCRIPTOR.message_types_by_name['Result'] = _RESULT
 DESCRIPTOR.message_types_by_name['ServerResponse'] = _SERVERRESPONSE
 DESCRIPTOR.enum_types_by_name['ActionType'] = _ACTIONTYPE
 DESCRIPTOR.enum_types_by_name['CardColour'] = _CARDCOLOUR
@@ -829,6 +918,20 @@ State = _reflection.GeneratedProtocolMessageType('State', (_message.Message,), {
   # @@protoc_insertion_point(class_scope:action.State)
   })
 _sym_db.RegisterMessage(State)
+
+RevealedSet = _reflection.GeneratedProtocolMessageType('RevealedSet', (_message.Message,), {
+  'DESCRIPTOR' : _REVEALEDSET,
+  '__module__' : 'action_pb2'
+  # @@protoc_insertion_point(class_scope:action.RevealedSet)
+  })
+_sym_db.RegisterMessage(RevealedSet)
+
+Result = _reflection.GeneratedProtocolMessageType('Result', (_message.Message,), {
+  'DESCRIPTOR' : _RESULT,
+  '__module__' : 'action_pb2'
+  # @@protoc_insertion_point(class_scope:action.Result)
+  })
+_sym_db.RegisterMessage(Result)
 
 ServerResponse = _reflection.GeneratedProtocolMessageType('ServerResponse', (_message.Message,), {
   'DESCRIPTOR' : _SERVERRESPONSE,

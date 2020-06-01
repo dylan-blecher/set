@@ -68,12 +68,9 @@ def runPlayer():
             delay *= 2
             
             try: 
-                print("ahh waiting")
                 serverResponseProto = server_communicator._receive_message(fromServer, ServerResponseProto)
                 print(serverResponseProto)
-                print("stuck here")
                 if serverResponseProto.HasField("playerID"):
-                    print("got player id")
                     playerID = serverResponseProto.playerID
                     fromServer.shutdown(socket.SHUT_WR) # can't write to fromServer anymore - it's one way!
 
@@ -111,8 +108,6 @@ def runPlayer():
     feedbackThread = FeedbackGetter(fromServer)
 
     actionQueueThread.start()
-    # while True:
-    #     continue
     feedbackThread.start()
 
     playerRequestsToLeave = False
@@ -160,7 +155,16 @@ class FeedbackGetter(threading.Thread):
                 if serverResponseProto.HasField("errorMessage"):
                     print(serverResponseProto.errorMessage)
                 elif serverResponseProto.HasField("state"):
-                    displayBoard() <--
+                    print(serverResponseProto)
+                    # print("got state!")
+                elif serverResponseProto.HasField("revealedSet"):
+                    print(serverResponseProto)
+                    time.sleep(2.5)
+                    print("RECEIVED REVEALED SET :)")
+                    # remember that it could be default empty set if none exist
+                elif serverResponseProto.HasField("result"):
+                    print(serverResponseProto)
+                    break
             except Exception as e:
                 print(str(e))
 

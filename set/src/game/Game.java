@@ -17,7 +17,7 @@ import static src.cardCollection.board.Dealer.setupBoard;
 import static src.cardCollection.deck.DeckBuilder.buildDeck;
 import static src.game.stateValidator.setExists;
 import static src.game.stateValidator.validateAction;
-import static src.server.Server.tellPlayer;
+import static src.server.Server.*;
 
 public class Game {
     // TODO: change this players array to be a map from ID to player structure
@@ -43,7 +43,7 @@ public class Game {
     public void run() {
         while (gameIsNotOver()) {
 //            TODO: might want to send the move instead of the board...
-            sendStateForDisplay(board.getCards(), players.getActivePlayers());
+            sendStateForDisplay(board, players);
 
             Action action = actions.getNext();
 
@@ -58,8 +58,9 @@ public class Game {
         }
 
         Result result = new Result(players.getActivePlayers(), players.getInactivePlayers());
-        result.showResult();
+        sendResultToPlayers(result, players);
     }
+
 
     private void warnInvalidity(Action action, String errorMessage) {
         if (action.getType() == SELECT_SET) {

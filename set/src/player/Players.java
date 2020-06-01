@@ -1,6 +1,10 @@
 package src.player;
 
+import src.proto.AllProtos;
+
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class Players {
@@ -34,5 +38,11 @@ public class Players {
         if (activePlayers.get(playerID)   != null) return activePlayers.get(playerID);
         if (inactivePlayers.get(playerID) != null) return inactivePlayers.get(playerID);
         return null;
+    }
+
+    public List<AllProtos.Player> getActivePlayersProto() {
+        List<AllProtos.Player> activePlayersProto = new LinkedList<>();
+        for (Player player: activePlayers.values()) activePlayersProto.add(player.proto);
+        return activePlayersProto;
     }
 }

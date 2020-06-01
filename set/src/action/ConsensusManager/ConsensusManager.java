@@ -4,6 +4,7 @@ import src.action.Action;
 import src.action.ActionType;
 import src.action.PlayerAction;
 import src.action.actionQueue.SynchronisedActionQueue;
+import src.proto.AllProtos;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -78,5 +79,18 @@ public class ConsensusManager {
 
     private static boolean isConsensus(ActionType actionType, int nActivePlayers) {
         return playersAgreeingToMove.get(actionType).size() == nActivePlayers;
+    }
+
+    private static int getNumberInAgreement(ActionType actionType) {
+        return playersAgreeingToMove.get(actionType).size();
+    }
+
+    public static AllProtos.Consensuses getConsensusesProto(int nActivePlayers) {
+        return AllProtos.Consensuses
+                .newBuilder()
+                .setNActivePlayers(nActivePlayers)
+                .setNPlayersRequestingDrawThree(getNumberInAgreement(REQUEST_DRAW_THREE))
+                .setNPlayersRequestingShowSet(getNumberInAgreement(REQUEST_SHOW_SET))
+                .build();
     }
 }

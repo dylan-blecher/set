@@ -60,7 +60,15 @@ message Player {
 message State {
   repeated Card board = 1;
   Consensuses consensuses = 2;
-  repeated Player players = 3;
+  repeated Player activePlayers = 3;
+}
+
+message RevealedSet {
+  repeated uint32 cardPositions = 1;
+}
+
+message Result {
+  repeated Player rankedPlayers = 1;
 }
 
 message ServerResponse {
@@ -68,6 +76,8 @@ message ServerResponse {
     uint32 playerID = 1;
     State state = 2;
     string errorMessage = 3;
+    RevealedSet revealedSet = 4;
+    Result result = 5;
   }
 }
 

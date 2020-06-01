@@ -1,12 +1,16 @@
 package src.server;
 
 import src.action.Action;
+import src.action.ConsensusManager.ConsensusManager;
 import src.action.PlayerAction;
 import src.action.PlayerActionSelectSet;
 import src.action.actionQueue.SynchronisedActionQueue;
+import src.cardCollection.board.Board;
 import src.game.Game;
+import src.game.Result;
 import src.networkHelpers.Interactor;
 import src.player.Player;
+import src.player.Players;
 import src.proto.AllProtos;
 
 import java.io.IOException;
@@ -14,10 +18,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Server {
     private final static int GAME_PORT = 9090;
@@ -154,6 +155,66 @@ public class Server {
         return AllProtos.ServerResponse
                 .newBuilder()
                 .setErrorMessage(errorMessage)
+                .build();
+    }
+
+    public static void sendStateForDisplay(Board board, Players players) {
+        // build state proto
+        AllProtos.ServerResponse stateProto = AllProtos.ServerResponse
+                .newBuilder()
+                .setState(buildStateProto(board, players))
+                .build();
+
+        // send state to all players
+        sendServerResponseToAllPlayers(stateProto, players);
+    }
+
+    public static void sendResultToPlayers(Result result, Players players) {
+        // build result proto
+        AllProtos.ServerResponse resultProto = AllProtos.ServerResponse
+                .newBuilder()
+                .setResult(result.getProto())
+                .build();
+
+        // send result to all players
+        sendServerResponseToAllPlayers(resultProto, players);
+    }
+
+    public static void sendRevealedSet(java.util.Set<Integer> revealedSet, Players players) {
+        // build revealed set proto
+        AllProtos.ServerResponse revealedSetProto = AllProtos.ServerResponse
+                .newBuilder()
+                .setRevealedSet(getRevealedSetProto(revealedSet))
+                .build();
+
+        // send revealed set to all players
+        sendServerResponseToAllPlayers(revealedSetProto, players);
+        System.out.println("sent revealedSet!");
+    }
+
+    private static AllProtos.RevealedSet getRevealedSetProto(Set<Integer> revealedSet) {
+        if (revealedSet == null) return AllProtos.RevealedSet.newBuilder().build();
+        else return AllProtos.RevealedSet.newBuilder().addAllCardPositions(revealedSet).build();
+    }
+
+    private static void sendServerResponseToAllPlayers(AllProtos.ServerResponse stateProto, Players players) {
+        for (int playerID: players.getActivePlayers().keySet()) {
+            OutputStream streamToClient = playerClientSockets.get(playerID).getStreamToClient();
+            try {
+                writeServerResponse(stateProto, streamToClient);
+            } catch (IOException e) {
+//                TODO: handle this!
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static AllProtos.State buildStateProto(Board board, Players players) {
+        return AllProtos.State
+                .newBuilder()
+                .addAllBoard(board.getCardsProto())
+                .setConsensuses(ConsensusManager.getConsensusesProto(players.getNActivePlayers()))
+                .addAllActivePlayers(players.getActivePlayersProto())
                 .build();
     }
 }

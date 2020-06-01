@@ -4,36 +4,18 @@ import src.card.Card;
 import src.proto.AllProtos;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public abstract class CardCollection {
-    public final AllProtos.CardCollection proto;
     // stores the empty spots in the cards array in ascending order,
     // so that we can insert a card into the earliest empty spot.
+    private final Card[] cards;
 //    TODO: check this is ascending, not descending!
     private PriorityQueue<Integer> emptyIndices;
 
-    public CardCollection(AllProtos.CardCollection cardCollectionProto) {
-        proto = cardCollectionProto;
-    }
-
     // construct with a complete list
     public CardCollection(Card[] cards) {
-        this(AllProtos.CardCollection
-                .newBuilder()
-                .addAllCards(getCardsProto(cards))
-                .build()
-        );
-
+        this.cards = cards;
         initialiseEmptySlots();
-    }
-
-    private static List<AllProtos.Card> getCardsProto(Card[] cards) {
-        // ugly alternative in one line:
-        // return Arrays.stream(cards).map(Card::getProto).collect(Collectors.toList());
-        List<AllProtos.Card> cardsProto = new LinkedList<>();
-        for (Card card: cards) cardsProto.add(card.proto);
-        return cardsProto;
     }
 
     // construct with a number of cards which will then be added using addCard()
@@ -93,6 +75,33 @@ public abstract class CardCollection {
 
     public Card[] getCards() {
         return cards.clone();
+    }
+
+    public List<AllProtos.Card> getCardsProto() {
+        // ugly alternative in one line:
+        // return Arrays.stream(cards).map(Card::getProto).collect(Collectors.toList());
+        List<AllProtos.Card> cardsProto = new LinkedList<>();
+        for (Card card: cards) {
+            if (card == null) {
+                // can't add null to a repeated proto item so just create an empty card (i.e. don't set colour, fill...)
+                // By not setting these, the default value will be the first value in the enum: UNKNOWN_...
+                cardsProto.add(buildEmptyCard());
+            } else {
+                cardsProto.add(card.proto);
+            }
+        }
+        return cardsProto;
+    }
+
+    private AllProtos.Card buildEmptyCard() {
+        return AllProtos.Card.newBuilder().build();
+    }
+
+    public AllProtos.CardCollection getProto() {
+        return AllProtos.CardCollection
+                .newBuilder()
+                .addAllCards(getCardsProto())
+                .build();
     }
 
     public Card getCard(int position) {

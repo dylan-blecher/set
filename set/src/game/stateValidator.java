@@ -5,7 +5,9 @@ import src.action.PlayerActionSelectSet;
 import src.card.Card;
 import src.cardCollection.board.Board;
 import src.cardCollection.deck.Deck;
-import src.cardCollection.set.Set;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static src.cardCollection.board.Board.MAX_BOARD_SIZE;
 import static src.cardCollection.set.Set.SET_SIZE;
@@ -22,22 +24,32 @@ public class stateValidator {
 
     // TODO: not sure if this belongs in the referee.. will be reused by action...
     public static boolean setExists(Board board) {
-        return getSet(board) != null;
+        return findSet(board) != null;
     }
 
+    // returns a map (position --> card) containing 3 items
     // TODO: not sure if this belongs in the referee.. will be reused by AI...
-    public static Set getSet(Board board) {
+    public static Map<Integer, Card> findSet(Board board) {
         // TODO: brute force, optimise later! Might choose one set over another based on how many more it leaves on the board... or that's up to AI
         //       there's got to be a smart way by considering which 3 cards are new... DOn't need to compare them with all surely?
 //        TODO: check if this gives me null cards as well!
-        for (Card card1: board.getCards()) {
-            for (Card card2 : board.getCards()) {
-                // don't compare a card with itself (i.e. skip if card has matching ID)
-                if (card1 == card2) continue;
-                for (Card card3 : board.getCards()) {
-                    if (card3 == card2 || card3 == card1) continue;
-                    Card[] potentialSet = {card1, card2, card3};
-                    if (isSet(potentialSet)) return new Set(potentialSet);
+        for (int i = 0; i < MAX_BOARD_SIZE; i++) {
+            for (int j = i + 1; j < MAX_BOARD_SIZE; j++) {
+                for (int k = j + 1; k < MAX_BOARD_SIZE; k++) {
+                    Card cardI = board.getCard(i);
+                    Card cardJ = board.getCard(j);
+                    Card cardK = board.getCard(k);
+
+                    Card[] potentialSet = {cardI, cardJ, cardK};
+
+                    if (isSet(potentialSet)) {
+                        Map<Integer, Card> set = new HashMap<>();
+                        set.put(i, cardI);
+                        set.put(j, cardJ);
+                        set.put(k, cardK);
+
+                        return set;
+                    }
                 }
             }
         }
