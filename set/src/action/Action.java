@@ -12,8 +12,8 @@ public class Action {
                 .build());
     }
 
-    public Action(AllProtos.Action action) {
-        proto = action;
+    public Action(AllProtos.Action actionProto) {
+        proto = actionProto;
     }
 
     public ActionType getType() { return ActionType.fromProto(proto.getType()); }

@@ -159,6 +159,8 @@ class FeedbackGetter(threading.Thread):
         
                 if serverResponseProto.HasField("errorMessage"):
                     print(serverResponseProto.errorMessage)
+                elif serverResponseProto.HasField("state"):
+                    displayBoard() <--
             except Exception as e:
                 print(str(e))
 

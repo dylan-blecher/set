@@ -24,8 +24,8 @@ public enum ActionType {
         this(actionType, ActionTypePriority.LOW_PRIORITY);
     }
 
-    ActionType(AllProtos.ActionType actionType, ActionTypePriority priority) {
-        this.proto = actionType;
+    ActionType(AllProtos.ActionType actionTypeProto, ActionTypePriority priority) {
+        this.proto = actionTypeProto;
         this.priority = priority;
     }
 

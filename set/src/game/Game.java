@@ -42,8 +42,8 @@ public class Game {
 
     public void run() {
         while (gameIsNotOver()) {
-//            TODO: might not want to display board every time - only if the board changed since previous move...
-            this.board.display();
+//            TODO: might want to send the move instead of the board...
+            sendStateForDisplay(board.getCards(), players.getActivePlayers());
 
             Action action = actions.getNext();
 

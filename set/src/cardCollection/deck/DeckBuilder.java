@@ -19,13 +19,11 @@ public class DeckBuilder {
     public static Deck buildDeck() {
         Deck deck = new Deck(INITIAL_DECK_SIZE);
 
-        // TODO: cardID might be unnecessary...
-        int cardID = 0;
         for (Colour colour: Colour.values())
             for (Shape shape: Shape.values())
                 for (Fill fill: Fill.values())
                     for (Number number: Number.values())
-                        deck.addCard(new Card(cardID++, colour, shape, fill, number));
+                        deck.addCard(new Card(colour, shape, fill, number));
 
         return deck;
     }

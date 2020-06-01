@@ -1,23 +1,39 @@
 package src.cardCollection;
 
 import src.card.Card;
+import src.proto.AllProtos;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class CardCollection {
-    private final Card[] cards;
+    public final AllProtos.CardCollection proto;
     // stores the empty spots in the cards array in ascending order,
     // so that we can insert a card into the earliest empty spot.
 //    TODO: check this is ascending, not descending!
     private PriorityQueue<Integer> emptyIndices;
 
+    public CardCollection(AllProtos.CardCollection cardCollectionProto) {
+        proto = cardCollectionProto;
+    }
+
     // construct with a complete list
     public CardCollection(Card[] cards) {
-        this.cards = cards;
+        this(AllProtos.CardCollection
+                .newBuilder()
+                .addAllCards(getCardsProto(cards))
+                .build()
+        );
+
         initialiseEmptySlots();
+    }
+
+    private static List<AllProtos.Card> getCardsProto(Card[] cards) {
+        // ugly alternative in one line:
+        // return Arrays.stream(cards).map(Card::getProto).collect(Collectors.toList());
+        List<AllProtos.Card> cardsProto = new LinkedList<>();
+        for (Card card: cards) cardsProto.add(card.proto);
+        return cardsProto;
     }
 
     // construct with a number of cards which will then be added using addCard()

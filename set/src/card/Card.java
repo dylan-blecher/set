@@ -1,46 +1,44 @@
 package src.card;
 
 import src.card.attributes.Colour;
-import src.card.attributes.Shape;
 import src.card.attributes.Fill;
 import src.card.attributes.Number;
+import src.card.attributes.Shape;
+import src.proto.AllProtos;
 
 public class Card {
-    private static final String[] attributes = {"COLOUR", "FILL", "NUMBER", "SHAPE"};
+    public final AllProtos.Card proto;
 
-    private final int cardID;
-    private final Colour colour;
-    private final Shape shape;
-    private final Fill fill;
-    private final Number number;
-
-    public Card(int cardID, Colour colour, Shape shape, Fill fill, Number number) {
-        // TODO: add error checking for input?
-        this.cardID = cardID;
-        this.colour = colour;
-        this.shape = shape;
-        this.fill = fill;
-        this.number = number;
+    public Card(AllProtos.Card cardProto) {
+        proto = cardProto;
     }
 
-    public int getCardID() {
-        return cardID;
+    public Card(Colour colour, Shape shape, Fill fill, Number number) {
+        this(AllProtos.Card
+                .newBuilder()
+                .setColour(colour.proto)
+                .setShape(shape.proto)
+                .setFill(fill.proto)
+                .setNumber(number.proto)
+                .build()
+        );
     }
+
 
     public Colour getColour() {
-        return colour;
+        return Colour.fromProto(proto.getColour());
     }
     public Shape getShape() {
-        return shape;
+        return Shape.fromProto(proto.getShape());
     }
     public Fill getFill() {
-        return fill;
+        return Fill.fromProto(proto.getFill());
     }
     public Number getNumber() {
-        return number;
+        return Number.fromProto(proto.getNumber());
     }
 
-    public static String[] getAttributes() {
-        return attributes;
-    }
+//    public AllProtos.Card getProto() {
+//        return proto;
+//    }
 }

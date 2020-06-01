@@ -5,7 +5,7 @@ package action;
 option java_package = "src.proto";
 option java_outer_classname = "AllProtos";
 
-// TODO:  Separate into files
+// TODO:  Separate into files. Simplify/remove messages that only have one item in them.
 // Client messages
 message Action {
   ActionType type              = 1;
@@ -41,25 +41,32 @@ message Card {
   CardFill fill = 4;
 }
 
-message Board {
+message Consensuses {
+  uint32 nActivePlayers = 1;
+  uint32 nPlayersRequestingDrawThree = 2;
+  uint32 nPlayersRequestingShowSet = 3;
+}
+
+message CardCollection {
   repeated Card cards = 1;
 }
 
-message Consensus {
-  uint32 nActivePlayers = 1;
-  uint32 nInAgreement = 2;
+message Player {
+  uint32 ID = 1;
+  string name = 2;
+  repeated CardCollection setsCollected = 3;
 }
 
 message State {
-  Board board = 1;
-  Consensus drawThree = 2;
-  Consensus showSet = 3;
+  repeated Card board = 1;
+  Consensuses consensuses = 2;
+  repeated Player players = 3;
 }
 
 message ServerResponse {
   oneof response {
     uint32 playerID = 1;
-    Board board = 2;
+    State state = 2;
     string errorMessage = 3;
   }
 }

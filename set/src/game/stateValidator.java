@@ -29,6 +29,7 @@ public class stateValidator {
     public static Set getSet(Board board) {
         // TODO: brute force, optimise later! Might choose one set over another based on how many more it leaves on the board... or that's up to AI
         //       there's got to be a smart way by considering which 3 cards are new... DOn't need to compare them with all surely?
+//        TODO: check if this gives me null cards as well!
         for (Card card1: board.getCards()) {
             for (Card card2 : board.getCards()) {
                 // don't compare a card with itself (i.e. skip if card has matching ID)

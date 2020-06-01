@@ -735,7 +735,7 @@ public final class AllProtos {
   }
   /**
    * <pre>
-   * TODO:  Separate into files
+   * TODO:  Separate into files. Simplify/remove messages that only have one item in them.
    * Client messages
    * </pre>
    *
@@ -1106,7 +1106,7 @@ public final class AllProtos {
     }
     /**
      * <pre>
-     * TODO:  Separate into files
+     * TODO:  Separate into files. Simplify/remove messages that only have one item in them.
      * Client messages
      * </pre>
      *
@@ -5071,8 +5071,636 @@ public final class AllProtos {
 
   }
 
-  public interface BoardOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:action.Board)
+  public interface ConsensusesOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:action.Consensuses)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>uint32 nActivePlayers = 1;</code>
+     * @return The nActivePlayers.
+     */
+    int getNActivePlayers();
+
+    /**
+     * <code>uint32 nPlayersRequestingDrawThree = 2;</code>
+     * @return The nPlayersRequestingDrawThree.
+     */
+    int getNPlayersRequestingDrawThree();
+
+    /**
+     * <code>uint32 nPlayersRequestingShowSet = 3;</code>
+     * @return The nPlayersRequestingShowSet.
+     */
+    int getNPlayersRequestingShowSet();
+  }
+  /**
+   * Protobuf type {@code action.Consensuses}
+   */
+  public static final class Consensuses extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:action.Consensuses)
+      ConsensusesOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Consensuses.newBuilder() to construct.
+    private Consensuses(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Consensuses() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Consensuses();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Consensuses(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              nActivePlayers_ = input.readUInt32();
+              break;
+            }
+            case 16: {
+
+              nPlayersRequestingDrawThree_ = input.readUInt32();
+              break;
+            }
+            case 24: {
+
+              nPlayersRequestingShowSet_ = input.readUInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return src.proto.AllProtos.internal_static_action_Consensuses_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return src.proto.AllProtos.internal_static_action_Consensuses_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              src.proto.AllProtos.Consensuses.class, src.proto.AllProtos.Consensuses.Builder.class);
+    }
+
+    public static final int NACTIVEPLAYERS_FIELD_NUMBER = 1;
+    private int nActivePlayers_;
+    /**
+     * <code>uint32 nActivePlayers = 1;</code>
+     * @return The nActivePlayers.
+     */
+    @java.lang.Override
+    public int getNActivePlayers() {
+      return nActivePlayers_;
+    }
+
+    public static final int NPLAYERSREQUESTINGDRAWTHREE_FIELD_NUMBER = 2;
+    private int nPlayersRequestingDrawThree_;
+    /**
+     * <code>uint32 nPlayersRequestingDrawThree = 2;</code>
+     * @return The nPlayersRequestingDrawThree.
+     */
+    @java.lang.Override
+    public int getNPlayersRequestingDrawThree() {
+      return nPlayersRequestingDrawThree_;
+    }
+
+    public static final int NPLAYERSREQUESTINGSHOWSET_FIELD_NUMBER = 3;
+    private int nPlayersRequestingShowSet_;
+    /**
+     * <code>uint32 nPlayersRequestingShowSet = 3;</code>
+     * @return The nPlayersRequestingShowSet.
+     */
+    @java.lang.Override
+    public int getNPlayersRequestingShowSet() {
+      return nPlayersRequestingShowSet_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (nActivePlayers_ != 0) {
+        output.writeUInt32(1, nActivePlayers_);
+      }
+      if (nPlayersRequestingDrawThree_ != 0) {
+        output.writeUInt32(2, nPlayersRequestingDrawThree_);
+      }
+      if (nPlayersRequestingShowSet_ != 0) {
+        output.writeUInt32(3, nPlayersRequestingShowSet_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (nActivePlayers_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(1, nActivePlayers_);
+      }
+      if (nPlayersRequestingDrawThree_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(2, nPlayersRequestingDrawThree_);
+      }
+      if (nPlayersRequestingShowSet_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(3, nPlayersRequestingShowSet_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof src.proto.AllProtos.Consensuses)) {
+        return super.equals(obj);
+      }
+      src.proto.AllProtos.Consensuses other = (src.proto.AllProtos.Consensuses) obj;
+
+      if (getNActivePlayers()
+          != other.getNActivePlayers()) return false;
+      if (getNPlayersRequestingDrawThree()
+          != other.getNPlayersRequestingDrawThree()) return false;
+      if (getNPlayersRequestingShowSet()
+          != other.getNPlayersRequestingShowSet()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NACTIVEPLAYERS_FIELD_NUMBER;
+      hash = (53 * hash) + getNActivePlayers();
+      hash = (37 * hash) + NPLAYERSREQUESTINGDRAWTHREE_FIELD_NUMBER;
+      hash = (53 * hash) + getNPlayersRequestingDrawThree();
+      hash = (37 * hash) + NPLAYERSREQUESTINGSHOWSET_FIELD_NUMBER;
+      hash = (53 * hash) + getNPlayersRequestingShowSet();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static src.proto.AllProtos.Consensuses parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static src.proto.AllProtos.Consensuses parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static src.proto.AllProtos.Consensuses parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static src.proto.AllProtos.Consensuses parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static src.proto.AllProtos.Consensuses parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static src.proto.AllProtos.Consensuses parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static src.proto.AllProtos.Consensuses parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static src.proto.AllProtos.Consensuses parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static src.proto.AllProtos.Consensuses parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static src.proto.AllProtos.Consensuses parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static src.proto.AllProtos.Consensuses parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static src.proto.AllProtos.Consensuses parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(src.proto.AllProtos.Consensuses prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code action.Consensuses}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:action.Consensuses)
+        src.proto.AllProtos.ConsensusesOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return src.proto.AllProtos.internal_static_action_Consensuses_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return src.proto.AllProtos.internal_static_action_Consensuses_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                src.proto.AllProtos.Consensuses.class, src.proto.AllProtos.Consensuses.Builder.class);
+      }
+
+      // Construct using src.proto.AllProtos.Consensuses.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        nActivePlayers_ = 0;
+
+        nPlayersRequestingDrawThree_ = 0;
+
+        nPlayersRequestingShowSet_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return src.proto.AllProtos.internal_static_action_Consensuses_descriptor;
+      }
+
+      @java.lang.Override
+      public src.proto.AllProtos.Consensuses getDefaultInstanceForType() {
+        return src.proto.AllProtos.Consensuses.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public src.proto.AllProtos.Consensuses build() {
+        src.proto.AllProtos.Consensuses result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public src.proto.AllProtos.Consensuses buildPartial() {
+        src.proto.AllProtos.Consensuses result = new src.proto.AllProtos.Consensuses(this);
+        result.nActivePlayers_ = nActivePlayers_;
+        result.nPlayersRequestingDrawThree_ = nPlayersRequestingDrawThree_;
+        result.nPlayersRequestingShowSet_ = nPlayersRequestingShowSet_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof src.proto.AllProtos.Consensuses) {
+          return mergeFrom((src.proto.AllProtos.Consensuses)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(src.proto.AllProtos.Consensuses other) {
+        if (other == src.proto.AllProtos.Consensuses.getDefaultInstance()) return this;
+        if (other.getNActivePlayers() != 0) {
+          setNActivePlayers(other.getNActivePlayers());
+        }
+        if (other.getNPlayersRequestingDrawThree() != 0) {
+          setNPlayersRequestingDrawThree(other.getNPlayersRequestingDrawThree());
+        }
+        if (other.getNPlayersRequestingShowSet() != 0) {
+          setNPlayersRequestingShowSet(other.getNPlayersRequestingShowSet());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        src.proto.AllProtos.Consensuses parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (src.proto.AllProtos.Consensuses) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int nActivePlayers_ ;
+      /**
+       * <code>uint32 nActivePlayers = 1;</code>
+       * @return The nActivePlayers.
+       */
+      @java.lang.Override
+      public int getNActivePlayers() {
+        return nActivePlayers_;
+      }
+      /**
+       * <code>uint32 nActivePlayers = 1;</code>
+       * @param value The nActivePlayers to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNActivePlayers(int value) {
+        
+        nActivePlayers_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 nActivePlayers = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNActivePlayers() {
+        
+        nActivePlayers_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int nPlayersRequestingDrawThree_ ;
+      /**
+       * <code>uint32 nPlayersRequestingDrawThree = 2;</code>
+       * @return The nPlayersRequestingDrawThree.
+       */
+      @java.lang.Override
+      public int getNPlayersRequestingDrawThree() {
+        return nPlayersRequestingDrawThree_;
+      }
+      /**
+       * <code>uint32 nPlayersRequestingDrawThree = 2;</code>
+       * @param value The nPlayersRequestingDrawThree to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNPlayersRequestingDrawThree(int value) {
+        
+        nPlayersRequestingDrawThree_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 nPlayersRequestingDrawThree = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNPlayersRequestingDrawThree() {
+        
+        nPlayersRequestingDrawThree_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int nPlayersRequestingShowSet_ ;
+      /**
+       * <code>uint32 nPlayersRequestingShowSet = 3;</code>
+       * @return The nPlayersRequestingShowSet.
+       */
+      @java.lang.Override
+      public int getNPlayersRequestingShowSet() {
+        return nPlayersRequestingShowSet_;
+      }
+      /**
+       * <code>uint32 nPlayersRequestingShowSet = 3;</code>
+       * @param value The nPlayersRequestingShowSet to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNPlayersRequestingShowSet(int value) {
+        
+        nPlayersRequestingShowSet_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 nPlayersRequestingShowSet = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNPlayersRequestingShowSet() {
+        
+        nPlayersRequestingShowSet_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:action.Consensuses)
+    }
+
+    // @@protoc_insertion_point(class_scope:action.Consensuses)
+    private static final src.proto.AllProtos.Consensuses DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new src.proto.AllProtos.Consensuses();
+    }
+
+    public static src.proto.AllProtos.Consensuses getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Consensuses>
+        PARSER = new com.google.protobuf.AbstractParser<Consensuses>() {
+      @java.lang.Override
+      public Consensuses parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Consensuses(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Consensuses> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Consensuses> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public src.proto.AllProtos.Consensuses getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface CardCollectionOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:action.CardCollection)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -5100,18 +5728,18 @@ public final class AllProtos {
         int index);
   }
   /**
-   * Protobuf type {@code action.Board}
+   * Protobuf type {@code action.CardCollection}
    */
-  public static final class Board extends
+  public static final class CardCollection extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:action.Board)
-      BoardOrBuilder {
+      // @@protoc_insertion_point(message_implements:action.CardCollection)
+      CardCollectionOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use Board.newBuilder() to construct.
-    private Board(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use CardCollection.newBuilder() to construct.
+    private CardCollection(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private Board() {
+    private CardCollection() {
       cards_ = java.util.Collections.emptyList();
     }
 
@@ -5119,7 +5747,7 @@ public final class AllProtos {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new Board();
+      return new CardCollection();
     }
 
     @java.lang.Override
@@ -5127,7 +5755,7 @@ public final class AllProtos {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private Board(
+    private CardCollection(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -5179,15 +5807,15 @@ public final class AllProtos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return src.proto.AllProtos.internal_static_action_Board_descriptor;
+      return src.proto.AllProtos.internal_static_action_CardCollection_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return src.proto.AllProtos.internal_static_action_Board_fieldAccessorTable
+      return src.proto.AllProtos.internal_static_action_CardCollection_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              src.proto.AllProtos.Board.class, src.proto.AllProtos.Board.Builder.class);
+              src.proto.AllProtos.CardCollection.class, src.proto.AllProtos.CardCollection.Builder.class);
     }
 
     public static final int CARDS_FIELD_NUMBER = 1;
@@ -5270,10 +5898,10 @@ public final class AllProtos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof src.proto.AllProtos.Board)) {
+      if (!(obj instanceof src.proto.AllProtos.CardCollection)) {
         return super.equals(obj);
       }
-      src.proto.AllProtos.Board other = (src.proto.AllProtos.Board) obj;
+      src.proto.AllProtos.CardCollection other = (src.proto.AllProtos.CardCollection) obj;
 
       if (!getCardsList()
           .equals(other.getCardsList())) return false;
@@ -5297,69 +5925,69 @@ public final class AllProtos {
       return hash;
     }
 
-    public static src.proto.AllProtos.Board parseFrom(
+    public static src.proto.AllProtos.CardCollection parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static src.proto.AllProtos.Board parseFrom(
+    public static src.proto.AllProtos.CardCollection parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static src.proto.AllProtos.Board parseFrom(
+    public static src.proto.AllProtos.CardCollection parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static src.proto.AllProtos.Board parseFrom(
+    public static src.proto.AllProtos.CardCollection parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static src.proto.AllProtos.Board parseFrom(byte[] data)
+    public static src.proto.AllProtos.CardCollection parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static src.proto.AllProtos.Board parseFrom(
+    public static src.proto.AllProtos.CardCollection parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static src.proto.AllProtos.Board parseFrom(java.io.InputStream input)
+    public static src.proto.AllProtos.CardCollection parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static src.proto.AllProtos.Board parseFrom(
+    public static src.proto.AllProtos.CardCollection parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static src.proto.AllProtos.Board parseDelimitedFrom(java.io.InputStream input)
+    public static src.proto.AllProtos.CardCollection parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static src.proto.AllProtos.Board parseDelimitedFrom(
+    public static src.proto.AllProtos.CardCollection parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static src.proto.AllProtos.Board parseFrom(
+    public static src.proto.AllProtos.CardCollection parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static src.proto.AllProtos.Board parseFrom(
+    public static src.proto.AllProtos.CardCollection parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -5372,7 +6000,7 @@ public final class AllProtos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(src.proto.AllProtos.Board prototype) {
+    public static Builder newBuilder(src.proto.AllProtos.CardCollection prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -5388,26 +6016,26 @@ public final class AllProtos {
       return builder;
     }
     /**
-     * Protobuf type {@code action.Board}
+     * Protobuf type {@code action.CardCollection}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:action.Board)
-        src.proto.AllProtos.BoardOrBuilder {
+        // @@protoc_insertion_point(builder_implements:action.CardCollection)
+        src.proto.AllProtos.CardCollectionOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return src.proto.AllProtos.internal_static_action_Board_descriptor;
+        return src.proto.AllProtos.internal_static_action_CardCollection_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return src.proto.AllProtos.internal_static_action_Board_fieldAccessorTable
+        return src.proto.AllProtos.internal_static_action_CardCollection_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                src.proto.AllProtos.Board.class, src.proto.AllProtos.Board.Builder.class);
+                src.proto.AllProtos.CardCollection.class, src.proto.AllProtos.CardCollection.Builder.class);
       }
 
-      // Construct using src.proto.AllProtos.Board.newBuilder()
+      // Construct using src.proto.AllProtos.CardCollection.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -5438,17 +6066,17 @@ public final class AllProtos {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return src.proto.AllProtos.internal_static_action_Board_descriptor;
+        return src.proto.AllProtos.internal_static_action_CardCollection_descriptor;
       }
 
       @java.lang.Override
-      public src.proto.AllProtos.Board getDefaultInstanceForType() {
-        return src.proto.AllProtos.Board.getDefaultInstance();
+      public src.proto.AllProtos.CardCollection getDefaultInstanceForType() {
+        return src.proto.AllProtos.CardCollection.getDefaultInstance();
       }
 
       @java.lang.Override
-      public src.proto.AllProtos.Board build() {
-        src.proto.AllProtos.Board result = buildPartial();
+      public src.proto.AllProtos.CardCollection build() {
+        src.proto.AllProtos.CardCollection result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -5456,8 +6084,8 @@ public final class AllProtos {
       }
 
       @java.lang.Override
-      public src.proto.AllProtos.Board buildPartial() {
-        src.proto.AllProtos.Board result = new src.proto.AllProtos.Board(this);
+      public src.proto.AllProtos.CardCollection buildPartial() {
+        src.proto.AllProtos.CardCollection result = new src.proto.AllProtos.CardCollection(this);
         int from_bitField0_ = bitField0_;
         if (cardsBuilder_ == null) {
           if (((bitField0_ & 0x00000001) != 0)) {
@@ -5506,16 +6134,16 @@ public final class AllProtos {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof src.proto.AllProtos.Board) {
-          return mergeFrom((src.proto.AllProtos.Board)other);
+        if (other instanceof src.proto.AllProtos.CardCollection) {
+          return mergeFrom((src.proto.AllProtos.CardCollection)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(src.proto.AllProtos.Board other) {
-        if (other == src.proto.AllProtos.Board.getDefaultInstance()) return this;
+      public Builder mergeFrom(src.proto.AllProtos.CardCollection other) {
+        if (other == src.proto.AllProtos.CardCollection.getDefaultInstance()) return this;
         if (cardsBuilder_ == null) {
           if (!other.cards_.isEmpty()) {
             if (cards_.isEmpty()) {
@@ -5557,11 +6185,11 @@ public final class AllProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        src.proto.AllProtos.Board parsedMessage = null;
+        src.proto.AllProtos.CardCollection parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (src.proto.AllProtos.Board) e.getUnfinishedMessage();
+          parsedMessage = (src.proto.AllProtos.CardCollection) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -5824,82 +6452,114 @@ public final class AllProtos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:action.Board)
+      // @@protoc_insertion_point(builder_scope:action.CardCollection)
     }
 
-    // @@protoc_insertion_point(class_scope:action.Board)
-    private static final src.proto.AllProtos.Board DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:action.CardCollection)
+    private static final src.proto.AllProtos.CardCollection DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new src.proto.AllProtos.Board();
+      DEFAULT_INSTANCE = new src.proto.AllProtos.CardCollection();
     }
 
-    public static src.proto.AllProtos.Board getDefaultInstance() {
+    public static src.proto.AllProtos.CardCollection getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<Board>
-        PARSER = new com.google.protobuf.AbstractParser<Board>() {
+    private static final com.google.protobuf.Parser<CardCollection>
+        PARSER = new com.google.protobuf.AbstractParser<CardCollection>() {
       @java.lang.Override
-      public Board parsePartialFrom(
+      public CardCollection parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Board(input, extensionRegistry);
+        return new CardCollection(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<Board> parser() {
+    public static com.google.protobuf.Parser<CardCollection> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Board> getParserForType() {
+    public com.google.protobuf.Parser<CardCollection> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public src.proto.AllProtos.Board getDefaultInstanceForType() {
+    public src.proto.AllProtos.CardCollection getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface ConsensusOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:action.Consensus)
+  public interface PlayerOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:action.Player)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint32 nActivePlayers = 1;</code>
-     * @return The nActivePlayers.
+     * <code>uint32 ID = 1;</code>
+     * @return The iD.
      */
-    int getNActivePlayers();
+    int getID();
 
     /**
-     * <code>uint32 nInAgreement = 2;</code>
-     * @return The nInAgreement.
+     * <code>string name = 2;</code>
+     * @return The name.
      */
-    int getNInAgreement();
+    java.lang.String getName();
+    /**
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>repeated .action.CardCollection setsCollected = 3;</code>
+     */
+    java.util.List<src.proto.AllProtos.CardCollection> 
+        getSetsCollectedList();
+    /**
+     * <code>repeated .action.CardCollection setsCollected = 3;</code>
+     */
+    src.proto.AllProtos.CardCollection getSetsCollected(int index);
+    /**
+     * <code>repeated .action.CardCollection setsCollected = 3;</code>
+     */
+    int getSetsCollectedCount();
+    /**
+     * <code>repeated .action.CardCollection setsCollected = 3;</code>
+     */
+    java.util.List<? extends src.proto.AllProtos.CardCollectionOrBuilder> 
+        getSetsCollectedOrBuilderList();
+    /**
+     * <code>repeated .action.CardCollection setsCollected = 3;</code>
+     */
+    src.proto.AllProtos.CardCollectionOrBuilder getSetsCollectedOrBuilder(
+        int index);
   }
   /**
-   * Protobuf type {@code action.Consensus}
+   * Protobuf type {@code action.Player}
    */
-  public static final class Consensus extends
+  public static final class Player extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:action.Consensus)
-      ConsensusOrBuilder {
+      // @@protoc_insertion_point(message_implements:action.Player)
+      PlayerOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use Consensus.newBuilder() to construct.
-    private Consensus(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use Player.newBuilder() to construct.
+    private Player(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private Consensus() {
+    private Player() {
+      name_ = "";
+      setsCollected_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new Consensus();
+      return new Player();
     }
 
     @java.lang.Override
@@ -5907,7 +6567,7 @@ public final class AllProtos {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private Consensus(
+    private Player(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -5915,6 +6575,7 @@ public final class AllProtos {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -5927,12 +6588,22 @@ public final class AllProtos {
               break;
             case 8: {
 
-              nActivePlayers_ = input.readUInt32();
+              iD_ = input.readUInt32();
               break;
             }
-            case 16: {
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              nInAgreement_ = input.readUInt32();
+              name_ = s;
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                setsCollected_ = new java.util.ArrayList<src.proto.AllProtos.CardCollection>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              setsCollected_.add(
+                  input.readMessage(src.proto.AllProtos.CardCollection.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -5950,43 +6621,113 @@ public final class AllProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          setsCollected_ = java.util.Collections.unmodifiableList(setsCollected_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return src.proto.AllProtos.internal_static_action_Consensus_descriptor;
+      return src.proto.AllProtos.internal_static_action_Player_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return src.proto.AllProtos.internal_static_action_Consensus_fieldAccessorTable
+      return src.proto.AllProtos.internal_static_action_Player_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              src.proto.AllProtos.Consensus.class, src.proto.AllProtos.Consensus.Builder.class);
+              src.proto.AllProtos.Player.class, src.proto.AllProtos.Player.Builder.class);
     }
 
-    public static final int NACTIVEPLAYERS_FIELD_NUMBER = 1;
-    private int nActivePlayers_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int iD_;
     /**
-     * <code>uint32 nActivePlayers = 1;</code>
-     * @return The nActivePlayers.
+     * <code>uint32 ID = 1;</code>
+     * @return The iD.
      */
     @java.lang.Override
-    public int getNActivePlayers() {
-      return nActivePlayers_;
+    public int getID() {
+      return iD_;
     }
 
-    public static final int NINAGREEMENT_FIELD_NUMBER = 2;
-    private int nInAgreement_;
+    public static final int NAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object name_;
     /**
-     * <code>uint32 nInAgreement = 2;</code>
-     * @return The nInAgreement.
+     * <code>string name = 2;</code>
+     * @return The name.
      */
     @java.lang.Override
-    public int getNInAgreement() {
-      return nInAgreement_;
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SETSCOLLECTED_FIELD_NUMBER = 3;
+    private java.util.List<src.proto.AllProtos.CardCollection> setsCollected_;
+    /**
+     * <code>repeated .action.CardCollection setsCollected = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<src.proto.AllProtos.CardCollection> getSetsCollectedList() {
+      return setsCollected_;
+    }
+    /**
+     * <code>repeated .action.CardCollection setsCollected = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends src.proto.AllProtos.CardCollectionOrBuilder> 
+        getSetsCollectedOrBuilderList() {
+      return setsCollected_;
+    }
+    /**
+     * <code>repeated .action.CardCollection setsCollected = 3;</code>
+     */
+    @java.lang.Override
+    public int getSetsCollectedCount() {
+      return setsCollected_.size();
+    }
+    /**
+     * <code>repeated .action.CardCollection setsCollected = 3;</code>
+     */
+    @java.lang.Override
+    public src.proto.AllProtos.CardCollection getSetsCollected(int index) {
+      return setsCollected_.get(index);
+    }
+    /**
+     * <code>repeated .action.CardCollection setsCollected = 3;</code>
+     */
+    @java.lang.Override
+    public src.proto.AllProtos.CardCollectionOrBuilder getSetsCollectedOrBuilder(
+        int index) {
+      return setsCollected_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -6003,11 +6744,14 @@ public final class AllProtos {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (nActivePlayers_ != 0) {
-        output.writeUInt32(1, nActivePlayers_);
+      if (iD_ != 0) {
+        output.writeUInt32(1, iD_);
       }
-      if (nInAgreement_ != 0) {
-        output.writeUInt32(2, nInAgreement_);
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
+      }
+      for (int i = 0; i < setsCollected_.size(); i++) {
+        output.writeMessage(3, setsCollected_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -6018,13 +6762,16 @@ public final class AllProtos {
       if (size != -1) return size;
 
       size = 0;
-      if (nActivePlayers_ != 0) {
+      if (iD_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, nActivePlayers_);
+          .computeUInt32Size(1, iD_);
       }
-      if (nInAgreement_ != 0) {
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
+      }
+      for (int i = 0; i < setsCollected_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(2, nInAgreement_);
+          .computeMessageSize(3, setsCollected_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6036,15 +6783,17 @@ public final class AllProtos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof src.proto.AllProtos.Consensus)) {
+      if (!(obj instanceof src.proto.AllProtos.Player)) {
         return super.equals(obj);
       }
-      src.proto.AllProtos.Consensus other = (src.proto.AllProtos.Consensus) obj;
+      src.proto.AllProtos.Player other = (src.proto.AllProtos.Player) obj;
 
-      if (getNActivePlayers()
-          != other.getNActivePlayers()) return false;
-      if (getNInAgreement()
-          != other.getNInAgreement()) return false;
+      if (getID()
+          != other.getID()) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getSetsCollectedList()
+          .equals(other.getSetsCollectedList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -6056,78 +6805,82 @@ public final class AllProtos {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + NACTIVEPLAYERS_FIELD_NUMBER;
-      hash = (53 * hash) + getNActivePlayers();
-      hash = (37 * hash) + NINAGREEMENT_FIELD_NUMBER;
-      hash = (53 * hash) + getNInAgreement();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getID();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      if (getSetsCollectedCount() > 0) {
+        hash = (37 * hash) + SETSCOLLECTED_FIELD_NUMBER;
+        hash = (53 * hash) + getSetsCollectedList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static src.proto.AllProtos.Consensus parseFrom(
+    public static src.proto.AllProtos.Player parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static src.proto.AllProtos.Consensus parseFrom(
+    public static src.proto.AllProtos.Player parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static src.proto.AllProtos.Consensus parseFrom(
+    public static src.proto.AllProtos.Player parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static src.proto.AllProtos.Consensus parseFrom(
+    public static src.proto.AllProtos.Player parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static src.proto.AllProtos.Consensus parseFrom(byte[] data)
+    public static src.proto.AllProtos.Player parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static src.proto.AllProtos.Consensus parseFrom(
+    public static src.proto.AllProtos.Player parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static src.proto.AllProtos.Consensus parseFrom(java.io.InputStream input)
+    public static src.proto.AllProtos.Player parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static src.proto.AllProtos.Consensus parseFrom(
+    public static src.proto.AllProtos.Player parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static src.proto.AllProtos.Consensus parseDelimitedFrom(java.io.InputStream input)
+    public static src.proto.AllProtos.Player parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static src.proto.AllProtos.Consensus parseDelimitedFrom(
+    public static src.proto.AllProtos.Player parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static src.proto.AllProtos.Consensus parseFrom(
+    public static src.proto.AllProtos.Player parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static src.proto.AllProtos.Consensus parseFrom(
+    public static src.proto.AllProtos.Player parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -6140,7 +6893,7 @@ public final class AllProtos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(src.proto.AllProtos.Consensus prototype) {
+    public static Builder newBuilder(src.proto.AllProtos.Player prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -6156,26 +6909,26 @@ public final class AllProtos {
       return builder;
     }
     /**
-     * Protobuf type {@code action.Consensus}
+     * Protobuf type {@code action.Player}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:action.Consensus)
-        src.proto.AllProtos.ConsensusOrBuilder {
+        // @@protoc_insertion_point(builder_implements:action.Player)
+        src.proto.AllProtos.PlayerOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return src.proto.AllProtos.internal_static_action_Consensus_descriptor;
+        return src.proto.AllProtos.internal_static_action_Player_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return src.proto.AllProtos.internal_static_action_Consensus_fieldAccessorTable
+        return src.proto.AllProtos.internal_static_action_Player_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                src.proto.AllProtos.Consensus.class, src.proto.AllProtos.Consensus.Builder.class);
+                src.proto.AllProtos.Player.class, src.proto.AllProtos.Player.Builder.class);
       }
 
-      // Construct using src.proto.AllProtos.Consensus.newBuilder()
+      // Construct using src.proto.AllProtos.Player.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -6188,32 +6941,39 @@ public final class AllProtos {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getSetsCollectedFieldBuilder();
         }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        nActivePlayers_ = 0;
+        iD_ = 0;
 
-        nInAgreement_ = 0;
+        name_ = "";
 
+        if (setsCollectedBuilder_ == null) {
+          setsCollected_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          setsCollectedBuilder_.clear();
+        }
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return src.proto.AllProtos.internal_static_action_Consensus_descriptor;
+        return src.proto.AllProtos.internal_static_action_Player_descriptor;
       }
 
       @java.lang.Override
-      public src.proto.AllProtos.Consensus getDefaultInstanceForType() {
-        return src.proto.AllProtos.Consensus.getDefaultInstance();
+      public src.proto.AllProtos.Player getDefaultInstanceForType() {
+        return src.proto.AllProtos.Player.getDefaultInstance();
       }
 
       @java.lang.Override
-      public src.proto.AllProtos.Consensus build() {
-        src.proto.AllProtos.Consensus result = buildPartial();
+      public src.proto.AllProtos.Player build() {
+        src.proto.AllProtos.Player result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -6221,10 +6981,20 @@ public final class AllProtos {
       }
 
       @java.lang.Override
-      public src.proto.AllProtos.Consensus buildPartial() {
-        src.proto.AllProtos.Consensus result = new src.proto.AllProtos.Consensus(this);
-        result.nActivePlayers_ = nActivePlayers_;
-        result.nInAgreement_ = nInAgreement_;
+      public src.proto.AllProtos.Player buildPartial() {
+        src.proto.AllProtos.Player result = new src.proto.AllProtos.Player(this);
+        int from_bitField0_ = bitField0_;
+        result.iD_ = iD_;
+        result.name_ = name_;
+        if (setsCollectedBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            setsCollected_ = java.util.Collections.unmodifiableList(setsCollected_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.setsCollected_ = setsCollected_;
+        } else {
+          result.setsCollected_ = setsCollectedBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -6263,21 +7033,48 @@ public final class AllProtos {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof src.proto.AllProtos.Consensus) {
-          return mergeFrom((src.proto.AllProtos.Consensus)other);
+        if (other instanceof src.proto.AllProtos.Player) {
+          return mergeFrom((src.proto.AllProtos.Player)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(src.proto.AllProtos.Consensus other) {
-        if (other == src.proto.AllProtos.Consensus.getDefaultInstance()) return this;
-        if (other.getNActivePlayers() != 0) {
-          setNActivePlayers(other.getNActivePlayers());
+      public Builder mergeFrom(src.proto.AllProtos.Player other) {
+        if (other == src.proto.AllProtos.Player.getDefaultInstance()) return this;
+        if (other.getID() != 0) {
+          setID(other.getID());
         }
-        if (other.getNInAgreement() != 0) {
-          setNInAgreement(other.getNInAgreement());
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (setsCollectedBuilder_ == null) {
+          if (!other.setsCollected_.isEmpty()) {
+            if (setsCollected_.isEmpty()) {
+              setsCollected_ = other.setsCollected_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureSetsCollectedIsMutable();
+              setsCollected_.addAll(other.setsCollected_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.setsCollected_.isEmpty()) {
+            if (setsCollectedBuilder_.isEmpty()) {
+              setsCollectedBuilder_.dispose();
+              setsCollectedBuilder_ = null;
+              setsCollected_ = other.setsCollected_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              setsCollectedBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSetsCollectedFieldBuilder() : null;
+            } else {
+              setsCollectedBuilder_.addAllMessages(other.setsCollected_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -6294,11 +7091,11 @@ public final class AllProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        src.proto.AllProtos.Consensus parsedMessage = null;
+        src.proto.AllProtos.Player parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (src.proto.AllProtos.Consensus) e.getUnfinishedMessage();
+          parsedMessage = (src.proto.AllProtos.Player) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -6307,67 +7104,353 @@ public final class AllProtos {
         }
         return this;
       }
+      private int bitField0_;
 
-      private int nActivePlayers_ ;
+      private int iD_ ;
       /**
-       * <code>uint32 nActivePlayers = 1;</code>
-       * @return The nActivePlayers.
+       * <code>uint32 ID = 1;</code>
+       * @return The iD.
        */
       @java.lang.Override
-      public int getNActivePlayers() {
-        return nActivePlayers_;
+      public int getID() {
+        return iD_;
       }
       /**
-       * <code>uint32 nActivePlayers = 1;</code>
-       * @param value The nActivePlayers to set.
+       * <code>uint32 ID = 1;</code>
+       * @param value The iD to set.
        * @return This builder for chaining.
        */
-      public Builder setNActivePlayers(int value) {
+      public Builder setID(int value) {
         
-        nActivePlayers_ = value;
+        iD_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>uint32 nActivePlayers = 1;</code>
+       * <code>uint32 ID = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearNActivePlayers() {
+      public Builder clearID() {
         
-        nActivePlayers_ = 0;
+        iD_ = 0;
         onChanged();
         return this;
       }
 
-      private int nInAgreement_ ;
+      private java.lang.Object name_ = "";
       /**
-       * <code>uint32 nInAgreement = 2;</code>
-       * @return The nInAgreement.
+       * <code>string name = 2;</code>
+       * @return The name.
        */
-      @java.lang.Override
-      public int getNInAgreement() {
-        return nInAgreement_;
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>uint32 nInAgreement = 2;</code>
-       * @param value The nInAgreement to set.
+       * <code>string name = 2;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @param value The name to set.
        * @return This builder for chaining.
        */
-      public Builder setNInAgreement(int value) {
-        
-        nInAgreement_ = value;
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>uint32 nInAgreement = 2;</code>
+       * <code>string name = 2;</code>
        * @return This builder for chaining.
        */
-      public Builder clearNInAgreement() {
+      public Builder clearName() {
         
-        nInAgreement_ = 0;
+        name_ = getDefaultInstance().getName();
         onChanged();
         return this;
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<src.proto.AllProtos.CardCollection> setsCollected_ =
+        java.util.Collections.emptyList();
+      private void ensureSetsCollectedIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          setsCollected_ = new java.util.ArrayList<src.proto.AllProtos.CardCollection>(setsCollected_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          src.proto.AllProtos.CardCollection, src.proto.AllProtos.CardCollection.Builder, src.proto.AllProtos.CardCollectionOrBuilder> setsCollectedBuilder_;
+
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public java.util.List<src.proto.AllProtos.CardCollection> getSetsCollectedList() {
+        if (setsCollectedBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(setsCollected_);
+        } else {
+          return setsCollectedBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public int getSetsCollectedCount() {
+        if (setsCollectedBuilder_ == null) {
+          return setsCollected_.size();
+        } else {
+          return setsCollectedBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public src.proto.AllProtos.CardCollection getSetsCollected(int index) {
+        if (setsCollectedBuilder_ == null) {
+          return setsCollected_.get(index);
+        } else {
+          return setsCollectedBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public Builder setSetsCollected(
+          int index, src.proto.AllProtos.CardCollection value) {
+        if (setsCollectedBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSetsCollectedIsMutable();
+          setsCollected_.set(index, value);
+          onChanged();
+        } else {
+          setsCollectedBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public Builder setSetsCollected(
+          int index, src.proto.AllProtos.CardCollection.Builder builderForValue) {
+        if (setsCollectedBuilder_ == null) {
+          ensureSetsCollectedIsMutable();
+          setsCollected_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          setsCollectedBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public Builder addSetsCollected(src.proto.AllProtos.CardCollection value) {
+        if (setsCollectedBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSetsCollectedIsMutable();
+          setsCollected_.add(value);
+          onChanged();
+        } else {
+          setsCollectedBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public Builder addSetsCollected(
+          int index, src.proto.AllProtos.CardCollection value) {
+        if (setsCollectedBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSetsCollectedIsMutable();
+          setsCollected_.add(index, value);
+          onChanged();
+        } else {
+          setsCollectedBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public Builder addSetsCollected(
+          src.proto.AllProtos.CardCollection.Builder builderForValue) {
+        if (setsCollectedBuilder_ == null) {
+          ensureSetsCollectedIsMutable();
+          setsCollected_.add(builderForValue.build());
+          onChanged();
+        } else {
+          setsCollectedBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public Builder addSetsCollected(
+          int index, src.proto.AllProtos.CardCollection.Builder builderForValue) {
+        if (setsCollectedBuilder_ == null) {
+          ensureSetsCollectedIsMutable();
+          setsCollected_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          setsCollectedBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public Builder addAllSetsCollected(
+          java.lang.Iterable<? extends src.proto.AllProtos.CardCollection> values) {
+        if (setsCollectedBuilder_ == null) {
+          ensureSetsCollectedIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, setsCollected_);
+          onChanged();
+        } else {
+          setsCollectedBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public Builder clearSetsCollected() {
+        if (setsCollectedBuilder_ == null) {
+          setsCollected_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          setsCollectedBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public Builder removeSetsCollected(int index) {
+        if (setsCollectedBuilder_ == null) {
+          ensureSetsCollectedIsMutable();
+          setsCollected_.remove(index);
+          onChanged();
+        } else {
+          setsCollectedBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public src.proto.AllProtos.CardCollection.Builder getSetsCollectedBuilder(
+          int index) {
+        return getSetsCollectedFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public src.proto.AllProtos.CardCollectionOrBuilder getSetsCollectedOrBuilder(
+          int index) {
+        if (setsCollectedBuilder_ == null) {
+          return setsCollected_.get(index);  } else {
+          return setsCollectedBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public java.util.List<? extends src.proto.AllProtos.CardCollectionOrBuilder> 
+           getSetsCollectedOrBuilderList() {
+        if (setsCollectedBuilder_ != null) {
+          return setsCollectedBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(setsCollected_);
+        }
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public src.proto.AllProtos.CardCollection.Builder addSetsCollectedBuilder() {
+        return getSetsCollectedFieldBuilder().addBuilder(
+            src.proto.AllProtos.CardCollection.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public src.proto.AllProtos.CardCollection.Builder addSetsCollectedBuilder(
+          int index) {
+        return getSetsCollectedFieldBuilder().addBuilder(
+            index, src.proto.AllProtos.CardCollection.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .action.CardCollection setsCollected = 3;</code>
+       */
+      public java.util.List<src.proto.AllProtos.CardCollection.Builder> 
+           getSetsCollectedBuilderList() {
+        return getSetsCollectedFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          src.proto.AllProtos.CardCollection, src.proto.AllProtos.CardCollection.Builder, src.proto.AllProtos.CardCollectionOrBuilder> 
+          getSetsCollectedFieldBuilder() {
+        if (setsCollectedBuilder_ == null) {
+          setsCollectedBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              src.proto.AllProtos.CardCollection, src.proto.AllProtos.CardCollection.Builder, src.proto.AllProtos.CardCollectionOrBuilder>(
+                  setsCollected_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          setsCollected_ = null;
+        }
+        return setsCollectedBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -6382,41 +7465,41 @@ public final class AllProtos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:action.Consensus)
+      // @@protoc_insertion_point(builder_scope:action.Player)
     }
 
-    // @@protoc_insertion_point(class_scope:action.Consensus)
-    private static final src.proto.AllProtos.Consensus DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:action.Player)
+    private static final src.proto.AllProtos.Player DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new src.proto.AllProtos.Consensus();
+      DEFAULT_INSTANCE = new src.proto.AllProtos.Player();
     }
 
-    public static src.proto.AllProtos.Consensus getDefaultInstance() {
+    public static src.proto.AllProtos.Player getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<Consensus>
-        PARSER = new com.google.protobuf.AbstractParser<Consensus>() {
+    private static final com.google.protobuf.Parser<Player>
+        PARSER = new com.google.protobuf.AbstractParser<Player>() {
       @java.lang.Override
-      public Consensus parsePartialFrom(
+      public Player parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Consensus(input, extensionRegistry);
+        return new Player(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<Consensus> parser() {
+    public static com.google.protobuf.Parser<Player> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Consensus> getParserForType() {
+    public com.google.protobuf.Parser<Player> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public src.proto.AllProtos.Consensus getDefaultInstanceForType() {
+    public src.proto.AllProtos.Player getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -6427,49 +7510,67 @@ public final class AllProtos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.action.Board board = 1;</code>
-     * @return Whether the board field is set.
+     * <code>repeated .action.Card board = 1;</code>
      */
-    boolean hasBoard();
+    java.util.List<src.proto.AllProtos.Card> 
+        getBoardList();
     /**
-     * <code>.action.Board board = 1;</code>
-     * @return The board.
+     * <code>repeated .action.Card board = 1;</code>
      */
-    src.proto.AllProtos.Board getBoard();
+    src.proto.AllProtos.Card getBoard(int index);
     /**
-     * <code>.action.Board board = 1;</code>
+     * <code>repeated .action.Card board = 1;</code>
      */
-    src.proto.AllProtos.BoardOrBuilder getBoardOrBuilder();
+    int getBoardCount();
+    /**
+     * <code>repeated .action.Card board = 1;</code>
+     */
+    java.util.List<? extends src.proto.AllProtos.CardOrBuilder> 
+        getBoardOrBuilderList();
+    /**
+     * <code>repeated .action.Card board = 1;</code>
+     */
+    src.proto.AllProtos.CardOrBuilder getBoardOrBuilder(
+        int index);
 
     /**
-     * <code>.action.Consensus drawThree = 2;</code>
-     * @return Whether the drawThree field is set.
+     * <code>.action.Consensuses consensuses = 2;</code>
+     * @return Whether the consensuses field is set.
      */
-    boolean hasDrawThree();
+    boolean hasConsensuses();
     /**
-     * <code>.action.Consensus drawThree = 2;</code>
-     * @return The drawThree.
+     * <code>.action.Consensuses consensuses = 2;</code>
+     * @return The consensuses.
      */
-    src.proto.AllProtos.Consensus getDrawThree();
+    src.proto.AllProtos.Consensuses getConsensuses();
     /**
-     * <code>.action.Consensus drawThree = 2;</code>
+     * <code>.action.Consensuses consensuses = 2;</code>
      */
-    src.proto.AllProtos.ConsensusOrBuilder getDrawThreeOrBuilder();
+    src.proto.AllProtos.ConsensusesOrBuilder getConsensusesOrBuilder();
 
     /**
-     * <code>.action.Consensus showSet = 3;</code>
-     * @return Whether the showSet field is set.
+     * <code>repeated .action.Player players = 3;</code>
      */
-    boolean hasShowSet();
+    java.util.List<src.proto.AllProtos.Player> 
+        getPlayersList();
     /**
-     * <code>.action.Consensus showSet = 3;</code>
-     * @return The showSet.
+     * <code>repeated .action.Player players = 3;</code>
      */
-    src.proto.AllProtos.Consensus getShowSet();
+    src.proto.AllProtos.Player getPlayers(int index);
     /**
-     * <code>.action.Consensus showSet = 3;</code>
+     * <code>repeated .action.Player players = 3;</code>
      */
-    src.proto.AllProtos.ConsensusOrBuilder getShowSetOrBuilder();
+    int getPlayersCount();
+    /**
+     * <code>repeated .action.Player players = 3;</code>
+     */
+    java.util.List<? extends src.proto.AllProtos.PlayerOrBuilder> 
+        getPlayersOrBuilderList();
+    /**
+     * <code>repeated .action.Player players = 3;</code>
+     */
+    src.proto.AllProtos.PlayerOrBuilder getPlayersOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code action.State}
@@ -6484,6 +7585,8 @@ public final class AllProtos {
       super(builder);
     }
     private State() {
+      board_ = java.util.Collections.emptyList();
+      players_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -6506,6 +7609,7 @@ public final class AllProtos {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -6517,42 +7621,34 @@ public final class AllProtos {
               done = true;
               break;
             case 10: {
-              src.proto.AllProtos.Board.Builder subBuilder = null;
-              if (board_ != null) {
-                subBuilder = board_.toBuilder();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                board_ = new java.util.ArrayList<src.proto.AllProtos.Card>();
+                mutable_bitField0_ |= 0x00000001;
               }
-              board_ = input.readMessage(src.proto.AllProtos.Board.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(board_);
-                board_ = subBuilder.buildPartial();
-              }
-
+              board_.add(
+                  input.readMessage(src.proto.AllProtos.Card.parser(), extensionRegistry));
               break;
             }
             case 18: {
-              src.proto.AllProtos.Consensus.Builder subBuilder = null;
-              if (drawThree_ != null) {
-                subBuilder = drawThree_.toBuilder();
+              src.proto.AllProtos.Consensuses.Builder subBuilder = null;
+              if (consensuses_ != null) {
+                subBuilder = consensuses_.toBuilder();
               }
-              drawThree_ = input.readMessage(src.proto.AllProtos.Consensus.parser(), extensionRegistry);
+              consensuses_ = input.readMessage(src.proto.AllProtos.Consensuses.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom(drawThree_);
-                drawThree_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom(consensuses_);
+                consensuses_ = subBuilder.buildPartial();
               }
 
               break;
             }
             case 26: {
-              src.proto.AllProtos.Consensus.Builder subBuilder = null;
-              if (showSet_ != null) {
-                subBuilder = showSet_.toBuilder();
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                players_ = new java.util.ArrayList<src.proto.AllProtos.Player>();
+                mutable_bitField0_ |= 0x00000002;
               }
-              showSet_ = input.readMessage(src.proto.AllProtos.Consensus.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(showSet_);
-                showSet_ = subBuilder.buildPartial();
-              }
-
+              players_.add(
+                  input.readMessage(src.proto.AllProtos.Player.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -6570,6 +7666,12 @@ public final class AllProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          board_ = java.util.Collections.unmodifiableList(board_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          players_ = java.util.Collections.unmodifiableList(players_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -6588,81 +7690,109 @@ public final class AllProtos {
     }
 
     public static final int BOARD_FIELD_NUMBER = 1;
-    private src.proto.AllProtos.Board board_;
+    private java.util.List<src.proto.AllProtos.Card> board_;
     /**
-     * <code>.action.Board board = 1;</code>
-     * @return Whether the board field is set.
+     * <code>repeated .action.Card board = 1;</code>
      */
     @java.lang.Override
-    public boolean hasBoard() {
-      return board_ != null;
+    public java.util.List<src.proto.AllProtos.Card> getBoardList() {
+      return board_;
     }
     /**
-     * <code>.action.Board board = 1;</code>
-     * @return The board.
+     * <code>repeated .action.Card board = 1;</code>
      */
     @java.lang.Override
-    public src.proto.AllProtos.Board getBoard() {
-      return board_ == null ? src.proto.AllProtos.Board.getDefaultInstance() : board_;
+    public java.util.List<? extends src.proto.AllProtos.CardOrBuilder> 
+        getBoardOrBuilderList() {
+      return board_;
     }
     /**
-     * <code>.action.Board board = 1;</code>
+     * <code>repeated .action.Card board = 1;</code>
      */
     @java.lang.Override
-    public src.proto.AllProtos.BoardOrBuilder getBoardOrBuilder() {
-      return getBoard();
-    }
-
-    public static final int DRAWTHREE_FIELD_NUMBER = 2;
-    private src.proto.AllProtos.Consensus drawThree_;
-    /**
-     * <code>.action.Consensus drawThree = 2;</code>
-     * @return Whether the drawThree field is set.
-     */
-    @java.lang.Override
-    public boolean hasDrawThree() {
-      return drawThree_ != null;
+    public int getBoardCount() {
+      return board_.size();
     }
     /**
-     * <code>.action.Consensus drawThree = 2;</code>
-     * @return The drawThree.
+     * <code>repeated .action.Card board = 1;</code>
      */
     @java.lang.Override
-    public src.proto.AllProtos.Consensus getDrawThree() {
-      return drawThree_ == null ? src.proto.AllProtos.Consensus.getDefaultInstance() : drawThree_;
+    public src.proto.AllProtos.Card getBoard(int index) {
+      return board_.get(index);
     }
     /**
-     * <code>.action.Consensus drawThree = 2;</code>
+     * <code>repeated .action.Card board = 1;</code>
      */
     @java.lang.Override
-    public src.proto.AllProtos.ConsensusOrBuilder getDrawThreeOrBuilder() {
-      return getDrawThree();
+    public src.proto.AllProtos.CardOrBuilder getBoardOrBuilder(
+        int index) {
+      return board_.get(index);
     }
 
-    public static final int SHOWSET_FIELD_NUMBER = 3;
-    private src.proto.AllProtos.Consensus showSet_;
+    public static final int CONSENSUSES_FIELD_NUMBER = 2;
+    private src.proto.AllProtos.Consensuses consensuses_;
     /**
-     * <code>.action.Consensus showSet = 3;</code>
-     * @return Whether the showSet field is set.
+     * <code>.action.Consensuses consensuses = 2;</code>
+     * @return Whether the consensuses field is set.
      */
     @java.lang.Override
-    public boolean hasShowSet() {
-      return showSet_ != null;
+    public boolean hasConsensuses() {
+      return consensuses_ != null;
     }
     /**
-     * <code>.action.Consensus showSet = 3;</code>
-     * @return The showSet.
+     * <code>.action.Consensuses consensuses = 2;</code>
+     * @return The consensuses.
      */
     @java.lang.Override
-    public src.proto.AllProtos.Consensus getShowSet() {
-      return showSet_ == null ? src.proto.AllProtos.Consensus.getDefaultInstance() : showSet_;
+    public src.proto.AllProtos.Consensuses getConsensuses() {
+      return consensuses_ == null ? src.proto.AllProtos.Consensuses.getDefaultInstance() : consensuses_;
     }
     /**
-     * <code>.action.Consensus showSet = 3;</code>
+     * <code>.action.Consensuses consensuses = 2;</code>
      */
     @java.lang.Override
-    public src.proto.AllProtos.ConsensusOrBuilder getShowSetOrBuilder() {
-      return getShowSet();
+    public src.proto.AllProtos.ConsensusesOrBuilder getConsensusesOrBuilder() {
+      return getConsensuses();
+    }
+
+    public static final int PLAYERS_FIELD_NUMBER = 3;
+    private java.util.List<src.proto.AllProtos.Player> players_;
+    /**
+     * <code>repeated .action.Player players = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<src.proto.AllProtos.Player> getPlayersList() {
+      return players_;
+    }
+    /**
+     * <code>repeated .action.Player players = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends src.proto.AllProtos.PlayerOrBuilder> 
+        getPlayersOrBuilderList() {
+      return players_;
+    }
+    /**
+     * <code>repeated .action.Player players = 3;</code>
+     */
+    @java.lang.Override
+    public int getPlayersCount() {
+      return players_.size();
+    }
+    /**
+     * <code>repeated .action.Player players = 3;</code>
+     */
+    @java.lang.Override
+    public src.proto.AllProtos.Player getPlayers(int index) {
+      return players_.get(index);
+    }
+    /**
+     * <code>repeated .action.Player players = 3;</code>
+     */
+    @java.lang.Override
+    public src.proto.AllProtos.PlayerOrBuilder getPlayersOrBuilder(
+        int index) {
+      return players_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -6679,14 +7809,14 @@ public final class AllProtos {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (board_ != null) {
-        output.writeMessage(1, getBoard());
+      for (int i = 0; i < board_.size(); i++) {
+        output.writeMessage(1, board_.get(i));
       }
-      if (drawThree_ != null) {
-        output.writeMessage(2, getDrawThree());
+      if (consensuses_ != null) {
+        output.writeMessage(2, getConsensuses());
       }
-      if (showSet_ != null) {
-        output.writeMessage(3, getShowSet());
+      for (int i = 0; i < players_.size(); i++) {
+        output.writeMessage(3, players_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -6697,17 +7827,17 @@ public final class AllProtos {
       if (size != -1) return size;
 
       size = 0;
-      if (board_ != null) {
+      for (int i = 0; i < board_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getBoard());
+          .computeMessageSize(1, board_.get(i));
       }
-      if (drawThree_ != null) {
+      if (consensuses_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getDrawThree());
+          .computeMessageSize(2, getConsensuses());
       }
-      if (showSet_ != null) {
+      for (int i = 0; i < players_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getShowSet());
+          .computeMessageSize(3, players_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6724,21 +7854,15 @@ public final class AllProtos {
       }
       src.proto.AllProtos.State other = (src.proto.AllProtos.State) obj;
 
-      if (hasBoard() != other.hasBoard()) return false;
-      if (hasBoard()) {
-        if (!getBoard()
-            .equals(other.getBoard())) return false;
+      if (!getBoardList()
+          .equals(other.getBoardList())) return false;
+      if (hasConsensuses() != other.hasConsensuses()) return false;
+      if (hasConsensuses()) {
+        if (!getConsensuses()
+            .equals(other.getConsensuses())) return false;
       }
-      if (hasDrawThree() != other.hasDrawThree()) return false;
-      if (hasDrawThree()) {
-        if (!getDrawThree()
-            .equals(other.getDrawThree())) return false;
-      }
-      if (hasShowSet() != other.hasShowSet()) return false;
-      if (hasShowSet()) {
-        if (!getShowSet()
-            .equals(other.getShowSet())) return false;
-      }
+      if (!getPlayersList()
+          .equals(other.getPlayersList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -6750,17 +7874,17 @@ public final class AllProtos {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasBoard()) {
+      if (getBoardCount() > 0) {
         hash = (37 * hash) + BOARD_FIELD_NUMBER;
-        hash = (53 * hash) + getBoard().hashCode();
+        hash = (53 * hash) + getBoardList().hashCode();
       }
-      if (hasDrawThree()) {
-        hash = (37 * hash) + DRAWTHREE_FIELD_NUMBER;
-        hash = (53 * hash) + getDrawThree().hashCode();
+      if (hasConsensuses()) {
+        hash = (37 * hash) + CONSENSUSES_FIELD_NUMBER;
+        hash = (53 * hash) + getConsensuses().hashCode();
       }
-      if (hasShowSet()) {
-        hash = (37 * hash) + SHOWSET_FIELD_NUMBER;
-        hash = (53 * hash) + getShowSet().hashCode();
+      if (getPlayersCount() > 0) {
+        hash = (37 * hash) + PLAYERS_FIELD_NUMBER;
+        hash = (53 * hash) + getPlayersList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -6890,28 +8014,30 @@ public final class AllProtos {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getBoardFieldBuilder();
+          getPlayersFieldBuilder();
         }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
         if (boardBuilder_ == null) {
-          board_ = null;
+          board_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
-          board_ = null;
-          boardBuilder_ = null;
+          boardBuilder_.clear();
         }
-        if (drawThreeBuilder_ == null) {
-          drawThree_ = null;
+        if (consensusesBuilder_ == null) {
+          consensuses_ = null;
         } else {
-          drawThree_ = null;
-          drawThreeBuilder_ = null;
+          consensuses_ = null;
+          consensusesBuilder_ = null;
         }
-        if (showSetBuilder_ == null) {
-          showSet_ = null;
+        if (playersBuilder_ == null) {
+          players_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
         } else {
-          showSet_ = null;
-          showSetBuilder_ = null;
+          playersBuilder_.clear();
         }
         return this;
       }
@@ -6939,20 +8065,29 @@ public final class AllProtos {
       @java.lang.Override
       public src.proto.AllProtos.State buildPartial() {
         src.proto.AllProtos.State result = new src.proto.AllProtos.State(this);
+        int from_bitField0_ = bitField0_;
         if (boardBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            board_ = java.util.Collections.unmodifiableList(board_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
           result.board_ = board_;
         } else {
           result.board_ = boardBuilder_.build();
         }
-        if (drawThreeBuilder_ == null) {
-          result.drawThree_ = drawThree_;
+        if (consensusesBuilder_ == null) {
+          result.consensuses_ = consensuses_;
         } else {
-          result.drawThree_ = drawThreeBuilder_.build();
+          result.consensuses_ = consensusesBuilder_.build();
         }
-        if (showSetBuilder_ == null) {
-          result.showSet_ = showSet_;
+        if (playersBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            players_ = java.util.Collections.unmodifiableList(players_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.players_ = players_;
         } else {
-          result.showSet_ = showSetBuilder_.build();
+          result.players_ = playersBuilder_.build();
         }
         onBuilt();
         return result;
@@ -7002,14 +8137,60 @@ public final class AllProtos {
 
       public Builder mergeFrom(src.proto.AllProtos.State other) {
         if (other == src.proto.AllProtos.State.getDefaultInstance()) return this;
-        if (other.hasBoard()) {
-          mergeBoard(other.getBoard());
+        if (boardBuilder_ == null) {
+          if (!other.board_.isEmpty()) {
+            if (board_.isEmpty()) {
+              board_ = other.board_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureBoardIsMutable();
+              board_.addAll(other.board_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.board_.isEmpty()) {
+            if (boardBuilder_.isEmpty()) {
+              boardBuilder_.dispose();
+              boardBuilder_ = null;
+              board_ = other.board_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              boardBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getBoardFieldBuilder() : null;
+            } else {
+              boardBuilder_.addAllMessages(other.board_);
+            }
+          }
         }
-        if (other.hasDrawThree()) {
-          mergeDrawThree(other.getDrawThree());
+        if (other.hasConsensuses()) {
+          mergeConsensuses(other.getConsensuses());
         }
-        if (other.hasShowSet()) {
-          mergeShowSet(other.getShowSet());
+        if (playersBuilder_ == null) {
+          if (!other.players_.isEmpty()) {
+            if (players_.isEmpty()) {
+              players_ = other.players_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensurePlayersIsMutable();
+              players_.addAll(other.players_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.players_.isEmpty()) {
+            if (playersBuilder_.isEmpty()) {
+              playersBuilder_.dispose();
+              playersBuilder_ = null;
+              players_ = other.players_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              playersBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPlayersFieldBuilder() : null;
+            } else {
+              playersBuilder_.addAllMessages(other.players_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -7039,119 +8220,241 @@ public final class AllProtos {
         }
         return this;
       }
+      private int bitField0_;
 
-      private src.proto.AllProtos.Board board_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          src.proto.AllProtos.Board, src.proto.AllProtos.Board.Builder, src.proto.AllProtos.BoardOrBuilder> boardBuilder_;
-      /**
-       * <code>.action.Board board = 1;</code>
-       * @return Whether the board field is set.
-       */
-      public boolean hasBoard() {
-        return boardBuilder_ != null || board_ != null;
+      private java.util.List<src.proto.AllProtos.Card> board_ =
+        java.util.Collections.emptyList();
+      private void ensureBoardIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          board_ = new java.util.ArrayList<src.proto.AllProtos.Card>(board_);
+          bitField0_ |= 0x00000001;
+         }
       }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          src.proto.AllProtos.Card, src.proto.AllProtos.Card.Builder, src.proto.AllProtos.CardOrBuilder> boardBuilder_;
+
       /**
-       * <code>.action.Board board = 1;</code>
-       * @return The board.
+       * <code>repeated .action.Card board = 1;</code>
        */
-      public src.proto.AllProtos.Board getBoard() {
+      public java.util.List<src.proto.AllProtos.Card> getBoardList() {
         if (boardBuilder_ == null) {
-          return board_ == null ? src.proto.AllProtos.Board.getDefaultInstance() : board_;
+          return java.util.Collections.unmodifiableList(board_);
         } else {
-          return boardBuilder_.getMessage();
+          return boardBuilder_.getMessageList();
         }
       }
       /**
-       * <code>.action.Board board = 1;</code>
+       * <code>repeated .action.Card board = 1;</code>
        */
-      public Builder setBoard(src.proto.AllProtos.Board value) {
+      public int getBoardCount() {
+        if (boardBuilder_ == null) {
+          return board_.size();
+        } else {
+          return boardBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .action.Card board = 1;</code>
+       */
+      public src.proto.AllProtos.Card getBoard(int index) {
+        if (boardBuilder_ == null) {
+          return board_.get(index);
+        } else {
+          return boardBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .action.Card board = 1;</code>
+       */
+      public Builder setBoard(
+          int index, src.proto.AllProtos.Card value) {
         if (boardBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          board_ = value;
+          ensureBoardIsMutable();
+          board_.set(index, value);
           onChanged();
         } else {
-          boardBuilder_.setMessage(value);
+          boardBuilder_.setMessage(index, value);
         }
-
         return this;
       }
       /**
-       * <code>.action.Board board = 1;</code>
+       * <code>repeated .action.Card board = 1;</code>
        */
       public Builder setBoard(
-          src.proto.AllProtos.Board.Builder builderForValue) {
+          int index, src.proto.AllProtos.Card.Builder builderForValue) {
         if (boardBuilder_ == null) {
-          board_ = builderForValue.build();
+          ensureBoardIsMutable();
+          board_.set(index, builderForValue.build());
           onChanged();
         } else {
-          boardBuilder_.setMessage(builderForValue.build());
+          boardBuilder_.setMessage(index, builderForValue.build());
         }
-
         return this;
       }
       /**
-       * <code>.action.Board board = 1;</code>
+       * <code>repeated .action.Card board = 1;</code>
        */
-      public Builder mergeBoard(src.proto.AllProtos.Board value) {
+      public Builder addBoard(src.proto.AllProtos.Card value) {
         if (boardBuilder_ == null) {
-          if (board_ != null) {
-            board_ =
-              src.proto.AllProtos.Board.newBuilder(board_).mergeFrom(value).buildPartial();
-          } else {
-            board_ = value;
+          if (value == null) {
+            throw new NullPointerException();
           }
+          ensureBoardIsMutable();
+          board_.add(value);
           onChanged();
         } else {
-          boardBuilder_.mergeFrom(value);
+          boardBuilder_.addMessage(value);
         }
-
         return this;
       }
       /**
-       * <code>.action.Board board = 1;</code>
+       * <code>repeated .action.Card board = 1;</code>
+       */
+      public Builder addBoard(
+          int index, src.proto.AllProtos.Card value) {
+        if (boardBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureBoardIsMutable();
+          board_.add(index, value);
+          onChanged();
+        } else {
+          boardBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.Card board = 1;</code>
+       */
+      public Builder addBoard(
+          src.proto.AllProtos.Card.Builder builderForValue) {
+        if (boardBuilder_ == null) {
+          ensureBoardIsMutable();
+          board_.add(builderForValue.build());
+          onChanged();
+        } else {
+          boardBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.Card board = 1;</code>
+       */
+      public Builder addBoard(
+          int index, src.proto.AllProtos.Card.Builder builderForValue) {
+        if (boardBuilder_ == null) {
+          ensureBoardIsMutable();
+          board_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          boardBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.Card board = 1;</code>
+       */
+      public Builder addAllBoard(
+          java.lang.Iterable<? extends src.proto.AllProtos.Card> values) {
+        if (boardBuilder_ == null) {
+          ensureBoardIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, board_);
+          onChanged();
+        } else {
+          boardBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.Card board = 1;</code>
        */
       public Builder clearBoard() {
         if (boardBuilder_ == null) {
-          board_ = null;
+          board_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
-          board_ = null;
-          boardBuilder_ = null;
+          boardBuilder_.clear();
         }
-
         return this;
       }
       /**
-       * <code>.action.Board board = 1;</code>
+       * <code>repeated .action.Card board = 1;</code>
        */
-      public src.proto.AllProtos.Board.Builder getBoardBuilder() {
-        
-        onChanged();
-        return getBoardFieldBuilder().getBuilder();
+      public Builder removeBoard(int index) {
+        if (boardBuilder_ == null) {
+          ensureBoardIsMutable();
+          board_.remove(index);
+          onChanged();
+        } else {
+          boardBuilder_.remove(index);
+        }
+        return this;
       }
       /**
-       * <code>.action.Board board = 1;</code>
+       * <code>repeated .action.Card board = 1;</code>
        */
-      public src.proto.AllProtos.BoardOrBuilder getBoardOrBuilder() {
-        if (boardBuilder_ != null) {
-          return boardBuilder_.getMessageOrBuilder();
-        } else {
-          return board_ == null ?
-              src.proto.AllProtos.Board.getDefaultInstance() : board_;
+      public src.proto.AllProtos.Card.Builder getBoardBuilder(
+          int index) {
+        return getBoardFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .action.Card board = 1;</code>
+       */
+      public src.proto.AllProtos.CardOrBuilder getBoardOrBuilder(
+          int index) {
+        if (boardBuilder_ == null) {
+          return board_.get(index);  } else {
+          return boardBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>.action.Board board = 1;</code>
+       * <code>repeated .action.Card board = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          src.proto.AllProtos.Board, src.proto.AllProtos.Board.Builder, src.proto.AllProtos.BoardOrBuilder> 
+      public java.util.List<? extends src.proto.AllProtos.CardOrBuilder> 
+           getBoardOrBuilderList() {
+        if (boardBuilder_ != null) {
+          return boardBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(board_);
+        }
+      }
+      /**
+       * <code>repeated .action.Card board = 1;</code>
+       */
+      public src.proto.AllProtos.Card.Builder addBoardBuilder() {
+        return getBoardFieldBuilder().addBuilder(
+            src.proto.AllProtos.Card.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .action.Card board = 1;</code>
+       */
+      public src.proto.AllProtos.Card.Builder addBoardBuilder(
+          int index) {
+        return getBoardFieldBuilder().addBuilder(
+            index, src.proto.AllProtos.Card.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .action.Card board = 1;</code>
+       */
+      public java.util.List<src.proto.AllProtos.Card.Builder> 
+           getBoardBuilderList() {
+        return getBoardFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          src.proto.AllProtos.Card, src.proto.AllProtos.Card.Builder, src.proto.AllProtos.CardOrBuilder> 
           getBoardFieldBuilder() {
         if (boardBuilder_ == null) {
-          boardBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              src.proto.AllProtos.Board, src.proto.AllProtos.Board.Builder, src.proto.AllProtos.BoardOrBuilder>(
-                  getBoard(),
+          boardBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              src.proto.AllProtos.Card, src.proto.AllProtos.Card.Builder, src.proto.AllProtos.CardOrBuilder>(
+                  board_,
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           board_ = null;
@@ -7159,242 +8462,363 @@ public final class AllProtos {
         return boardBuilder_;
       }
 
-      private src.proto.AllProtos.Consensus drawThree_;
+      private src.proto.AllProtos.Consensuses consensuses_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          src.proto.AllProtos.Consensus, src.proto.AllProtos.Consensus.Builder, src.proto.AllProtos.ConsensusOrBuilder> drawThreeBuilder_;
+          src.proto.AllProtos.Consensuses, src.proto.AllProtos.Consensuses.Builder, src.proto.AllProtos.ConsensusesOrBuilder> consensusesBuilder_;
       /**
-       * <code>.action.Consensus drawThree = 2;</code>
-       * @return Whether the drawThree field is set.
+       * <code>.action.Consensuses consensuses = 2;</code>
+       * @return Whether the consensuses field is set.
        */
-      public boolean hasDrawThree() {
-        return drawThreeBuilder_ != null || drawThree_ != null;
+      public boolean hasConsensuses() {
+        return consensusesBuilder_ != null || consensuses_ != null;
       }
       /**
-       * <code>.action.Consensus drawThree = 2;</code>
-       * @return The drawThree.
+       * <code>.action.Consensuses consensuses = 2;</code>
+       * @return The consensuses.
        */
-      public src.proto.AllProtos.Consensus getDrawThree() {
-        if (drawThreeBuilder_ == null) {
-          return drawThree_ == null ? src.proto.AllProtos.Consensus.getDefaultInstance() : drawThree_;
+      public src.proto.AllProtos.Consensuses getConsensuses() {
+        if (consensusesBuilder_ == null) {
+          return consensuses_ == null ? src.proto.AllProtos.Consensuses.getDefaultInstance() : consensuses_;
         } else {
-          return drawThreeBuilder_.getMessage();
+          return consensusesBuilder_.getMessage();
         }
       }
       /**
-       * <code>.action.Consensus drawThree = 2;</code>
+       * <code>.action.Consensuses consensuses = 2;</code>
        */
-      public Builder setDrawThree(src.proto.AllProtos.Consensus value) {
-        if (drawThreeBuilder_ == null) {
+      public Builder setConsensuses(src.proto.AllProtos.Consensuses value) {
+        if (consensusesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          drawThree_ = value;
+          consensuses_ = value;
           onChanged();
         } else {
-          drawThreeBuilder_.setMessage(value);
+          consensusesBuilder_.setMessage(value);
         }
 
         return this;
       }
       /**
-       * <code>.action.Consensus drawThree = 2;</code>
+       * <code>.action.Consensuses consensuses = 2;</code>
        */
-      public Builder setDrawThree(
-          src.proto.AllProtos.Consensus.Builder builderForValue) {
-        if (drawThreeBuilder_ == null) {
-          drawThree_ = builderForValue.build();
+      public Builder setConsensuses(
+          src.proto.AllProtos.Consensuses.Builder builderForValue) {
+        if (consensusesBuilder_ == null) {
+          consensuses_ = builderForValue.build();
           onChanged();
         } else {
-          drawThreeBuilder_.setMessage(builderForValue.build());
+          consensusesBuilder_.setMessage(builderForValue.build());
         }
 
         return this;
       }
       /**
-       * <code>.action.Consensus drawThree = 2;</code>
+       * <code>.action.Consensuses consensuses = 2;</code>
        */
-      public Builder mergeDrawThree(src.proto.AllProtos.Consensus value) {
-        if (drawThreeBuilder_ == null) {
-          if (drawThree_ != null) {
-            drawThree_ =
-              src.proto.AllProtos.Consensus.newBuilder(drawThree_).mergeFrom(value).buildPartial();
+      public Builder mergeConsensuses(src.proto.AllProtos.Consensuses value) {
+        if (consensusesBuilder_ == null) {
+          if (consensuses_ != null) {
+            consensuses_ =
+              src.proto.AllProtos.Consensuses.newBuilder(consensuses_).mergeFrom(value).buildPartial();
           } else {
-            drawThree_ = value;
+            consensuses_ = value;
           }
           onChanged();
         } else {
-          drawThreeBuilder_.mergeFrom(value);
+          consensusesBuilder_.mergeFrom(value);
         }
 
         return this;
       }
       /**
-       * <code>.action.Consensus drawThree = 2;</code>
+       * <code>.action.Consensuses consensuses = 2;</code>
        */
-      public Builder clearDrawThree() {
-        if (drawThreeBuilder_ == null) {
-          drawThree_ = null;
+      public Builder clearConsensuses() {
+        if (consensusesBuilder_ == null) {
+          consensuses_ = null;
           onChanged();
         } else {
-          drawThree_ = null;
-          drawThreeBuilder_ = null;
+          consensuses_ = null;
+          consensusesBuilder_ = null;
         }
 
         return this;
       }
       /**
-       * <code>.action.Consensus drawThree = 2;</code>
+       * <code>.action.Consensuses consensuses = 2;</code>
        */
-      public src.proto.AllProtos.Consensus.Builder getDrawThreeBuilder() {
+      public src.proto.AllProtos.Consensuses.Builder getConsensusesBuilder() {
         
         onChanged();
-        return getDrawThreeFieldBuilder().getBuilder();
+        return getConsensusesFieldBuilder().getBuilder();
       }
       /**
-       * <code>.action.Consensus drawThree = 2;</code>
+       * <code>.action.Consensuses consensuses = 2;</code>
        */
-      public src.proto.AllProtos.ConsensusOrBuilder getDrawThreeOrBuilder() {
-        if (drawThreeBuilder_ != null) {
-          return drawThreeBuilder_.getMessageOrBuilder();
+      public src.proto.AllProtos.ConsensusesOrBuilder getConsensusesOrBuilder() {
+        if (consensusesBuilder_ != null) {
+          return consensusesBuilder_.getMessageOrBuilder();
         } else {
-          return drawThree_ == null ?
-              src.proto.AllProtos.Consensus.getDefaultInstance() : drawThree_;
+          return consensuses_ == null ?
+              src.proto.AllProtos.Consensuses.getDefaultInstance() : consensuses_;
         }
       }
       /**
-       * <code>.action.Consensus drawThree = 2;</code>
+       * <code>.action.Consensuses consensuses = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          src.proto.AllProtos.Consensus, src.proto.AllProtos.Consensus.Builder, src.proto.AllProtos.ConsensusOrBuilder> 
-          getDrawThreeFieldBuilder() {
-        if (drawThreeBuilder_ == null) {
-          drawThreeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              src.proto.AllProtos.Consensus, src.proto.AllProtos.Consensus.Builder, src.proto.AllProtos.ConsensusOrBuilder>(
-                  getDrawThree(),
+          src.proto.AllProtos.Consensuses, src.proto.AllProtos.Consensuses.Builder, src.proto.AllProtos.ConsensusesOrBuilder> 
+          getConsensusesFieldBuilder() {
+        if (consensusesBuilder_ == null) {
+          consensusesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              src.proto.AllProtos.Consensuses, src.proto.AllProtos.Consensuses.Builder, src.proto.AllProtos.ConsensusesOrBuilder>(
+                  getConsensuses(),
                   getParentForChildren(),
                   isClean());
-          drawThree_ = null;
+          consensuses_ = null;
         }
-        return drawThreeBuilder_;
+        return consensusesBuilder_;
       }
 
-      private src.proto.AllProtos.Consensus showSet_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          src.proto.AllProtos.Consensus, src.proto.AllProtos.Consensus.Builder, src.proto.AllProtos.ConsensusOrBuilder> showSetBuilder_;
-      /**
-       * <code>.action.Consensus showSet = 3;</code>
-       * @return Whether the showSet field is set.
-       */
-      public boolean hasShowSet() {
-        return showSetBuilder_ != null || showSet_ != null;
+      private java.util.List<src.proto.AllProtos.Player> players_ =
+        java.util.Collections.emptyList();
+      private void ensurePlayersIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          players_ = new java.util.ArrayList<src.proto.AllProtos.Player>(players_);
+          bitField0_ |= 0x00000002;
+         }
       }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          src.proto.AllProtos.Player, src.proto.AllProtos.Player.Builder, src.proto.AllProtos.PlayerOrBuilder> playersBuilder_;
+
       /**
-       * <code>.action.Consensus showSet = 3;</code>
-       * @return The showSet.
+       * <code>repeated .action.Player players = 3;</code>
        */
-      public src.proto.AllProtos.Consensus getShowSet() {
-        if (showSetBuilder_ == null) {
-          return showSet_ == null ? src.proto.AllProtos.Consensus.getDefaultInstance() : showSet_;
+      public java.util.List<src.proto.AllProtos.Player> getPlayersList() {
+        if (playersBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(players_);
         } else {
-          return showSetBuilder_.getMessage();
+          return playersBuilder_.getMessageList();
         }
       }
       /**
-       * <code>.action.Consensus showSet = 3;</code>
+       * <code>repeated .action.Player players = 3;</code>
        */
-      public Builder setShowSet(src.proto.AllProtos.Consensus value) {
-        if (showSetBuilder_ == null) {
+      public int getPlayersCount() {
+        if (playersBuilder_ == null) {
+          return players_.size();
+        } else {
+          return playersBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .action.Player players = 3;</code>
+       */
+      public src.proto.AllProtos.Player getPlayers(int index) {
+        if (playersBuilder_ == null) {
+          return players_.get(index);
+        } else {
+          return playersBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .action.Player players = 3;</code>
+       */
+      public Builder setPlayers(
+          int index, src.proto.AllProtos.Player value) {
+        if (playersBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          showSet_ = value;
+          ensurePlayersIsMutable();
+          players_.set(index, value);
           onChanged();
         } else {
-          showSetBuilder_.setMessage(value);
+          playersBuilder_.setMessage(index, value);
         }
-
         return this;
       }
       /**
-       * <code>.action.Consensus showSet = 3;</code>
+       * <code>repeated .action.Player players = 3;</code>
        */
-      public Builder setShowSet(
-          src.proto.AllProtos.Consensus.Builder builderForValue) {
-        if (showSetBuilder_ == null) {
-          showSet_ = builderForValue.build();
+      public Builder setPlayers(
+          int index, src.proto.AllProtos.Player.Builder builderForValue) {
+        if (playersBuilder_ == null) {
+          ensurePlayersIsMutable();
+          players_.set(index, builderForValue.build());
           onChanged();
         } else {
-          showSetBuilder_.setMessage(builderForValue.build());
+          playersBuilder_.setMessage(index, builderForValue.build());
         }
-
         return this;
       }
       /**
-       * <code>.action.Consensus showSet = 3;</code>
+       * <code>repeated .action.Player players = 3;</code>
        */
-      public Builder mergeShowSet(src.proto.AllProtos.Consensus value) {
-        if (showSetBuilder_ == null) {
-          if (showSet_ != null) {
-            showSet_ =
-              src.proto.AllProtos.Consensus.newBuilder(showSet_).mergeFrom(value).buildPartial();
-          } else {
-            showSet_ = value;
+      public Builder addPlayers(src.proto.AllProtos.Player value) {
+        if (playersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
           }
+          ensurePlayersIsMutable();
+          players_.add(value);
           onChanged();
         } else {
-          showSetBuilder_.mergeFrom(value);
+          playersBuilder_.addMessage(value);
         }
-
         return this;
       }
       /**
-       * <code>.action.Consensus showSet = 3;</code>
+       * <code>repeated .action.Player players = 3;</code>
        */
-      public Builder clearShowSet() {
-        if (showSetBuilder_ == null) {
-          showSet_ = null;
+      public Builder addPlayers(
+          int index, src.proto.AllProtos.Player value) {
+        if (playersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePlayersIsMutable();
+          players_.add(index, value);
           onChanged();
         } else {
-          showSet_ = null;
-          showSetBuilder_ = null;
+          playersBuilder_.addMessage(index, value);
         }
-
         return this;
       }
       /**
-       * <code>.action.Consensus showSet = 3;</code>
+       * <code>repeated .action.Player players = 3;</code>
        */
-      public src.proto.AllProtos.Consensus.Builder getShowSetBuilder() {
-        
-        onChanged();
-        return getShowSetFieldBuilder().getBuilder();
+      public Builder addPlayers(
+          src.proto.AllProtos.Player.Builder builderForValue) {
+        if (playersBuilder_ == null) {
+          ensurePlayersIsMutable();
+          players_.add(builderForValue.build());
+          onChanged();
+        } else {
+          playersBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
       }
       /**
-       * <code>.action.Consensus showSet = 3;</code>
+       * <code>repeated .action.Player players = 3;</code>
        */
-      public src.proto.AllProtos.ConsensusOrBuilder getShowSetOrBuilder() {
-        if (showSetBuilder_ != null) {
-          return showSetBuilder_.getMessageOrBuilder();
+      public Builder addPlayers(
+          int index, src.proto.AllProtos.Player.Builder builderForValue) {
+        if (playersBuilder_ == null) {
+          ensurePlayersIsMutable();
+          players_.add(index, builderForValue.build());
+          onChanged();
         } else {
-          return showSet_ == null ?
-              src.proto.AllProtos.Consensus.getDefaultInstance() : showSet_;
+          playersBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.Player players = 3;</code>
+       */
+      public Builder addAllPlayers(
+          java.lang.Iterable<? extends src.proto.AllProtos.Player> values) {
+        if (playersBuilder_ == null) {
+          ensurePlayersIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, players_);
+          onChanged();
+        } else {
+          playersBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.Player players = 3;</code>
+       */
+      public Builder clearPlayers() {
+        if (playersBuilder_ == null) {
+          players_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          playersBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.Player players = 3;</code>
+       */
+      public Builder removePlayers(int index) {
+        if (playersBuilder_ == null) {
+          ensurePlayersIsMutable();
+          players_.remove(index);
+          onChanged();
+        } else {
+          playersBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .action.Player players = 3;</code>
+       */
+      public src.proto.AllProtos.Player.Builder getPlayersBuilder(
+          int index) {
+        return getPlayersFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .action.Player players = 3;</code>
+       */
+      public src.proto.AllProtos.PlayerOrBuilder getPlayersOrBuilder(
+          int index) {
+        if (playersBuilder_ == null) {
+          return players_.get(index);  } else {
+          return playersBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>.action.Consensus showSet = 3;</code>
+       * <code>repeated .action.Player players = 3;</code>
        */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          src.proto.AllProtos.Consensus, src.proto.AllProtos.Consensus.Builder, src.proto.AllProtos.ConsensusOrBuilder> 
-          getShowSetFieldBuilder() {
-        if (showSetBuilder_ == null) {
-          showSetBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              src.proto.AllProtos.Consensus, src.proto.AllProtos.Consensus.Builder, src.proto.AllProtos.ConsensusOrBuilder>(
-                  getShowSet(),
+      public java.util.List<? extends src.proto.AllProtos.PlayerOrBuilder> 
+           getPlayersOrBuilderList() {
+        if (playersBuilder_ != null) {
+          return playersBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(players_);
+        }
+      }
+      /**
+       * <code>repeated .action.Player players = 3;</code>
+       */
+      public src.proto.AllProtos.Player.Builder addPlayersBuilder() {
+        return getPlayersFieldBuilder().addBuilder(
+            src.proto.AllProtos.Player.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .action.Player players = 3;</code>
+       */
+      public src.proto.AllProtos.Player.Builder addPlayersBuilder(
+          int index) {
+        return getPlayersFieldBuilder().addBuilder(
+            index, src.proto.AllProtos.Player.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .action.Player players = 3;</code>
+       */
+      public java.util.List<src.proto.AllProtos.Player.Builder> 
+           getPlayersBuilderList() {
+        return getPlayersFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          src.proto.AllProtos.Player, src.proto.AllProtos.Player.Builder, src.proto.AllProtos.PlayerOrBuilder> 
+          getPlayersFieldBuilder() {
+        if (playersBuilder_ == null) {
+          playersBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              src.proto.AllProtos.Player, src.proto.AllProtos.Player.Builder, src.proto.AllProtos.PlayerOrBuilder>(
+                  players_,
+                  ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
                   isClean());
-          showSet_ = null;
+          players_ = null;
         }
-        return showSetBuilder_;
+        return playersBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -7460,19 +8884,19 @@ public final class AllProtos {
     int getPlayerID();
 
     /**
-     * <code>.action.Board board = 2;</code>
-     * @return Whether the board field is set.
+     * <code>.action.State state = 2;</code>
+     * @return Whether the state field is set.
      */
-    boolean hasBoard();
+    boolean hasState();
     /**
-     * <code>.action.Board board = 2;</code>
-     * @return The board.
+     * <code>.action.State state = 2;</code>
+     * @return The state.
      */
-    src.proto.AllProtos.Board getBoard();
+    src.proto.AllProtos.State getState();
     /**
-     * <code>.action.Board board = 2;</code>
+     * <code>.action.State state = 2;</code>
      */
-    src.proto.AllProtos.BoardOrBuilder getBoardOrBuilder();
+    src.proto.AllProtos.StateOrBuilder getStateOrBuilder();
 
     /**
      * <code>string errorMessage = 3;</code>
@@ -7539,14 +8963,14 @@ public final class AllProtos {
               break;
             }
             case 18: {
-              src.proto.AllProtos.Board.Builder subBuilder = null;
+              src.proto.AllProtos.State.Builder subBuilder = null;
               if (responseCase_ == 2) {
-                subBuilder = ((src.proto.AllProtos.Board) response_).toBuilder();
+                subBuilder = ((src.proto.AllProtos.State) response_).toBuilder();
               }
               response_ =
-                  input.readMessage(src.proto.AllProtos.Board.parser(), extensionRegistry);
+                  input.readMessage(src.proto.AllProtos.State.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((src.proto.AllProtos.Board) response_);
+                subBuilder.mergeFrom((src.proto.AllProtos.State) response_);
                 response_ = subBuilder.buildPartial();
               }
               responseCase_ = 2;
@@ -7596,7 +9020,7 @@ public final class AllProtos {
         implements com.google.protobuf.Internal.EnumLite,
             com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       PLAYERID(1),
-      BOARD(2),
+      STATE(2),
       ERRORMESSAGE(3),
       RESPONSE_NOT_SET(0);
       private final int value;
@@ -7616,7 +9040,7 @@ public final class AllProtos {
       public static ResponseCase forNumber(int value) {
         switch (value) {
           case 1: return PLAYERID;
-          case 2: return BOARD;
+          case 2: return STATE;
           case 3: return ERRORMESSAGE;
           case 0: return RESPONSE_NOT_SET;
           default: return null;
@@ -7646,35 +9070,35 @@ public final class AllProtos {
       return 0;
     }
 
-    public static final int BOARD_FIELD_NUMBER = 2;
+    public static final int STATE_FIELD_NUMBER = 2;
     /**
-     * <code>.action.Board board = 2;</code>
-     * @return Whether the board field is set.
+     * <code>.action.State state = 2;</code>
+     * @return Whether the state field is set.
      */
     @java.lang.Override
-    public boolean hasBoard() {
+    public boolean hasState() {
       return responseCase_ == 2;
     }
     /**
-     * <code>.action.Board board = 2;</code>
-     * @return The board.
+     * <code>.action.State state = 2;</code>
+     * @return The state.
      */
     @java.lang.Override
-    public src.proto.AllProtos.Board getBoard() {
+    public src.proto.AllProtos.State getState() {
       if (responseCase_ == 2) {
-         return (src.proto.AllProtos.Board) response_;
+         return (src.proto.AllProtos.State) response_;
       }
-      return src.proto.AllProtos.Board.getDefaultInstance();
+      return src.proto.AllProtos.State.getDefaultInstance();
     }
     /**
-     * <code>.action.Board board = 2;</code>
+     * <code>.action.State state = 2;</code>
      */
     @java.lang.Override
-    public src.proto.AllProtos.BoardOrBuilder getBoardOrBuilder() {
+    public src.proto.AllProtos.StateOrBuilder getStateOrBuilder() {
       if (responseCase_ == 2) {
-         return (src.proto.AllProtos.Board) response_;
+         return (src.proto.AllProtos.State) response_;
       }
-      return src.proto.AllProtos.Board.getDefaultInstance();
+      return src.proto.AllProtos.State.getDefaultInstance();
     }
 
     public static final int ERRORMESSAGE_FIELD_NUMBER = 3;
@@ -7741,7 +9165,7 @@ public final class AllProtos {
             1, (int)((java.lang.Integer) response_));
       }
       if (responseCase_ == 2) {
-        output.writeMessage(2, (src.proto.AllProtos.Board) response_);
+        output.writeMessage(2, (src.proto.AllProtos.State) response_);
       }
       if (responseCase_ == 3) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, response_);
@@ -7762,7 +9186,7 @@ public final class AllProtos {
       }
       if (responseCase_ == 2) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, (src.proto.AllProtos.Board) response_);
+          .computeMessageSize(2, (src.proto.AllProtos.State) response_);
       }
       if (responseCase_ == 3) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, response_);
@@ -7789,8 +9213,8 @@ public final class AllProtos {
               != other.getPlayerID()) return false;
           break;
         case 2:
-          if (!getBoard()
-              .equals(other.getBoard())) return false;
+          if (!getState()
+              .equals(other.getState())) return false;
           break;
         case 3:
           if (!getErrorMessage()
@@ -7816,8 +9240,8 @@ public final class AllProtos {
           hash = (53 * hash) + getPlayerID();
           break;
         case 2:
-          hash = (37 * hash) + BOARD_FIELD_NUMBER;
-          hash = (53 * hash) + getBoard().hashCode();
+          hash = (37 * hash) + STATE_FIELD_NUMBER;
+          hash = (53 * hash) + getState().hashCode();
           break;
         case 3:
           hash = (37 * hash) + ERRORMESSAGE_FIELD_NUMBER;
@@ -7991,10 +9415,10 @@ public final class AllProtos {
           result.response_ = response_;
         }
         if (responseCase_ == 2) {
-          if (boardBuilder_ == null) {
+          if (stateBuilder_ == null) {
             result.response_ = response_;
           } else {
-            result.response_ = boardBuilder_.build();
+            result.response_ = stateBuilder_.build();
           }
         }
         if (responseCase_ == 3) {
@@ -8054,8 +9478,8 @@ public final class AllProtos {
             setPlayerID(other.getPlayerID());
             break;
           }
-          case BOARD: {
-            mergeBoard(other.getBoard());
+          case STATE: {
+            mergeState(other.getState());
             break;
           }
           case ERRORMESSAGE: {
@@ -8147,71 +9571,71 @@ public final class AllProtos {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          src.proto.AllProtos.Board, src.proto.AllProtos.Board.Builder, src.proto.AllProtos.BoardOrBuilder> boardBuilder_;
+          src.proto.AllProtos.State, src.proto.AllProtos.State.Builder, src.proto.AllProtos.StateOrBuilder> stateBuilder_;
       /**
-       * <code>.action.Board board = 2;</code>
-       * @return Whether the board field is set.
+       * <code>.action.State state = 2;</code>
+       * @return Whether the state field is set.
        */
       @java.lang.Override
-      public boolean hasBoard() {
+      public boolean hasState() {
         return responseCase_ == 2;
       }
       /**
-       * <code>.action.Board board = 2;</code>
-       * @return The board.
+       * <code>.action.State state = 2;</code>
+       * @return The state.
        */
       @java.lang.Override
-      public src.proto.AllProtos.Board getBoard() {
-        if (boardBuilder_ == null) {
+      public src.proto.AllProtos.State getState() {
+        if (stateBuilder_ == null) {
           if (responseCase_ == 2) {
-            return (src.proto.AllProtos.Board) response_;
+            return (src.proto.AllProtos.State) response_;
           }
-          return src.proto.AllProtos.Board.getDefaultInstance();
+          return src.proto.AllProtos.State.getDefaultInstance();
         } else {
           if (responseCase_ == 2) {
-            return boardBuilder_.getMessage();
+            return stateBuilder_.getMessage();
           }
-          return src.proto.AllProtos.Board.getDefaultInstance();
+          return src.proto.AllProtos.State.getDefaultInstance();
         }
       }
       /**
-       * <code>.action.Board board = 2;</code>
+       * <code>.action.State state = 2;</code>
        */
-      public Builder setBoard(src.proto.AllProtos.Board value) {
-        if (boardBuilder_ == null) {
+      public Builder setState(src.proto.AllProtos.State value) {
+        if (stateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
           response_ = value;
           onChanged();
         } else {
-          boardBuilder_.setMessage(value);
+          stateBuilder_.setMessage(value);
         }
         responseCase_ = 2;
         return this;
       }
       /**
-       * <code>.action.Board board = 2;</code>
+       * <code>.action.State state = 2;</code>
        */
-      public Builder setBoard(
-          src.proto.AllProtos.Board.Builder builderForValue) {
-        if (boardBuilder_ == null) {
+      public Builder setState(
+          src.proto.AllProtos.State.Builder builderForValue) {
+        if (stateBuilder_ == null) {
           response_ = builderForValue.build();
           onChanged();
         } else {
-          boardBuilder_.setMessage(builderForValue.build());
+          stateBuilder_.setMessage(builderForValue.build());
         }
         responseCase_ = 2;
         return this;
       }
       /**
-       * <code>.action.Board board = 2;</code>
+       * <code>.action.State state = 2;</code>
        */
-      public Builder mergeBoard(src.proto.AllProtos.Board value) {
-        if (boardBuilder_ == null) {
+      public Builder mergeState(src.proto.AllProtos.State value) {
+        if (stateBuilder_ == null) {
           if (responseCase_ == 2 &&
-              response_ != src.proto.AllProtos.Board.getDefaultInstance()) {
-            response_ = src.proto.AllProtos.Board.newBuilder((src.proto.AllProtos.Board) response_)
+              response_ != src.proto.AllProtos.State.getDefaultInstance()) {
+            response_ = src.proto.AllProtos.State.newBuilder((src.proto.AllProtos.State) response_)
                 .mergeFrom(value).buildPartial();
           } else {
             response_ = value;
@@ -8219,18 +9643,18 @@ public final class AllProtos {
           onChanged();
         } else {
           if (responseCase_ == 2) {
-            boardBuilder_.mergeFrom(value);
+            stateBuilder_.mergeFrom(value);
           }
-          boardBuilder_.setMessage(value);
+          stateBuilder_.setMessage(value);
         }
         responseCase_ = 2;
         return this;
       }
       /**
-       * <code>.action.Board board = 2;</code>
+       * <code>.action.State state = 2;</code>
        */
-      public Builder clearBoard() {
-        if (boardBuilder_ == null) {
+      public Builder clearState() {
+        if (stateBuilder_ == null) {
           if (responseCase_ == 2) {
             responseCase_ = 0;
             response_ = null;
@@ -8241,50 +9665,50 @@ public final class AllProtos {
             responseCase_ = 0;
             response_ = null;
           }
-          boardBuilder_.clear();
+          stateBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>.action.Board board = 2;</code>
+       * <code>.action.State state = 2;</code>
        */
-      public src.proto.AllProtos.Board.Builder getBoardBuilder() {
-        return getBoardFieldBuilder().getBuilder();
+      public src.proto.AllProtos.State.Builder getStateBuilder() {
+        return getStateFieldBuilder().getBuilder();
       }
       /**
-       * <code>.action.Board board = 2;</code>
+       * <code>.action.State state = 2;</code>
        */
       @java.lang.Override
-      public src.proto.AllProtos.BoardOrBuilder getBoardOrBuilder() {
-        if ((responseCase_ == 2) && (boardBuilder_ != null)) {
-          return boardBuilder_.getMessageOrBuilder();
+      public src.proto.AllProtos.StateOrBuilder getStateOrBuilder() {
+        if ((responseCase_ == 2) && (stateBuilder_ != null)) {
+          return stateBuilder_.getMessageOrBuilder();
         } else {
           if (responseCase_ == 2) {
-            return (src.proto.AllProtos.Board) response_;
+            return (src.proto.AllProtos.State) response_;
           }
-          return src.proto.AllProtos.Board.getDefaultInstance();
+          return src.proto.AllProtos.State.getDefaultInstance();
         }
       }
       /**
-       * <code>.action.Board board = 2;</code>
+       * <code>.action.State state = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          src.proto.AllProtos.Board, src.proto.AllProtos.Board.Builder, src.proto.AllProtos.BoardOrBuilder> 
-          getBoardFieldBuilder() {
-        if (boardBuilder_ == null) {
+          src.proto.AllProtos.State, src.proto.AllProtos.State.Builder, src.proto.AllProtos.StateOrBuilder> 
+          getStateFieldBuilder() {
+        if (stateBuilder_ == null) {
           if (!(responseCase_ == 2)) {
-            response_ = src.proto.AllProtos.Board.getDefaultInstance();
+            response_ = src.proto.AllProtos.State.getDefaultInstance();
           }
-          boardBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              src.proto.AllProtos.Board, src.proto.AllProtos.Board.Builder, src.proto.AllProtos.BoardOrBuilder>(
-                  (src.proto.AllProtos.Board) response_,
+          stateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              src.proto.AllProtos.State, src.proto.AllProtos.State.Builder, src.proto.AllProtos.StateOrBuilder>(
+                  (src.proto.AllProtos.State) response_,
                   getParentForChildren(),
                   isClean());
           response_ = null;
         }
         responseCase_ = 2;
         onChanged();;
-        return boardBuilder_;
+        return stateBuilder_;
       }
 
       /**
@@ -8459,15 +9883,20 @@ public final class AllProtos {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_action_Card_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_action_Board_descriptor;
+    internal_static_action_Consensuses_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_action_Board_fieldAccessorTable;
+      internal_static_action_Consensuses_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_action_Consensus_descriptor;
+    internal_static_action_CardCollection_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_action_Consensus_fieldAccessorTable;
+      internal_static_action_CardCollection_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_action_Player_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_action_Player_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_action_State_descriptor;
   private static final 
@@ -8499,26 +9928,30 @@ public final class AllProtos {
       "D\030\001 \001(\r\"\220\001\n\004Card\022\"\n\006colour\030\001 \001(\0162\022.actio" +
       "n.CardColour\022\"\n\006number\030\002 \001(\0162\022.action.Ca" +
       "rdNumber\022 \n\005shape\030\003 \001(\0162\021.action.CardSha" +
-      "pe\022\036\n\004fill\030\004 \001(\0162\020.action.CardFill\"$\n\005Bo" +
-      "ard\022\033\n\005cards\030\001 \003(\0132\014.action.Card\"9\n\tCons" +
-      "ensus\022\026\n\016nActivePlayers\030\001 \001(\r\022\024\n\014nInAgre" +
-      "ement\030\002 \001(\r\"o\n\005State\022\034\n\005board\030\001 \001(\0132\r.ac" +
-      "tion.Board\022$\n\tdrawThree\030\002 \001(\0132\021.action.C" +
-      "onsensus\022\"\n\007showSet\030\003 \001(\0132\021.action.Conse" +
-      "nsus\"h\n\016ServerResponse\022\022\n\010playerID\030\001 \001(\r" +
-      "H\000\022\036\n\005board\030\002 \001(\0132\r.action.BoardH\000\022\026\n\014er" +
-      "rorMessage\030\003 \001(\tH\000B\n\n\010response*\223\001\n\nActio" +
-      "nType\022\027\n\023UNKNOWN_ACTION_TYPE\020\000\022\016\n\nSELECT" +
-      "_SET\020\001\022\024\n\020REQUEST_SHOW_SET\020\002\022\016\n\nLEAVE_GA" +
-      "ME\020\003\022\026\n\022REQUEST_DRAW_THREE\020\004\022\r\n\010SHOW_SET" +
-      "\020\350\007\022\017\n\nDRAW_THREE\020\351\007*@\n\nCardColour\022\022\n\016UN" +
-      "KNOWN_COLOUR\020\000\022\007\n\003RED\020\001\022\t\n\005GREEN\020\002\022\n\n\006PU" +
-      "RPLE\020\003*>\n\010CardFill\022\020\n\014UNKNOWN_FILL\020\000\022\010\n\004" +
-      "OPEN\020\001\022\013\n\007STRIPED\020\002\022\t\n\005SOLID\020\003*=\n\nCardNu" +
-      "mber\022\022\n\016UNKNOWN_NUMBER\020\000\022\007\n\003ONE\020\001\022\007\n\003TWO" +
-      "\020\002\022\t\n\005THREE\020\003*C\n\tCardShape\022\021\n\rUNKNOWN_SH" +
-      "APE\020\000\022\013\n\007DIAMOND\020\001\022\014\n\010SQUIGGLE\020\002\022\010\n\004OVAL" +
-      "\020\003B\026\n\tsrc.protoB\tAllProtosb\006proto3"
+      "pe\022\036\n\004fill\030\004 \001(\0162\020.action.CardFill\"m\n\013Co" +
+      "nsensuses\022\026\n\016nActivePlayers\030\001 \001(\r\022#\n\033nPl" +
+      "ayersRequestingDrawThree\030\002 \001(\r\022!\n\031nPlaye" +
+      "rsRequestingShowSet\030\003 \001(\r\"-\n\016CardCollect" +
+      "ion\022\033\n\005cards\030\001 \003(\0132\014.action.Card\"Q\n\006Play" +
+      "er\022\n\n\002ID\030\001 \001(\r\022\014\n\004name\030\002 \001(\t\022-\n\rsetsColl" +
+      "ected\030\003 \003(\0132\026.action.CardCollection\"o\n\005S" +
+      "tate\022\033\n\005board\030\001 \003(\0132\014.action.Card\022(\n\013con" +
+      "sensuses\030\002 \001(\0132\023.action.Consensuses\022\037\n\007p" +
+      "layers\030\003 \003(\0132\016.action.Player\"h\n\016ServerRe" +
+      "sponse\022\022\n\010playerID\030\001 \001(\rH\000\022\036\n\005state\030\002 \001(" +
+      "\0132\r.action.StateH\000\022\026\n\014errorMessage\030\003 \001(\t" +
+      "H\000B\n\n\010response*\223\001\n\nActionType\022\027\n\023UNKNOWN" +
+      "_ACTION_TYPE\020\000\022\016\n\nSELECT_SET\020\001\022\024\n\020REQUES" +
+      "T_SHOW_SET\020\002\022\016\n\nLEAVE_GAME\020\003\022\026\n\022REQUEST_" +
+      "DRAW_THREE\020\004\022\r\n\010SHOW_SET\020\350\007\022\017\n\nDRAW_THRE" +
+      "E\020\351\007*@\n\nCardColour\022\022\n\016UNKNOWN_COLOUR\020\000\022\007" +
+      "\n\003RED\020\001\022\t\n\005GREEN\020\002\022\n\n\006PURPLE\020\003*>\n\010CardFi" +
+      "ll\022\020\n\014UNKNOWN_FILL\020\000\022\010\n\004OPEN\020\001\022\013\n\007STRIPE" +
+      "D\020\002\022\t\n\005SOLID\020\003*=\n\nCardNumber\022\022\n\016UNKNOWN_" +
+      "NUMBER\020\000\022\007\n\003ONE\020\001\022\007\n\003TWO\020\002\022\t\n\005THREE\020\003*C\n" +
+      "\tCardShape\022\021\n\rUNKNOWN_SHAPE\020\000\022\013\n\007DIAMOND" +
+      "\020\001\022\014\n\010SQUIGGLE\020\002\022\010\n\004OVAL\020\003B\026\n\tsrc.protoB" +
+      "\tAllProtosb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8560,30 +9993,36 @@ public final class AllProtos {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_action_Card_descriptor,
         new java.lang.String[] { "Colour", "Number", "Shape", "Fill", });
-    internal_static_action_Board_descriptor =
+    internal_static_action_Consensuses_descriptor =
       getDescriptor().getMessageTypes().get(6);
-    internal_static_action_Board_fieldAccessorTable = new
+    internal_static_action_Consensuses_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_action_Board_descriptor,
-        new java.lang.String[] { "Cards", });
-    internal_static_action_Consensus_descriptor =
+        internal_static_action_Consensuses_descriptor,
+        new java.lang.String[] { "NActivePlayers", "NPlayersRequestingDrawThree", "NPlayersRequestingShowSet", });
+    internal_static_action_CardCollection_descriptor =
       getDescriptor().getMessageTypes().get(7);
-    internal_static_action_Consensus_fieldAccessorTable = new
+    internal_static_action_CardCollection_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_action_Consensus_descriptor,
-        new java.lang.String[] { "NActivePlayers", "NInAgreement", });
-    internal_static_action_State_descriptor =
+        internal_static_action_CardCollection_descriptor,
+        new java.lang.String[] { "Cards", });
+    internal_static_action_Player_descriptor =
       getDescriptor().getMessageTypes().get(8);
+    internal_static_action_Player_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_action_Player_descriptor,
+        new java.lang.String[] { "ID", "Name", "SetsCollected", });
+    internal_static_action_State_descriptor =
+      getDescriptor().getMessageTypes().get(9);
     internal_static_action_State_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_action_State_descriptor,
-        new java.lang.String[] { "Board", "DrawThree", "ShowSet", });
+        new java.lang.String[] { "Board", "Consensuses", "Players", });
     internal_static_action_ServerResponse_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_action_ServerResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_action_ServerResponse_descriptor,
-        new java.lang.String[] { "PlayerID", "Board", "ErrorMessage", "Response", });
+        new java.lang.String[] { "PlayerID", "State", "ErrorMessage", "Response", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
