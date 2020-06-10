@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import List
 
-from src.proto.action_pb2 import (
+from proto.action_pb2 import (
 	Action as ActionProto,
 	ActionType as ActionTypeProto,
 	ClientRequest as ClientRequestProto

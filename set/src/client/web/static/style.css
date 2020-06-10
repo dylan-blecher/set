@@ -1,0 +1,152 @@
+.board {
+  display: inline-flex; /* make children flex items so that we can align them nicely*/
+  flex-direction: row; /* expand children horizontally */
+  align-items: center; /* vertical centre */
+  justify-content: center; /* horizontal centre */
+}
+
+.cardQuadruplet {
+  display: inline-flex; /* make children flex items so that we can align them nicely*/
+  flex-direction: column; /* expand children horizontally */
+}
+
+.cardTriplet2 {
+  display: inline-flex; /* make children flex items so that we can align them nicely*/
+  flex-direction: column; /* expand children horizontally */
+  display:none;
+}
+
+.card {
+  position: relative;
+  
+  height: 200px;
+  width: 300px;
+  border-radius: 5px; /* 5px rounded corners */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  
+  display: inline-flex; /* make children flex items so that we can align them nicely*/
+  flex-direction: row; /* expand children horizontally */
+  align-items: center; /* vertical centre */
+  justify-content: center; /* horizontal centre */
+
+}
+
+.hoverOverCard {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.selectCard {
+  box-shadow: 0 12px 24px 0 rgba(1,1,1,1);
+}
+
+/* shapes */
+.OVAL {
+  height: 140px;
+  width: 70px;
+
+  border: 4px solid;
+  border-radius: 100% / 50%;
+  
+  margin-right: 8px;
+  margin-left: 8px;
+}
+
+/* https://stackoverflow.com/questions/33594522/how-would-i-create-a-title-inside-a-diamond-shape-with-css */
+/* temporarily a rectangle */
+.DIAMOND {
+  height: 140px;
+  width: 70px;
+  
+  border: 4px solid;
+
+  margin-right: 8px;
+  margin-left: 8px;
+}
+
+/* temporarily a weird mouth shape */
+.SQUIGGLE {
+  height: 140px;
+  width: 70px;
+  
+  border: 4px solid;
+  border-radius: 99% 0% 99% 0%;
+  
+  margin-right: 8px;
+  margin-left: 8px;
+}
+
+/* colours */
+.RED {
+  /* set outline of shape */
+  border-color: red;
+  /* set fill (for solid) */
+  background-color: red;
+  /* set stripes... repeatedly, 2 pixel coloured stripe followed by 4 pixel transparent stripe (starting from the 3rd pixel from the bottom) */
+  
+  background-image: repeating-linear-gradient(
+    0deg,
+    red 3px,              
+    red 5px,
+    transparent 5px,
+    transparent 9px
+  );
+}
+
+.GREEN {
+    /* set outline of shape */
+  border-color: green;
+  /* set fill (for solid) */
+  background-color: green;
+  /* set stripes... repeatedly, 2 pixel coloured stripe followed by 4 pixel transparent stripe (starting from the 3rd pixel from the bottom) */
+  
+  background-image: repeating-linear-gradient(
+    0deg,
+    green 3px,              
+    green 5px,
+    transparent 5px,
+    transparent 9px
+  );
+}
+
+.PURPLE {
+    /* set outline of shape */
+  border-color: purple;
+  /* set fill (for solid) */
+  background-color: purple;
+  /* set stripes... repeatedly, 2 pixel coloured stripe followed by 4 pixel transparent stripe (starting from the 3rd pixel from the bottom) */
+  
+  background-image: repeating-linear-gradient(
+    0deg,
+    purple 3px,              
+    purple 5px,
+    transparent 5px,
+    transparent 9px
+  );
+}
+
+
+/* fill */
+.OPEN {
+  background: none !important; /* removes stripes and fill */
+}
+
+.STRIPED {
+  background-color: transparent !important; /* removes fill */
+}
+
+.SOLID {
+  background-image: none !important; /* removes stripes */
+}
+
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: #4CAF50;
+}

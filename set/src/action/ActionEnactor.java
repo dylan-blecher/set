@@ -58,6 +58,7 @@ public class ActionEnactor {
 
     private static void enactSelectSet(PlayerActionSelectSet action, Board board, Deck deck, Players players) {
         Set set = removeSetFromBoard(action.getCardPositions(), board);
+        System.out.println("PLAYERID: " + action.getPlayerID());
         players.getPlayer(action.getPlayerID()).collectSet(set);
         replenishBoard(board, deck);
     }
@@ -71,11 +72,14 @@ public class ActionEnactor {
     }
 
     private static void replenishBoard(Board board, Deck deck) {
-        if (board.nCards() < BASE_BOARD_SIZE && deck.nCards() >= SET_SIZE)
+        if (board.nCards() < BASE_BOARD_SIZE && deck.nCards() >= SET_SIZE) {
+            System.out.println("ncards: " + board.nCards() + "base size: " + BASE_BOARD_SIZE);
             addToBoardFromDeck(SET_SIZE, board, deck);
+        }
     }
 
     private static void enactDrawThree(Board board, Deck deck) {
-        addToBoardFromDeck(SET_SIZE, board, deck);
+        int nCardsToAdd = Math.min(board.nEmptySpots(), SET_SIZE);
+        addToBoardFromDeck(nCardsToAdd, board, deck);
     }
 }

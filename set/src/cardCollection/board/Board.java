@@ -5,7 +5,9 @@ import src.cardCollection.CardCollection;
 
 public class Board extends CardCollection {
     public static final int BASE_BOARD_SIZE = 12;
-    public static final int MAX_BOARD_SIZE = 21;
+    // you are guaranteed to have a set on the board with 20 cards, according to Wikipedia
+    // https://en.wikipedia.org/wiki/Set_(card_game)#Basic_combinatorics_of_Set
+    public static final int MAX_BOARD_SIZE = 20;
 
     public Board(Card[] cards) {
         super(cards);

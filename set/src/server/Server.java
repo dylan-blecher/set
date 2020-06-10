@@ -37,7 +37,7 @@ public class Server {
             System.out.println("serverSocket");
             int newPlayerID = 0;
             int nPlayers = 0;
-            while (nPlayers < 2) {
+            while (nPlayers < 1) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("ANOTHER clientSocket");
 
@@ -167,6 +167,7 @@ public class Server {
 
         // send state to all players
         sendServerResponseToAllPlayers(stateProto, players);
+        System.out.println("SENT STATE!");
     }
 
     public static void sendResultToPlayers(Result result, Players players) {

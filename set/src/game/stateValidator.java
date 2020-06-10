@@ -62,7 +62,7 @@ public class stateValidator {
 
         switch (action.getType()) {
             case SHOW_SET:
-                validateSHOW_SET();
+                validateSHOW_SET(board);
                 break;
             case DRAW_THREE:
                 validateDRAW_THREE(board, deck);
@@ -84,8 +84,10 @@ public class stateValidator {
         }
     }
 
-    private static void validateSHOW_SET() {
-        // always valid :)
+    private static void validateSHOW_SET(Board board) {
+        if (findSet(board) == null) {
+            throw new UnsupportedOperationException("There are no sets on the board.");
+        }
     }
 
     private static void validateDRAW_THREE(Board board, Deck deck) {

@@ -1,13 +1,13 @@
 from queue import Queue
 from socket import gethostname
 from enum import Enum
-from Structures import (
+from client.Structures import (
     ActionType,
     PlayerAction,
     PlayerActionSelectSet,
 )
 
-from src.proto.action_pb2 import (
+from proto.action_pb2 import (
     ClientRequest as ClientRequestProto,
     ServerResponse as ServerResponseProto,
     JoinGameRequest as JoinGameRequestProto,
@@ -19,154 +19,147 @@ import time
 import threading
 import json
 
-from src.client import server_communicator
+from client import server_communicator
 
 from google.protobuf.internal.encoder import _VarintEncoder
+from google.protobuf.json_format import MessageToJson
+
+from flask import render_template
 
 
 SET_SIZE = 3
 GAME_PORT = 9090        # The port used by the server
 
-def runPlayer():
-    actions = Queue()       # python queues are synchronous :)
-    HOST = gethostname()    # The server's hostname or IP address
-    playerID = None
-    fromServer = None
-    toServer = None
+class PlayerRunner:
+    def __init__(self, sock):
+        self._sock = sock
+        self._actions = Queue() # python queues are synchronous if you add a few flags when using :)
     
-    try:
-        fromServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        fromServer.connect((HOST, GAME_PORT))
-
-        # maybe i needa create this as a "ClientRequest type"
-        # action = PlayerActionSelectSet.build(
-        #     ActionType.SELECT_SET,
-        #     playerID=2403,
-        #     cardPositions=[94, 98, 5]
-        # )
-
-        # ActionProto(
-        #     type=_action_type_to_proto(actionType),
-        #     playerID=playerID
-        # )
-          
-        # playerIDRequestProto = ClientRequestProto()
-        # playerIDRequestProto.joinGame.name = readPlayerName()
-
-        playerIDRequestProto = ClientRequestProto(
-            joinGame=JoinGameRequestProto(
-                name=readPlayerName()
-            )
-        )
-
-        server_communicator._send_message(fromServer, playerIDRequestProto)
-
+    def run_player(self):    
+        HOST = gethostname()    # The server's hostname or IP address
+        playerID = None
+        fromServer = None
+        toServer = None
         
-        delay = 0.025 # 25 milliseconds
-        while playerID is None:
-            time.sleep(delay)
-            delay *= 2
+        try:
+            fromServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            fromServer.connect((HOST, GAME_PORT))
             
-            try: 
-                serverResponseProto = server_communicator._receive_message(fromServer, ServerResponseProto)
-                print(serverResponseProto)
-                if serverResponseProto.HasField("playerID"):
-                    playerID = serverResponseProto.playerID
-                    fromServer.shutdown(socket.SHUT_WR) # can't write to fromServer anymore - it's one way!
+            # maybe i needa create this as a "ClientRequest type"
+            # action = Playerself._ActionSelectSet.build(
+            #     ActionType.SELECT_SET,
+            #     playerID=2403,
+            #     cardPositions=[94, 98, 5]
+            # )
 
-            except Exception as e:
-                print(str(e))
-                print("if we failed to _receive_message, we probably got the request for ID that we just put on!")
-                server_communicator._send_message(fromServer, playerIDRequestProto)
-                print("sent message again")
-        
+            # ActionProto(
+            #     type=_action_type_to_proto(actionType),
+            #     playerID=playerID
+            # )
+              
+            # playerIDRequestProto = ClientRequestProto()
+            # playerIDRequestProto.joinGame.name = readPlayerName()
 
-        
-        toServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        toServer.connect((HOST, GAME_PORT))  
-        toServer.shutdown(socket.SHUT_RD)           # can't read from toServer anymore - it's one way!
-
-        confirmPlayerIDProto = ClientRequestProto(
-            confirmPlayerID=ConfirmPlayerIDProto(
-                playerID=playerID
+            playerIDRequestProto = ClientRequestProto(
+                joinGame=JoinGameRequestProto(
+                    name= "Dyl" # readPlayerName()
+                )
             )
-        )
-        
-        server_communicator._send_message(toServer, confirmPlayerIDProto)
-        print("sent confirmation of id")
-    
-    except Exception as e:
-        print(str(e))
-        if fromServer is None:
-            closeSocket(toServer)
-        if toServer is None:
-            closeSocket(fromServer)
-        raise e
+
+            server_communicator._send_message(fromServer, playerIDRequestProto)
 
 
-    actionQueueThread = ActionQueueDrainer(actions, toServer)
-    feedbackThread = FeedbackGetter(fromServer)
-
-    actionQueueThread.start()
-    feedbackThread.start()
-
-    playerRequestsToLeave = False
-    print("start get action loop")
-    while not playerRequestsToLeave:
-        action = getAction(playerID)
-        if action != None:
-            print("added action to queue!")
-            actions.put(action)
-
-            if action.getActionType() == ActionType.LEAVE_GAME:
-                playerRequestsToLeave = True
+            delay = 0.025 # 25 milliseconds
+            while playerID is None:
+                time.sleep(delay)
+                delay *= 2
                 
-    farewellPlayer()
+                try: 
+                    serverResponseProto = server_communicator._receive_message(fromServer, ServerResponseProto)
+                    # print(serverResponseProto)
+                    if serverResponseProto.HasField("playerID"):
+                        playerID = serverResponseProto.playerID
+                        fromServer.shutdown(socket.SHUT_WR) # can't write to fromServer anymore - it's one way!
 
-    actionQueueThread.join()
-    feedbackThread.join()
+                except Exception as e:
+                    print(str(e))
+                    print("if we failed to _receive_message, we probably got the request for ID that we just put on!")
+                    server_communicator._send_message(fromServer, playerIDRequestProto)
+                    print("sent message again")
+            
+            toServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            toServer.connect((HOST, GAME_PORT))  
+            toServer.shutdown(socket.SHUT_RD)           # can't read from toServer anymore - it's one way!
 
-class ActionQueueDrainer(threading.Thread):
-    def __init__(self, actions, toServer):
-        threading.Thread.__init__(self)
-        self.actions = actions
-        self.toServer = toServer
-
-    def run(self):
-        while True:
-            action = self.actions.get(block=True)
-            assert(action != None)
-            self.sendAction(action)
-            print("sent action!")
-
-    def sendAction(self, action: PlayerAction) -> None:
-        server_communicator._send_message(self.toServer, action.proto)
-
-class FeedbackGetter(threading.Thread):
-    def __init__(self, fromServer):
-        threading.Thread.__init__(self)
-        self.fromServer = fromServer
-
-    def run(self):
-        while True:
-            try:
-                serverResponseProto = server_communicator._receive_message(self.fromServer, ServerResponseProto)
+            confirmPlayerIDProto = ClientRequestProto(
+                confirmPlayerID=ConfirmPlayerIDProto(
+                    playerID=playerID
+                )
+            )
+            
+            server_communicator._send_message(toServer, confirmPlayerIDProto)
+            print("sent confirmation of id")
         
-                if serverResponseProto.HasField("errorMessage"):
-                    print(serverResponseProto.errorMessage)
-                elif serverResponseProto.HasField("state"):
-                    print(serverResponseProto)
-                    # print("got state!")
-                elif serverResponseProto.HasField("revealedSet"):
-                    print(serverResponseProto)
-                    time.sleep(2.5)
-                    print("RECEIVED REVEALED SET :)")
-                    # remember that it could be default empty set if none exist
-                elif serverResponseProto.HasField("result"):
-                    print(serverResponseProto)
-                    break
-            except Exception as e:
-                print(str(e))
+        except Exception as e:
+            print(str(e))
+            if fromServer is None:
+                closeSocket(toServer)
+            if toServer is None:
+                closeSocket(fromServer)
+            raise e
+
+        actionQueueThread = self._sock.start_background_task(ActionQueueDrainer(self._actions, toServer).run)
+        feedbackThread = self._sock.start_background_task(FeedbackGetter(fromServer, self._sock).run)
+        # while True:
+        #     self._sock.sleep(1.5)
+            # self._sock.emit("board_change", "apples")
+        # actionQueueThread = ActionQueueDrainer(actions, toServer)
+        # feedbackThread = FeedbackGetter(fromServer, self._sock)
+
+        # actionQueueThread.start()
+        # feedbackThread.start()
+
+        # playerRequestsToLeave = False
+        # print("start get action loop")
+        # while not playerRequestsToLeave:
+        #     self._sock.sleep(1.5)
+        #     action = getAction(playerID)
+        #     if action != None:
+        #         print("added action to queue!")
+        #         actions.put(action)
+
+        #         if action.getActionType() == ActionType.LEAVE_GAME:
+        #             playerRequestsToLeave = True
+                    
+        # farewellPlayer()
+        self._sock.sleep(5)
+        actionQueueThread.join()
+        feedbackThread.join()
+
+    def addActionToQueue(self, action):
+        self._actions.put(action)
+
+# def getAction(playerID):
+#     promptForAction()
+#     actionType = ActionType(int(input()) + 1) # TODO: not sure if this works...
+#     action = None
+
+#     if actionType == ActionType.SELECT_SET:
+#         action = getSelectSet(playerID, actionType)
+#     elif actionType == ActionType.REQUEST_SHOW_SET or actionType == ActionType.LEAVE_GAME or actionType == ActionType.REQUEST_DRAW_THREE:
+#         action = PlayerAction.build(actionType, playerID)
+#     else:
+#         print("DIDN'T GET A VALID ACTION")
+
+#     return action
+
+# def getSelectSet(playerID, actionType):
+#     print("Enter the 3 cards in your set. ")
+
+#     cardPositions = [int(x) for x in input().split()]
+#     print(cardPositions)
+
+#     return PlayerActionSelectSet.build(actionType, playerID, cardPositions)
 
 def closeSocket(sock):
     if sock != None:
@@ -185,30 +178,57 @@ def promptForAction():
     print("Enter 2 to leave game now.")
     print("Enter 3 to request 3 more cards.")
 
-def getAction(playerID):
-    promptForAction()
-    actionType = ActionType(int(input()) + 1) # TODO: not sure if this works...
-    action = None
+class ActionQueueDrainer:
+    def __init__(self, actions, toServer):
+        # threading.Thread.__init__(self)
+        self.actions = actions
+        self.toServer = toServer
 
-    if actionType == ActionType.SELECT_SET:
-        action = getSelectSet(playerID, actionType)
-    elif actionType == ActionType.REQUEST_SHOW_SET or actionType == ActionType.LEAVE_GAME or actionType == ActionType.REQUEST_DRAW_THREE:
-        action = PlayerAction.build(actionType, playerID)
-    else:
-        print("DIDN'T GET A VALID ACTION")
+    def run(self):
+        # print("sent action!")
+        while True:
+            action = self.actions.get(block=True)
+            assert(action != None)
+            self.sendAction(action)
+            print("sent action!")
 
-    return action
+    def sendAction(self, action: PlayerAction) -> None:
+        server_communicator._send_message(self.toServer, action.proto)
 
-def getSelectSet(playerID, actionType):
-    print("Enter the 3 cards in your set. ")
+class FeedbackGetter:
+    def __init__(self, fromServer, sock):
+        # threading.Thread.__init__(self)
+        self.fromServer = fromServer
+        self._sock = sock
 
-    cardPositions = [int(x) for x in input().split()]
-    print(cardPositions)
+    def run(self):
+        # self._sock.sleep(1)
+        # self._sock.emit("board_change", str(time.time()))
 
-    return PlayerActionSelectSet.build(actionType, playerID, cardPositions)
-
-
-class StructureType(Enum):
-    ERROR_MESSAGE = 0
-
-runPlayer()
+        while True:
+            try:
+                # CHANEG FROM _PRIVATE_METHOD
+                serverResponseProto = server_communicator._receive_message(self.fromServer, ServerResponseProto)
+                # print("got message" + str(serverResponseProto))
+                if serverResponseProto.HasField("errorMessage"):
+                    print(serverResponseProto.errorMessage)
+                elif serverResponseProto.HasField("state"):
+                    print("got state yeet ")
+                    # convert state to json
+                    serverResponseJson = MessageToJson(serverResponseProto.state, indent=None)
+                    self._sock.emit("board_change", serverResponseJson)
+                        # self._sock.emit("board_change", '{ "name":"John", "age":30, "city":"New York"}')
+                    # print(serverResponseProto)
+                    # print("got state!")
+                elif serverResponseProto.HasField("revealedSet"):
+                    # print(serverResponseProto)
+                    time.sleep(2.5)
+                    print("RECEIVED REVEALED SET :)")
+                    self._sock.emit("board_change", serverResponseJson)
+                    # remember that it could be default empty set if none exist
+                elif serverResponseProto.HasField("result"):
+                    # print(serverResponseProto)
+                    print("got result")
+                    break
+            except Exception as e:
+                print(str(e))
