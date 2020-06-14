@@ -1,6 +1,6 @@
 .board {
   display: inline-flex; /* make children flex items so that we can align them nicely*/
-  flex-direction: row; /* expand children horizontally */
+  flex-direction: column; /* expand children horizontally */
   align-items: center; /* vertical centre */
   justify-content: center; /* horizontal centre */
 }
@@ -8,27 +8,27 @@
 .cardQuadruplet {
   display: inline-flex; /* make children flex items so that we can align them nicely*/
   flex-direction: column; /* expand children horizontally */
-}
-
-.cardTriplet2 {
-  display: inline-flex; /* make children flex items so that we can align them nicely*/
-  flex-direction: column; /* expand children horizontally */
-  display:none;
+  /*vertical-align:top;*/
 }
 
 .card {
   position: relative;
   
-  height: 200px;
-  width: 300px;
+  height: 150px;
+  width: 225px;
+
   border-radius: 5px; /* 5px rounded corners */
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   
   display: inline-flex; /* make children flex items so that we can align them nicely*/
   flex-direction: row; /* expand children horizontally */
   align-items: center; /* vertical centre */
   justify-content: center; /* horizontal centre */
 
+  vertical-align:top;
+}
+
+.cardShadow {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
 .hoverOverCard {
@@ -39,10 +39,14 @@
   box-shadow: 0 12px 24px 0 rgba(1,1,1,1);
 }
 
+.revealCard {
+  box-shadow: 0 12px 24px 0 red;
+}
+
 /* shapes */
 .OVAL {
-  height: 140px;
-  width: 70px;
+  height: 100px;
+  width: 50px;
 
   border: 4px solid;
   border-radius: 100% / 50%;
@@ -54,8 +58,8 @@
 /* https://stackoverflow.com/questions/33594522/how-would-i-create-a-title-inside-a-diamond-shape-with-css */
 /* temporarily a rectangle */
 .DIAMOND {
-  height: 140px;
-  width: 70px;
+  height: 100px;
+  width: 50px;
   
   border: 4px solid;
 
@@ -65,8 +69,8 @@
 
 /* temporarily a weird mouth shape */
 .SQUIGGLE {
-  height: 140px;
-  width: 70px;
+  height: 100px;
+  width: 50px;
   
   border: 4px solid;
   border-radius: 99% 0% 99% 0%;

@@ -36,15 +36,20 @@ class PlayerRunner:
         self._actions = Queue() # python queues are synchronous if you add a few flags when using :)
     
     def run_player(self):    
-        HOST = gethostname()    # The server's hostname or IP address
+        # HOST = 'Dylans-MacBook-Pro-2.local'
+        HOST = socket.gethostbyname('localhost')
+        # HOST = gethostname()    # The server's hostname or IP address
+
+        # print("HOST IS: " + HOST)
         playerID = None
         fromServer = None
         toServer = None
         
         try:
             fromServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            print(fromServer)
             fromServer.connect((HOST, GAME_PORT))
-            
+
             # maybe i needa create this as a "ClientRequest type"
             # action = Playerself._ActionSelectSet.build(
             #     ActionType.SELECT_SET,
@@ -215,16 +220,17 @@ class FeedbackGetter:
                 elif serverResponseProto.HasField("state"):
                     print("got state yeet ")
                     # convert state to json
-                    serverResponseJson = MessageToJson(serverResponseProto.state, indent=None)
-                    self._sock.emit("board_change", serverResponseJson)
+                    stateJson = MessageToJson(serverResponseProto.state, indent=None)
+                    self._sock.emit("board_change", stateJson)
                         # self._sock.emit("board_change", '{ "name":"John", "age":30, "city":"New York"}')
                     # print(serverResponseProto)
                     # print("got state!")
                 elif serverResponseProto.HasField("revealedSet"):
                     # print(serverResponseProto)
-                    time.sleep(2.5)
                     print("RECEIVED REVEALED SET :)")
-                    self._sock.emit("board_change", serverResponseJson)
+                    revealSetJson = MessageToJson(serverResponseProto.revealedSet, indent=None)
+                    self._sock.emit("reveal_set", revealSetJson)
+                    # self._sock.emit("board_change", serverResponseJson)
                     # remember that it could be default empty set if none exist
                 elif serverResponseProto.HasField("result"):
                     # print(serverResponseProto)

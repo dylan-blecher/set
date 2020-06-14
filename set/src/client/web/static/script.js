@@ -1,41 +1,11 @@
 // Establishing connection with the server hosted at domain:port
-// var socket = io.connect('http://127.0.0.1:5000/');
-// var socket = io();
-// socket.on('some event', function(msg) {
-//     console.log(msg);
-// });
-
-
-// console.log("fuck asdfasdf")
-// var socket = io();
-// socket.on('connect', function() {
-//     console.log("fuck ye")
-//     socket.emit('my event', {data: 'I\'m connected!'});
-//     console.log("fuck ye2")
-// });
-
-// Listening for event named `any event`
+const SET_DISPLAY_TIME = 3000
 
 // // Client Side Javascript to receive numbers.
 $(document).ready(function() {
     var socket = io.connect('http://' + document.domain + ':' + location.port);
-    // socket.emit('message', {data: "wattup"});
-    // socket.emit({data: "wattup"});
-    // var myObj = {
-    //  data: "wattup"
-    // };
-    // socket.send(myObj);
-    socket.send("db ayay");
-    // socket.send({data: "wattup"});
-    console.log("GOT HERE")
-    var cardsSelected = [];
     
-    var cards = document.getElementsByClassName("card");
-    for (card of cards) {
-        card.addEventListener("click", selectCard);
-        card.addEventListener("mouseover", highlightCard);
-        card.addEventListener("mouseout", unhighlightCard);
-    }
+    var cardsSelected = [];
 
     var revealSetButton = document.getElementById("revealSet");
     revealSetButton.addEventListener("click", revealSet);
@@ -44,12 +14,10 @@ $(document).ready(function() {
     drawCardsButton.addEventListener("click", drawCards);
 
     function revealSet() {
-        console.log("CLICK REGISTERED!")
         socket.emit('reveal_set');
     }
 
     function drawCards() {
-        console.log("CLICK REGISTERED!")
         socket.emit('draw_cards');
     }
 
@@ -75,16 +43,12 @@ $(document).ready(function() {
             cardsSelected.push(cardElClicked);
             
             if (cardsSelected.length == 3) {
-                console.log(cardsSelected);
-                cardIDs = [];
+                cardPositions = [];
                 for (cardEl of cardsSelected) {
-                    cardIDs.push(parseInt(cardEl.id));
+                    cardPositions.push(parseInt(cardEl.id));
                     cardEl.classList.remove('selectCard');
-
                 }
-                // socket.send("assss");
-                console.log(cardIDs);
-                socket.emit('select_set', cardIDs);
+                socket.emit('select_set', cardPositions);
 
                 // var myObj = {
                 //  data: "wattup"
@@ -108,13 +72,11 @@ $(document).ready(function() {
     }
 
     socket.on('board_change', function (msg) {
-        var state = JSON.parse(msg)
-        // console.log(state.board)  
-        for (cardID in state.board) {
-            console.log(state)
-            var card = state.board[cardID]
-            // console.log(card)
-            var cardEl = document.getElementById(cardID);
+        console.log("got board_change")
+        var state = JSON.parse(msg);
+        for (cardPosition in state.board) {
+            var card = state.board[cardPosition];
+            var cardEl = document.getElementById(cardPosition);
             // would be more efficient to only do the following if the card has changed which I can check by
             // looking into the HTML
             cardEl.innerHTML = '';
@@ -123,14 +85,28 @@ $(document).ready(function() {
                 ! card.hasOwnProperty('number') || 
                 ! card.hasOwnProperty('shape')) {
                 
+                // keep an empty div in empty card elements so formatting is consistent
+                // with non-empty card elements :)
+                // var emptyShape = document.createElement("div");
+                // emptyShape.classList.add("SQUIGGLE", "RED", "OPEN")
+                // cardEl.appendChild(emptyShape);
+                cardEl.classList.remove('cardShadow');
+                
+                cardEl.removeEventListener("click", selectCard);
+                cardEl.removeEventListener("mouseover", highlightCard);
+                cardEl.removeEventListener("mouseout", unhighlightCard);
+
                 continue;
             }
 
-            var shape = document.createElement("div");
-            shape.classList.add(card.colour, card.fill, card.shape);
-            // shape.classList.add(card.colour.toLowerCase(), card.fill.toLowerCase(), card.shape.toLowerCase());
-            
+            cardEl.classList.add('cardShadow');
+            cardEl.addEventListener("click", selectCard);
+            cardEl.addEventListener("mouseover", highlightCard);
+            cardEl.addEventListener("mouseout", unhighlightCard);
 
+            var shapeEl = document.createElement("div");
+            shapeEl.classList.add(card.colour, card.fill, card.shape);
+            // shape.classList.add(card.colour.toLowerCase(), card.fill.toLowerCase(), card.shape.toLowerCase());
 
             var dict = {
                 "ONE": 1,
@@ -140,47 +116,33 @@ $(document).ready(function() {
 
             var nShapes = dict[card.number];
             for (var i = 0; i < nShapes; i++) {
-                console.log("nshapes of cardID" + cardID + " is " + nShapes)
-                cardEl.appendChild(shape.cloneNode(true));
+                cardEl.appendChild(shapeEl.cloneNode(true));
             }
         }
-  });
+    });
 
+    socket.on('reveal_set', function (msg) {
+        var revealedSet = JSON.parse(msg);
+        console.log("got revealed set")
+
+        for (cardPosition of revealedSet.cardPositions) {
+            var cardEl = document.getElementById(cardPosition);
+            // disable players ability to make a move while revealing a set
+
+            // highlight card
+            cardEl.classList.add('revealCard')
+        }
+
+        setTimeout(
+            function() {
+                for (cardPosition of revealedSet.cardPositions) { 
+                    var cardEl = document.getElementById(cardPosition);
+                    cardEl.classList.remove('revealCard') 
+                }
+            }, 
+            SET_DISPLAY_TIME
+        );
+
+    });
     
 });
-//     // start up the SocketIO connection to the server - the namespace 'test' is also included here if necessary
-//     console.log('http://' + document.domain + ':' + location.port + '/test')
-    // var socket = io.connect('http://' + document.domain + ':' + location.port + '/test');
-//  // var socket = io.connect('http://localhost:5000');
-// });
-//     // this is a callback that triggers when the "my response" event is emitted by the server.
-//     socket.on('my response', function(msg) {
-//      console.log(msg.data);
-//         $('#log').append('<p>Received: ' + msg.data + '</p>');
-//     });
-//     //example of triggering an event on click of a form submit button
-//     $('form#emit').submit(function(event) {
-//         socket.emit('my event', {data: $('#emit_data').val()});
-//         return false;
-//     });
-// });
-
-// $(function(){
-//  $('button').click(function(){
-//      var user = $('#inputUsername').val();
-//      var pass = $('#inputPassword').val();
-//      $.ajax({
-//          url: '/signUpUser',
-//          data: $('form').serialize(),
-//          type: 'POST',
-//          success: function(response){
-//              console.log(response);
-//          },
-//          error: function(error){
-//              console.log(error);
-//          }
-//      });
-//  });
-// });
-
-// console.log(jQuery.getJSON('/signUpUser'))

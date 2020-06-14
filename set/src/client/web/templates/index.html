@@ -1,160 +1,84 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Set Online</title>
-  <meta name="author" content="Dylan Blecher">
-  <meta name="description" content="Play Set online :)">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8">
+    <title>Set Online</title>
+    <meta name="author" content="Dylan Blecher">
+    <meta name="description" content="Play Set online :)">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-  
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="/static/script.js"></script>
-</head>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/static/script.js"></script>
+  </head>
 
-<body>
-  <button type="button" id="revealSet">Reveal Set</button>
-  <button type="button" id="drawCards">Draw Cards</button>
+  <body>
+    <button class = "button" type="button" id="revealSet">Reveal Set</button>
+    <button class = "button" id="drawCards">Draw Cards</button>
+    
+    <!-- 
 
+    Board design based on number of cards on board:
 
+    12 cards
+      x x x x     00 03 06 09
+      x x x x     01 04 07 10
+      x x x x     02 05 08 11
 
+    15 cards
+      x x x x x   00 03 06 09 12
+      x x x x x   01 04 07 10 13
+      x x x x x   02 05 08 11 14
 
-  <p>Yay Set!</p>
-  <!-- <div class = "board"> -->
+    18 cards
+      x x x x x   00 03 06 09 12
+      x x x x x   01 04 07 10 13
+      x x x x x   02 05 08 11 14
+      x x x       15 16 17
 
-<!--   {% if dog == "shit"%}
-    <p>nyes</p>
-  {% endif %} -->
+    20 cards
+      x x x x x   00 03 06 09 12
+      x x x x x   01 04 07 10 13
+      x x x x x   02 05 08 11 14
+      x x x x x   15 16 17 18 19
 
-<!-- 
-
-Board design based on number of cards on board:
-
-12 cards
-  x x x x     00 03 06 09
-  x x x x     01 04 07 10
-  x x x x     02 05 08 11
-
-15 cards
-  x x x x x   00 03 06 09 12
-  x x x x x   01 04 07 10 13
-  x x x x x   02 05 08 11 14
-
-18 cards
-  x x x x x   00 03 06 09 12
-  x x x x x   01 04 07 10 13
-  x x x x x   02 05 08 11 14
-  x x x       15 16 17
-
-20 cards
-  x x x x x   00 03 06 09 12
-  x x x x x   01 04 07 10 13
-  x x x x x   02 05 08 11 14
-  x x x x x   15 16 17 18 19
-
--->
-
+    -->
     <div class="cardQuadruplet">
-      <div id="0" class="card">
-        
-      </div>
-
-      <div id="1" class="card">
-        
-      </div>
-
-      <div id="2" class="card">
-        
-      </div>
-
-      <div id="15" class="card">
-
-      </div>
+      <div id="0" class="card"></div>
+      <div id="1" class="card"></div>
+      <div id="2" class="card"></div>
+      <div id="15" class="card"></div>
     </div>
     
     <div class="cardQuadruplet">
-      <div id="3" class="card">
-        
-      </div>
-
-      <div id="4" class="card">
-        
-      </div>
-      
-      <div id="5" class="card">
-        
-      </div>
-
-      <div id="16" class="card">
-
-      </div>
+      <div id="3" class="card"></div>
+      <div id="4" class="card"></div>
+      <div id="5" class="card"></div>
+      <div id="16" class="card"></div>
     </div>
 
     <div class="cardQuadruplet">
-      <div id="6" class="card">
-        
-      </div>
-
-      <div id="7" class="card">
-        
-      </div>
-      
-      <div id="8" class="card">
- 
-      </div>
-
-      <div id="17" class="card">
-
-      </div>
+      <div id="6" class="card"></div>
+      <div id="7" class="card"></div>
+      <div id="8" class="card"></div>
+      <div id="17" class="card"></div>
     </div>
 
     <div class="cardQuadruplet">
-      <div id="9" class="card">
-
-      </div>
-
-      <div id="10" class="card">
-
-      </div>
-      
-      <div id="11" class="card">
-
-      </div>
-
-      <div id="18" class="card">
-
-      </div>
+      <div id="9" class="card"></div>
+      <div id="10" class="card"></div>
+      <div id="11" class="card"></div>
+      <div id="18" class="card"></div>
     </div>
 
     <div class="cardQuadruplet">
-      <div id="12" class="card">
-
-      </div>
-
-      <div id="13" class="card">
-
-      </div>
-      
-      <div id="14" class="card">
-
-      </div>
-
-      <div id="19" class="card">
-
-      </div>
+      <div id="12" class="card"></div>
+      <div id="13" class="card"></div>
+      <div id="14" class="card"></div>
+      <div id="19" class="card"></div>
     </div>
-
-    
-      <!-- <div id="20" class="card"> -->
-<!--         <div class="oval purple solid"></div>
-        <div class="diamond red open"></div>
-        <div class="squiggle green striped"></div> -->
-      <!-- </div> -->
-    </div>  
-  </div>
   </body>
 </html>
-  <!-- <script type=text/javascript src="{{url_for('static', filename='jquery.js') }}"></script> -->

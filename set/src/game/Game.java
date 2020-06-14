@@ -41,10 +41,8 @@ public class Game {
     }
 
     public void run() {
+        sendStateForDisplay(board, players);
         while (gameIsNotOver()) {
-//            TODO: might want to send the move instead of the board...
-            sendStateForDisplay(board, players);
-
             Action action = actions.getNext();
 
             try {
@@ -63,6 +61,7 @@ public class Game {
 
 
     private void warnInvalidity(Action action, String errorMessage) {
+        System.out.println(action.getType());
         if (action.getType() == SELECT_SET) {
             try {
                 tellPlayer((PlayerAction)action, errorMessage);

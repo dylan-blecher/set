@@ -181,7 +181,7 @@ public class Server {
         sendServerResponseToAllPlayers(resultProto, players);
     }
 
-    public static void sendRevealedSet(java.util.Set<Integer> revealedSet, Players players) {
+    public static void sendRevealedSet(java.util.Set<Integer> revealedSet, Board board, Players players) {
         // build revealed set proto
         AllProtos.ServerResponse revealedSetProto = AllProtos.ServerResponse
                 .newBuilder()

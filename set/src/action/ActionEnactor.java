@@ -8,6 +8,7 @@ import src.cardCollection.deck.Deck;
 import src.cardCollection.set.Set;
 import src.player.Players;
 
+import static java.lang.Integer.min;
 import static src.cardCollection.board.Board.BASE_BOARD_SIZE;
 import static src.cardCollection.board.Dealer.addToBoardFromDeck;
 import static src.cardCollection.set.Set.SET_SIZE;
@@ -51,7 +52,7 @@ public class ActionEnactor {
 
     private static void enactShowSet(Board board, Players players, Deck deck) {
         java.util.Set<Integer> setCardPositions = findSet(board).keySet();
-        sendRevealedSet(setCardPositions, players);
+        sendRevealedSet(setCardPositions, board, players);
         removeSetFromBoard(setCardPositions, board);
         replenishBoard(board, deck);
     }
@@ -72,9 +73,10 @@ public class ActionEnactor {
     }
 
     private static void replenishBoard(Board board, Deck deck) {
-        if (board.nCards() < BASE_BOARD_SIZE && deck.nCards() >= SET_SIZE) {
-            System.out.println("ncards: " + board.nCards() + "base size: " + BASE_BOARD_SIZE);
-            addToBoardFromDeck(SET_SIZE, board, deck);
+        if (board.nCards() < BASE_BOARD_SIZE && deck.nCards() >= 0) {
+            int nEmptyBaseSlots = BASE_BOARD_SIZE - board.nCards();
+            int nToAdd = min(nEmptyBaseSlots, deck.nCards());
+            addToBoardFromDeck(nToAdd, board, deck);
         }
     }
 
