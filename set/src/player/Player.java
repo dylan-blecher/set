@@ -20,16 +20,11 @@ public class Player {
     }
 
     public void collectSet(Set set) {
-        System.out.println(set.getCards());
+//        proto.toBuilder().
 //        proto.getSetsCollectedList().
-        // TODO: line below SHOULDN't be commented out but it's a bug for some reason
+        // TODO: work out how to dynamically add to proto lists so I can keep a score in the front end!
+        proto.toBuilder().addSetsCollected(set.getProto());
 //        proto.getSetsCollectedList().add(set.getProto());
-    }
-
-    // TODO: Maybe this should be elsewhere... player shouldn't be responsible for reliably saying their score? idk...
-    public void seeScore() {
-        // TODO: lol what a gross temporary solution below for plurals...
-        System.out.printf("%s (player %d) found %d set%s!\n", getName(), getID() + 1, getNSetsCollected(), getNSetsCollected() == 1 ? "" : "s");
     }
 
     public int getNSetsCollected() {

@@ -81,7 +81,7 @@ public class ActionEnactor {
     }
 
     private static void enactDrawThree(Board board, Deck deck) {
-        int nCardsToAdd = Math.min(board.nEmptySpots(), SET_SIZE);
+        int nCardsToAdd = min(board.nEmptySpots(), SET_SIZE);
         addToBoardFromDeck(nCardsToAdd, board, deck);
     }
 }

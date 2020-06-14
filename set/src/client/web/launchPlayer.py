@@ -32,21 +32,20 @@ def handleMessage(msg):
     print("Here is an unnamed message:")
     print(msg)
 
-    # socketio.emit('board_change', 'asf', broadcast=True)
-
 @socketio.on('connect')
 def connect():
-    print("conn")
+    print("trying")
     global thread
     with thread_lock:
         if thread is None:
             thread = socketio.start_background_task(playerRunner.run_player)
+    print("done")
 
 @socketio.on('select_set')
 def handle_select_set(cardPositions):
     #     elif actionType == ActionType.REQUEST_SHOW_SET or actionType == ActionType.LEAVE_GAME or actionType == ActionType.REQUEST_DRAW_THREE:
     # showSetAction = PlayerAction.build(ActionType.REQUEST_SHOW_SET, 0)
-    select_set_action = PlayerActionSelectSet.build(ActionType.SELECT_SET, 0, cardPositions)
+    select_set_action = PlayerActionSelectSet.build(ActionType.SELECT_SET, playerRunner.getPlayerID(), cardPositions)
     playerRunner.addActionToQueue(select_set_action)
     # playerRunner.addActionToQueue(showSetAction)
 
@@ -54,13 +53,14 @@ def handle_select_set(cardPositions):
 
 @socketio.on('draw_cards')
 def handle_draw_cards():
-    draw_cards_request_action = PlayerAction.build(ActionType.REQUEST_DRAW_THREE, 0)
+    print(playerRunner.getPlayerID())
+    draw_cards_request_action = PlayerAction.build(ActionType.REQUEST_DRAW_THREE, playerRunner.getPlayerID())
     playerRunner.addActionToQueue(draw_cards_request_action)
 
 @socketio.on('reveal_set')
 def handle_reveal_set():
-    reveal_set_request_action = PlayerAction.build(ActionType.REQUEST_SHOW_SET, 0)
+    reveal_set_request_action = PlayerAction.build(ActionType.REQUEST_SHOW_SET, playerRunner.getPlayerID())
     playerRunner.addActionToQueue(reveal_set_request_action)
 
 if __name__ == '__main__':
-    socketio.run(app, port=8003)
+    socketio.run(app, port=int(input("Enter port (e.g. 8003): ")))

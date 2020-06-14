@@ -6515,24 +6515,44 @@ public final class AllProtos {
         getNameBytes();
 
     /**
+     * <pre>
+     *  uint32 nSetsCollected = 3;
+     * </pre>
+     *
      * <code>repeated .action.CardCollection setsCollected = 3;</code>
      */
     java.util.List<src.proto.AllProtos.CardCollection> 
         getSetsCollectedList();
     /**
+     * <pre>
+     *  uint32 nSetsCollected = 3;
+     * </pre>
+     *
      * <code>repeated .action.CardCollection setsCollected = 3;</code>
      */
     src.proto.AllProtos.CardCollection getSetsCollected(int index);
     /**
+     * <pre>
+     *  uint32 nSetsCollected = 3;
+     * </pre>
+     *
      * <code>repeated .action.CardCollection setsCollected = 3;</code>
      */
     int getSetsCollectedCount();
     /**
+     * <pre>
+     *  uint32 nSetsCollected = 3;
+     * </pre>
+     *
      * <code>repeated .action.CardCollection setsCollected = 3;</code>
      */
     java.util.List<? extends src.proto.AllProtos.CardCollectionOrBuilder> 
         getSetsCollectedOrBuilderList();
     /**
+     * <pre>
+     *  uint32 nSetsCollected = 3;
+     * </pre>
+     *
      * <code>repeated .action.CardCollection setsCollected = 3;</code>
      */
     src.proto.AllProtos.CardCollectionOrBuilder getSetsCollectedOrBuilder(
@@ -6693,6 +6713,10 @@ public final class AllProtos {
     public static final int SETSCOLLECTED_FIELD_NUMBER = 3;
     private java.util.List<src.proto.AllProtos.CardCollection> setsCollected_;
     /**
+     * <pre>
+     *  uint32 nSetsCollected = 3;
+     * </pre>
+     *
      * <code>repeated .action.CardCollection setsCollected = 3;</code>
      */
     @java.lang.Override
@@ -6700,6 +6724,10 @@ public final class AllProtos {
       return setsCollected_;
     }
     /**
+     * <pre>
+     *  uint32 nSetsCollected = 3;
+     * </pre>
+     *
      * <code>repeated .action.CardCollection setsCollected = 3;</code>
      */
     @java.lang.Override
@@ -6708,6 +6736,10 @@ public final class AllProtos {
       return setsCollected_;
     }
     /**
+     * <pre>
+     *  uint32 nSetsCollected = 3;
+     * </pre>
+     *
      * <code>repeated .action.CardCollection setsCollected = 3;</code>
      */
     @java.lang.Override
@@ -6715,6 +6747,10 @@ public final class AllProtos {
       return setsCollected_.size();
     }
     /**
+     * <pre>
+     *  uint32 nSetsCollected = 3;
+     * </pre>
+     *
      * <code>repeated .action.CardCollection setsCollected = 3;</code>
      */
     @java.lang.Override
@@ -6722,6 +6758,10 @@ public final class AllProtos {
       return setsCollected_.get(index);
     }
     /**
+     * <pre>
+     *  uint32 nSetsCollected = 3;
+     * </pre>
+     *
      * <code>repeated .action.CardCollection setsCollected = 3;</code>
      */
     @java.lang.Override
@@ -7226,6 +7266,10 @@ public final class AllProtos {
           src.proto.AllProtos.CardCollection, src.proto.AllProtos.CardCollection.Builder, src.proto.AllProtos.CardCollectionOrBuilder> setsCollectedBuilder_;
 
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public java.util.List<src.proto.AllProtos.CardCollection> getSetsCollectedList() {
@@ -7236,6 +7280,10 @@ public final class AllProtos {
         }
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public int getSetsCollectedCount() {
@@ -7246,6 +7294,10 @@ public final class AllProtos {
         }
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public src.proto.AllProtos.CardCollection getSetsCollected(int index) {
@@ -7256,6 +7308,10 @@ public final class AllProtos {
         }
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public Builder setSetsCollected(
@@ -7273,6 +7329,10 @@ public final class AllProtos {
         return this;
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public Builder setSetsCollected(
@@ -7287,6 +7347,10 @@ public final class AllProtos {
         return this;
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public Builder addSetsCollected(src.proto.AllProtos.CardCollection value) {
@@ -7303,6 +7367,10 @@ public final class AllProtos {
         return this;
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public Builder addSetsCollected(
@@ -7320,6 +7388,10 @@ public final class AllProtos {
         return this;
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public Builder addSetsCollected(
@@ -7334,6 +7406,10 @@ public final class AllProtos {
         return this;
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public Builder addSetsCollected(
@@ -7348,6 +7424,10 @@ public final class AllProtos {
         return this;
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public Builder addAllSetsCollected(
@@ -7363,6 +7443,10 @@ public final class AllProtos {
         return this;
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public Builder clearSetsCollected() {
@@ -7376,6 +7460,10 @@ public final class AllProtos {
         return this;
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public Builder removeSetsCollected(int index) {
@@ -7389,6 +7477,10 @@ public final class AllProtos {
         return this;
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public src.proto.AllProtos.CardCollection.Builder getSetsCollectedBuilder(
@@ -7396,6 +7488,10 @@ public final class AllProtos {
         return getSetsCollectedFieldBuilder().getBuilder(index);
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public src.proto.AllProtos.CardCollectionOrBuilder getSetsCollectedOrBuilder(
@@ -7406,6 +7502,10 @@ public final class AllProtos {
         }
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public java.util.List<? extends src.proto.AllProtos.CardCollectionOrBuilder> 
@@ -7417,6 +7517,10 @@ public final class AllProtos {
         }
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public src.proto.AllProtos.CardCollection.Builder addSetsCollectedBuilder() {
@@ -7424,6 +7528,10 @@ public final class AllProtos {
             src.proto.AllProtos.CardCollection.getDefaultInstance());
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public src.proto.AllProtos.CardCollection.Builder addSetsCollectedBuilder(
@@ -7432,6 +7540,10 @@ public final class AllProtos {
             index, src.proto.AllProtos.CardCollection.getDefaultInstance());
       }
       /**
+       * <pre>
+       *  uint32 nSetsCollected = 3;
+       * </pre>
+       *
        * <code>repeated .action.CardCollection setsCollected = 3;</code>
        */
       public java.util.List<src.proto.AllProtos.CardCollection.Builder> 
@@ -7571,6 +7683,23 @@ public final class AllProtos {
      */
     src.proto.AllProtos.PlayerOrBuilder getActivePlayersOrBuilder(
         int index);
+
+    /**
+     * <code>repeated uint32 cardIndicesOfRevealedSet = 4;</code>
+     * @return A list containing the cardIndicesOfRevealedSet.
+     */
+    java.util.List<java.lang.Integer> getCardIndicesOfRevealedSetList();
+    /**
+     * <code>repeated uint32 cardIndicesOfRevealedSet = 4;</code>
+     * @return The count of cardIndicesOfRevealedSet.
+     */
+    int getCardIndicesOfRevealedSetCount();
+    /**
+     * <code>repeated uint32 cardIndicesOfRevealedSet = 4;</code>
+     * @param index The index of the element to return.
+     * @return The cardIndicesOfRevealedSet at the given index.
+     */
+    int getCardIndicesOfRevealedSet(int index);
   }
   /**
    * Protobuf type {@code action.State}
@@ -7587,6 +7716,7 @@ public final class AllProtos {
     private State() {
       board_ = java.util.Collections.emptyList();
       activePlayers_ = java.util.Collections.emptyList();
+      cardIndicesOfRevealedSet_ = emptyIntList();
     }
 
     @java.lang.Override
@@ -7651,6 +7781,27 @@ public final class AllProtos {
                   input.readMessage(src.proto.AllProtos.Player.parser(), extensionRegistry));
               break;
             }
+            case 32: {
+              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                cardIndicesOfRevealedSet_ = newIntList();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              cardIndicesOfRevealedSet_.addInt(input.readUInt32());
+              break;
+            }
+            case 34: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000004) != 0) && input.getBytesUntilLimit() > 0) {
+                cardIndicesOfRevealedSet_ = newIntList();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                cardIndicesOfRevealedSet_.addInt(input.readUInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -7671,6 +7822,9 @@ public final class AllProtos {
         }
         if (((mutable_bitField0_ & 0x00000002) != 0)) {
           activePlayers_ = java.util.Collections.unmodifiableList(activePlayers_);
+        }
+        if (((mutable_bitField0_ & 0x00000004) != 0)) {
+          cardIndicesOfRevealedSet_.makeImmutable(); // C
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -7795,6 +7949,34 @@ public final class AllProtos {
       return activePlayers_.get(index);
     }
 
+    public static final int CARDINDICESOFREVEALEDSET_FIELD_NUMBER = 4;
+    private com.google.protobuf.Internal.IntList cardIndicesOfRevealedSet_;
+    /**
+     * <code>repeated uint32 cardIndicesOfRevealedSet = 4;</code>
+     * @return A list containing the cardIndicesOfRevealedSet.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Integer>
+        getCardIndicesOfRevealedSetList() {
+      return cardIndicesOfRevealedSet_;
+    }
+    /**
+     * <code>repeated uint32 cardIndicesOfRevealedSet = 4;</code>
+     * @return The count of cardIndicesOfRevealedSet.
+     */
+    public int getCardIndicesOfRevealedSetCount() {
+      return cardIndicesOfRevealedSet_.size();
+    }
+    /**
+     * <code>repeated uint32 cardIndicesOfRevealedSet = 4;</code>
+     * @param index The index of the element to return.
+     * @return The cardIndicesOfRevealedSet at the given index.
+     */
+    public int getCardIndicesOfRevealedSet(int index) {
+      return cardIndicesOfRevealedSet_.getInt(index);
+    }
+    private int cardIndicesOfRevealedSetMemoizedSerializedSize = -1;
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -7809,6 +7991,7 @@ public final class AllProtos {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      getSerializedSize();
       for (int i = 0; i < board_.size(); i++) {
         output.writeMessage(1, board_.get(i));
       }
@@ -7817,6 +8000,13 @@ public final class AllProtos {
       }
       for (int i = 0; i < activePlayers_.size(); i++) {
         output.writeMessage(3, activePlayers_.get(i));
+      }
+      if (getCardIndicesOfRevealedSetList().size() > 0) {
+        output.writeUInt32NoTag(34);
+        output.writeUInt32NoTag(cardIndicesOfRevealedSetMemoizedSerializedSize);
+      }
+      for (int i = 0; i < cardIndicesOfRevealedSet_.size(); i++) {
+        output.writeUInt32NoTag(cardIndicesOfRevealedSet_.getInt(i));
       }
       unknownFields.writeTo(output);
     }
@@ -7838,6 +8028,20 @@ public final class AllProtos {
       for (int i = 0; i < activePlayers_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, activePlayers_.get(i));
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < cardIndicesOfRevealedSet_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeUInt32SizeNoTag(cardIndicesOfRevealedSet_.getInt(i));
+        }
+        size += dataSize;
+        if (!getCardIndicesOfRevealedSetList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        cardIndicesOfRevealedSetMemoizedSerializedSize = dataSize;
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -7863,6 +8067,8 @@ public final class AllProtos {
       }
       if (!getActivePlayersList()
           .equals(other.getActivePlayersList())) return false;
+      if (!getCardIndicesOfRevealedSetList()
+          .equals(other.getCardIndicesOfRevealedSetList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -7885,6 +8091,10 @@ public final class AllProtos {
       if (getActivePlayersCount() > 0) {
         hash = (37 * hash) + ACTIVEPLAYERS_FIELD_NUMBER;
         hash = (53 * hash) + getActivePlayersList().hashCode();
+      }
+      if (getCardIndicesOfRevealedSetCount() > 0) {
+        hash = (37 * hash) + CARDINDICESOFREVEALEDSET_FIELD_NUMBER;
+        hash = (53 * hash) + getCardIndicesOfRevealedSetList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -8039,6 +8249,8 @@ public final class AllProtos {
         } else {
           activePlayersBuilder_.clear();
         }
+        cardIndicesOfRevealedSet_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -8089,6 +8301,11 @@ public final class AllProtos {
         } else {
           result.activePlayers_ = activePlayersBuilder_.build();
         }
+        if (((bitField0_ & 0x00000004) != 0)) {
+          cardIndicesOfRevealedSet_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        }
+        result.cardIndicesOfRevealedSet_ = cardIndicesOfRevealedSet_;
         onBuilt();
         return result;
       }
@@ -8191,6 +8408,16 @@ public final class AllProtos {
               activePlayersBuilder_.addAllMessages(other.activePlayers_);
             }
           }
+        }
+        if (!other.cardIndicesOfRevealedSet_.isEmpty()) {
+          if (cardIndicesOfRevealedSet_.isEmpty()) {
+            cardIndicesOfRevealedSet_ = other.cardIndicesOfRevealedSet_;
+            bitField0_ = (bitField0_ & ~0x00000004);
+          } else {
+            ensureCardIndicesOfRevealedSetIsMutable();
+            cardIndicesOfRevealedSet_.addAll(other.cardIndicesOfRevealedSet_);
+          }
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -8819,6 +9046,85 @@ public final class AllProtos {
           activePlayers_ = null;
         }
         return activePlayersBuilder_;
+      }
+
+      private com.google.protobuf.Internal.IntList cardIndicesOfRevealedSet_ = emptyIntList();
+      private void ensureCardIndicesOfRevealedSetIsMutable() {
+        if (!((bitField0_ & 0x00000004) != 0)) {
+          cardIndicesOfRevealedSet_ = mutableCopy(cardIndicesOfRevealedSet_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+      /**
+       * <code>repeated uint32 cardIndicesOfRevealedSet = 4;</code>
+       * @return A list containing the cardIndicesOfRevealedSet.
+       */
+      public java.util.List<java.lang.Integer>
+          getCardIndicesOfRevealedSetList() {
+        return ((bitField0_ & 0x00000004) != 0) ?
+                 java.util.Collections.unmodifiableList(cardIndicesOfRevealedSet_) : cardIndicesOfRevealedSet_;
+      }
+      /**
+       * <code>repeated uint32 cardIndicesOfRevealedSet = 4;</code>
+       * @return The count of cardIndicesOfRevealedSet.
+       */
+      public int getCardIndicesOfRevealedSetCount() {
+        return cardIndicesOfRevealedSet_.size();
+      }
+      /**
+       * <code>repeated uint32 cardIndicesOfRevealedSet = 4;</code>
+       * @param index The index of the element to return.
+       * @return The cardIndicesOfRevealedSet at the given index.
+       */
+      public int getCardIndicesOfRevealedSet(int index) {
+        return cardIndicesOfRevealedSet_.getInt(index);
+      }
+      /**
+       * <code>repeated uint32 cardIndicesOfRevealedSet = 4;</code>
+       * @param index The index to set the value at.
+       * @param value The cardIndicesOfRevealedSet to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCardIndicesOfRevealedSet(
+          int index, int value) {
+        ensureCardIndicesOfRevealedSetIsMutable();
+        cardIndicesOfRevealedSet_.setInt(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated uint32 cardIndicesOfRevealedSet = 4;</code>
+       * @param value The cardIndicesOfRevealedSet to add.
+       * @return This builder for chaining.
+       */
+      public Builder addCardIndicesOfRevealedSet(int value) {
+        ensureCardIndicesOfRevealedSetIsMutable();
+        cardIndicesOfRevealedSet_.addInt(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated uint32 cardIndicesOfRevealedSet = 4;</code>
+       * @param values The cardIndicesOfRevealedSet to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllCardIndicesOfRevealedSet(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureCardIndicesOfRevealedSetIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, cardIndicesOfRevealedSet_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated uint32 cardIndicesOfRevealedSet = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCardIndicesOfRevealedSet() {
+        cardIndicesOfRevealedSet_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -11810,28 +12116,29 @@ public final class AllProtos {
       "rsRequestingShowSet\030\003 \001(\r\"-\n\016CardCollect" +
       "ion\022\033\n\005cards\030\001 \003(\0132\014.action.Card\"Q\n\006Play" +
       "er\022\n\n\002ID\030\001 \001(\r\022\014\n\004name\030\002 \001(\t\022-\n\rsetsColl" +
-      "ected\030\003 \003(\0132\026.action.CardCollection\"u\n\005S" +
-      "tate\022\033\n\005board\030\001 \003(\0132\014.action.Card\022(\n\013con" +
-      "sensuses\030\002 \001(\0132\023.action.Consensuses\022%\n\ra" +
-      "ctivePlayers\030\003 \003(\0132\016.action.Player\"$\n\013Re" +
-      "vealedSet\022\025\n\rcardPositions\030\001 \003(\r\"/\n\006Resu" +
-      "lt\022%\n\rrankedPlayers\030\001 \003(\0132\016.action.Playe" +
-      "r\"\266\001\n\016ServerResponse\022\022\n\010playerID\030\001 \001(\rH\000" +
-      "\022\036\n\005state\030\002 \001(\0132\r.action.StateH\000\022\026\n\014erro" +
-      "rMessage\030\003 \001(\tH\000\022*\n\013revealedSet\030\004 \001(\0132\023." +
-      "action.RevealedSetH\000\022 \n\006result\030\005 \001(\0132\016.a" +
-      "ction.ResultH\000B\n\n\010response*\223\001\n\nActionTyp" +
-      "e\022\027\n\023UNKNOWN_ACTION_TYPE\020\000\022\016\n\nSELECT_SET" +
-      "\020\001\022\024\n\020REQUEST_SHOW_SET\020\002\022\016\n\nLEAVE_GAME\020\003" +
-      "\022\026\n\022REQUEST_DRAW_THREE\020\004\022\r\n\010SHOW_SET\020\350\007\022" +
-      "\017\n\nDRAW_THREE\020\351\007*@\n\nCardColour\022\022\n\016UNKNOW" +
-      "N_COLOUR\020\000\022\007\n\003RED\020\001\022\t\n\005GREEN\020\002\022\n\n\006PURPLE" +
-      "\020\003*>\n\010CardFill\022\020\n\014UNKNOWN_FILL\020\000\022\010\n\004OPEN" +
-      "\020\001\022\013\n\007STRIPED\020\002\022\t\n\005SOLID\020\003*=\n\nCardNumber" +
-      "\022\022\n\016UNKNOWN_NUMBER\020\000\022\007\n\003ONE\020\001\022\007\n\003TWO\020\002\022\t" +
-      "\n\005THREE\020\003*C\n\tCardShape\022\021\n\rUNKNOWN_SHAPE\020" +
-      "\000\022\013\n\007DIAMOND\020\001\022\014\n\010SQUIGGLE\020\002\022\010\n\004OVAL\020\003B\026" +
-      "\n\tsrc.protoB\tAllProtosb\006proto3"
+      "ected\030\003 \003(\0132\026.action.CardCollection\"\227\001\n\005" +
+      "State\022\033\n\005board\030\001 \003(\0132\014.action.Card\022(\n\013co" +
+      "nsensuses\030\002 \001(\0132\023.action.Consensuses\022%\n\r" +
+      "activePlayers\030\003 \003(\0132\016.action.Player\022 \n\030c" +
+      "ardIndicesOfRevealedSet\030\004 \003(\r\"$\n\013Reveale" +
+      "dSet\022\025\n\rcardPositions\030\001 \003(\r\"/\n\006Result\022%\n" +
+      "\rrankedPlayers\030\001 \003(\0132\016.action.Player\"\266\001\n" +
+      "\016ServerResponse\022\022\n\010playerID\030\001 \001(\rH\000\022\036\n\005s" +
+      "tate\030\002 \001(\0132\r.action.StateH\000\022\026\n\014errorMess" +
+      "age\030\003 \001(\tH\000\022*\n\013revealedSet\030\004 \001(\0132\023.actio" +
+      "n.RevealedSetH\000\022 \n\006result\030\005 \001(\0132\016.action" +
+      ".ResultH\000B\n\n\010response*\223\001\n\nActionType\022\027\n\023" +
+      "UNKNOWN_ACTION_TYPE\020\000\022\016\n\nSELECT_SET\020\001\022\024\n" +
+      "\020REQUEST_SHOW_SET\020\002\022\016\n\nLEAVE_GAME\020\003\022\026\n\022R" +
+      "EQUEST_DRAW_THREE\020\004\022\r\n\010SHOW_SET\020\350\007\022\017\n\nDR" +
+      "AW_THREE\020\351\007*@\n\nCardColour\022\022\n\016UNKNOWN_COL" +
+      "OUR\020\000\022\007\n\003RED\020\001\022\t\n\005GREEN\020\002\022\n\n\006PURPLE\020\003*>\n" +
+      "\010CardFill\022\020\n\014UNKNOWN_FILL\020\000\022\010\n\004OPEN\020\001\022\013\n" +
+      "\007STRIPED\020\002\022\t\n\005SOLID\020\003*=\n\nCardNumber\022\022\n\016U" +
+      "NKNOWN_NUMBER\020\000\022\007\n\003ONE\020\001\022\007\n\003TWO\020\002\022\t\n\005THR" +
+      "EE\020\003*C\n\tCardShape\022\021\n\rUNKNOWN_SHAPE\020\000\022\013\n\007" +
+      "DIAMOND\020\001\022\014\n\010SQUIGGLE\020\002\022\010\n\004OVAL\020\003B\026\n\tsrc" +
+      ".protoB\tAllProtosb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -11896,7 +12203,7 @@ public final class AllProtos {
     internal_static_action_State_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_action_State_descriptor,
-        new java.lang.String[] { "Board", "Consensuses", "ActivePlayers", });
+        new java.lang.String[] { "Board", "Consensuses", "ActivePlayers", "CardIndicesOfRevealedSet", });
     internal_static_action_RevealedSet_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_action_RevealedSet_fieldAccessorTable = new

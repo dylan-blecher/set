@@ -22,6 +22,7 @@ import java.util.*;
 
 public class Server {
     private final static int GAME_PORT = 9090;
+    private final int N_PLAYERS = 2;
     private static final Map<Integer, Interactor> playerClientSockets = new HashMap<>();
 
     public void start() {
@@ -37,7 +38,7 @@ public class Server {
             System.out.println("serverSocket");
             int newPlayerID = 0;
             int nPlayers = 0;
-            while (nPlayers < 1) {
+            while (nPlayers < N_PLAYERS) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("ANOTHER clientSocket");
 
@@ -147,7 +148,6 @@ public class Server {
         int playerID = action.getPlayerID();
         OutputStream streamToClient = playerClientSockets.get(playerID).getStreamToClient();
         AllProtos.ServerResponse errorMessageProto = buildErrorMessage(errorMessage);
-
         writeServerResponse(errorMessageProto, streamToClient);
     }
 
@@ -167,7 +167,12 @@ public class Server {
 
         // send state to all players
         sendServerResponseToAllPlayers(stateProto, players);
-        System.out.println("SENT STATE!");
+    }
+
+    // send an error message to all active players
+    public static void sendErrorMessageToPlayers(String errorMessage, Players players) {
+        AllProtos.ServerResponse errorMsgProto = buildErrorMessage(errorMessage);
+        sendServerResponseToAllPlayers(errorMsgProto, players);
     }
 
     public static void sendResultToPlayers(Result result, Players players) {
@@ -198,11 +203,11 @@ public class Server {
         else return AllProtos.RevealedSet.newBuilder().addAllCardPositions(revealedSet).build();
     }
 
-    private static void sendServerResponseToAllPlayers(AllProtos.ServerResponse stateProto, Players players) {
+    private static void sendServerResponseToAllPlayers(AllProtos.ServerResponse responseProto, Players players) {
         for (int playerID: players.getActivePlayers().keySet()) {
             OutputStream streamToClient = playerClientSockets.get(playerID).getStreamToClient();
             try {
-                writeServerResponse(stateProto, streamToClient);
+                writeServerResponse(responseProto, streamToClient);
             } catch (IOException e) {
 //                TODO: handle this!
                 e.printStackTrace();

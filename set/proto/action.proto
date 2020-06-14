@@ -54,6 +54,7 @@ message CardCollection {
 message Player {
   uint32 ID = 1;
   string name = 2;
+//  uint32 nSetsCollected = 3;
   repeated CardCollection setsCollected = 3;
 }
 
@@ -61,6 +62,7 @@ message State {
   repeated Card board = 1;
   Consensuses consensuses = 2;
   repeated Player activePlayers = 3;
+  repeated uint32 cardIndicesOfRevealedSet = 4;
 }
 
 message RevealedSet {

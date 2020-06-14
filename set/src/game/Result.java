@@ -31,11 +31,4 @@ public class Result {
         for (Player player: playersSortedByResults) rankedPlayersProto.add(player.proto);
         return rankedPlayersProto;
     }
-
-    // sort results based on sets found
-    public void showResult() {
-        System.out.println("RESULTS:");
-        for (Player player: playersSortedByResults)
-            player.seeScore();
-    }
 }

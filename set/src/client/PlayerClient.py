@@ -34,20 +34,19 @@ class PlayerRunner:
     def __init__(self, sock):
         self._sock = sock
         self._actions = Queue() # python queues are synchronous if you add a few flags when using :)
+        self.playerID = None
     
     def run_player(self):    
         # HOST = 'Dylans-MacBook-Pro-2.local'
         HOST = socket.gethostbyname('localhost')
         # HOST = gethostname()    # The server's hostname or IP address
 
-        # print("HOST IS: " + HOST)
-        playerID = None
+        print("HOST IS: " + HOST)
         fromServer = None
         toServer = None
         
         try:
             fromServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            print(fromServer)
             fromServer.connect((HOST, GAME_PORT))
 
             # maybe i needa create this as a "ClientRequest type"
@@ -75,7 +74,7 @@ class PlayerRunner:
 
 
             delay = 0.025 # 25 milliseconds
-            while playerID is None:
+            while self.playerID is None:
                 time.sleep(delay)
                 delay *= 2
                 
@@ -83,7 +82,7 @@ class PlayerRunner:
                     serverResponseProto = server_communicator._receive_message(fromServer, ServerResponseProto)
                     # print(serverResponseProto)
                     if serverResponseProto.HasField("playerID"):
-                        playerID = serverResponseProto.playerID
+                        self.playerID = serverResponseProto.playerID
                         fromServer.shutdown(socket.SHUT_WR) # can't write to fromServer anymore - it's one way!
 
                 except Exception as e:
@@ -98,7 +97,7 @@ class PlayerRunner:
 
             confirmPlayerIDProto = ClientRequestProto(
                 confirmPlayerID=ConfirmPlayerIDProto(
-                    playerID=playerID
+                    playerID=self.playerID
                 )
             )
             
@@ -143,6 +142,9 @@ class PlayerRunner:
 
     def addActionToQueue(self, action):
         self._actions.put(action)
+
+    def getPlayerID(self):
+        return self.playerID
 
 # def getAction(playerID):
 #     promptForAction()
@@ -216,13 +218,17 @@ class FeedbackGetter:
                 serverResponseProto = server_communicator._receive_message(self.fromServer, ServerResponseProto)
                 # print("got message" + str(serverResponseProto))
                 if serverResponseProto.HasField("errorMessage"):
+                    # errorMsgJson = MessageToJson(serverResponseProto.errorMessage, indent=None)
                     print(serverResponseProto.errorMessage)
+                    self._sock.emit("error_message", str(serverResponseProto.errorMessage))
+                    # revealSetJson = MessageToJson(serverResponseProto.revealedSet, indent=None)
+                    # self._sock.emit("reveal_set", revealSetJson)
                 elif serverResponseProto.HasField("state"):
-                    print("got state yeet ")
+                    print("got state")
                     # convert state to json
                     stateJson = MessageToJson(serverResponseProto.state, indent=None)
                     self._sock.emit("board_change", stateJson)
-                        # self._sock.emit("board_change", '{ "name":"John", "age":30, "city":"New York"}')
+                    # self._sock.emit("board_change", '{ "name":"John", "age":30, "city":"New York"}')
                     # print(serverResponseProto)
                     # print("got state!")
                 elif serverResponseProto.HasField("revealedSet"):
@@ -230,7 +236,12 @@ class FeedbackGetter:
                     print("RECEIVED REVEALED SET :)")
                     revealSetJson = MessageToJson(serverResponseProto.revealedSet, indent=None)
                     self._sock.emit("reveal_set", revealSetJson)
-                    # self._sock.emit("board_change", serverResponseJson)
+                    time.sleep(2.5) # TODO: This sleep is way too hacky. It should all be front end.
+                    # Once I have the program running based on sending actions, instead of state
+                    # every loop of the game-runner, this won't be an issue.
+                    # The current issue that this sleep fixes is that it's overwriting the set 
+                    # cards too quickly since state is sent straight after the revealed set is sent.
+
                     # remember that it could be default empty set if none exist
                 elif serverResponseProto.HasField("result"):
                     # print(serverResponseProto)

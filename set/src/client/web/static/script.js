@@ -1,11 +1,11 @@
 // Establishing connection with the server hosted at domain:port
-const SET_DISPLAY_TIME = 3000
+const SET_DISPLAY_TIME = 2500
 
-// // Client Side Javascript to receive numbers.
 $(document).ready(function() {
     var socket = io.connect('http://' + document.domain + ':' + location.port);
     
-    var cardsSelected = [];
+    var cardElsSelected = [];
+    var cardElsHoveredOver = [];
 
     var revealSetButton = document.getElementById("revealSet");
     revealSetButton.addEventListener("click", revealSet);
@@ -25,55 +25,70 @@ $(document).ready(function() {
         // user has clicked on a card
         // get the card, not the shape (.target would get the child)
         var cardElClicked = event.currentTarget; 
-        if (cardsSelected.includes(cardElClicked)) {
+        if (cardElsSelected.includes(cardElClicked)) {
             // card has already been selected so deselect
-            cardElClicked.classList.add('hoverOverCard');
-            cardElClicked.classList.remove('selectCard');
-
-            // remove element
-            const index = cardsSelected.indexOf(cardElClicked);
-            if (index > -1) {
-                cardsSelected.splice(index, 1);
-            }
+            addHover(cardElClicked)
+            deselect(cardElClicked)
         } else {
             // card hasn't been selected so select it
-            cardElClicked.classList.add('selectCard');
-            cardElClicked.classList.remove('hoverOverCard');
-
-            cardsSelected.push(cardElClicked);
+            select(cardElClicked)
+            removeHover(cardElClicked)
             
-            if (cardsSelected.length == 3) {
+            if (cardElsSelected.length == 3) {
                 cardPositions = [];
-                for (cardEl of cardsSelected) {
+                for (cardEl of cardElsSelected) {
                     cardPositions.push(parseInt(cardEl.id));
                     cardEl.classList.remove('selectCard');
                 }
+                cardElsSelected = []
                 socket.emit('select_set', cardPositions);
-
-                // var myObj = {
-                //  data: "wattup"
-                // };
-                // socket.send(myObj);
-                // socket.emit({data: "wattup"});
-                // socket.send({data: "wattup"});
-                cardsSelected = [];
             }
+        }
+    }
+    
+    function addHover(cardEl) {
+        cardEl.classList.add('hoverOverCard');
+        cardElsHoveredOver.push(cardEl);
+    }
+
+    function removeHover(cardEl) {
+        cardEl.classList.remove('hoverOverCard');
+        
+        // remove from cardEl cardElsHoveredOver list
+        const index = cardElsHoveredOver.indexOf(cardEl);
+        if (index > -1) {
+            cardElsHoveredOver.splice(index, 1);
+        }
+    }
+
+    function select(cardEl) {
+        cardEl.classList.add('selectCard');
+        cardElsSelected.push(cardEl);
+    }
+
+    function deselect(cardEl) {
+        cardEl.classList.remove('selectCard');
+        
+        // remove from cardEl cardElsSelected list
+        const index = cardElsSelected.indexOf(cardEl);
+        if (index > -1) {
+            cardElsSelected.splice(index, 1);
         }
     }
 
     function highlightCard(event) {
-        var cardElClicked = event.currentTarget; 
-        cardElClicked.classList.add('hoverOverCard');
+        var cardElHoveredOver = event.currentTarget; 
+        addHover(cardElHoveredOver)
     }
 
     function unhighlightCard(event) {
-        var cardElClicked = event.currentTarget; 
-        cardElClicked.classList.remove('hoverOverCard');
+        var cardElHoveredOver = event.currentTarget; 
+        removeHover(cardElHoveredOver)
     }
 
     socket.on('board_change', function (msg) {
-        console.log("got board_change")
         var state = JSON.parse(msg);
+        console.log(state)
         for (cardPosition in state.board) {
             var card = state.board[cardPosition];
             var cardEl = document.getElementById(cardPosition);
@@ -81,7 +96,7 @@ $(document).ready(function() {
             // looking into the HTML
             cardEl.innerHTML = '';
             if (! card.hasOwnProperty('colour') || 
-                ! card.hasOwnProperty('fill') || 
+                ! card.hasOwnProperty('fill')   || 
                 ! card.hasOwnProperty('number') || 
                 ! card.hasOwnProperty('shape')) {
                 
@@ -91,6 +106,8 @@ $(document).ready(function() {
                 // emptyShape.classList.add("SQUIGGLE", "RED", "OPEN")
                 // cardEl.appendChild(emptyShape);
                 cardEl.classList.remove('cardShadow');
+                removeHover(cardEl)
+                deselect(cardEl)
                 
                 cardEl.removeEventListener("click", selectCard);
                 cardEl.removeEventListener("mouseover", highlightCard);
@@ -106,7 +123,6 @@ $(document).ready(function() {
 
             var shapeEl = document.createElement("div");
             shapeEl.classList.add(card.colour, card.fill, card.shape);
-            // shape.classList.add(card.colour.toLowerCase(), card.fill.toLowerCase(), card.shape.toLowerCase());
 
             var dict = {
                 "ONE": 1,
@@ -123,26 +139,47 @@ $(document).ready(function() {
 
     socket.on('reveal_set', function (msg) {
         var revealedSet = JSON.parse(msg);
-        console.log("got revealed set")
+
+        // disable players ability to make a move while revealing a set
+        var blockDiv = document.getElementById('blockDiv');
+        blockDiv.classList.add('blockDiv');
+
+        // deselect all cards currently selected
+        for (selectedCardEl of cardElsSelected) {
+            selectedCardEl.classList.remove('selectCard');
+        }
+        cardElsSelected = []
+
+        // remove hover from all cards currently hovered over
+        for (hoveredOverCardEl of cardElsHoveredOver) {
+            hoveredOverCardEl.classList.remove('hoverOverCard');
+            // removeHover(hoveredOverCardEl); 
+            // ^  don't use this because can't iterate over a list and change it at the same time!
+        }
+        cardElsHoveredOver = []
+
 
         for (cardPosition of revealedSet.cardPositions) {
+            // show revealed set cards
             var cardEl = document.getElementById(cardPosition);
-            // disable players ability to make a move while revealing a set
-
-            // highlight card
-            cardEl.classList.add('revealCard')
+            cardEl.classList.add('selectCard')
         }
 
         setTimeout(
             function() {
                 for (cardPosition of revealedSet.cardPositions) { 
                     var cardEl = document.getElementById(cardPosition);
-                    cardEl.classList.remove('revealCard') 
+                    cardEl.classList.remove('selectCard');
                 }
+                blockDiv.classList.remove('blockDiv')
             }, 
             SET_DISPLAY_TIME
         );
 
+    });
+
+    socket.on('error_message', function (msg) {
+        console.log(msg)
     });
     
 });

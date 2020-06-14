@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import static src.action.ActionType.SELECT_SET;
+import static src.action.ActionType.SHOW_SET;
 import static src.cardCollection.board.Dealer.setupBoard;
 import static src.cardCollection.deck.DeckBuilder.buildDeck;
 import static src.game.stateValidator.setExists;
@@ -41,14 +42,16 @@ public class Game {
     }
 
     public void run() {
-        sendStateForDisplay(board, players);
         while (gameIsNotOver()) {
+//            TODO: might want to send the move instead of the board...
+            sendStateForDisplay(board, players);
+
             Action action = actions.getNext();
 
             try {
                 validateAction(action, board, deck);
             } catch(UnsupportedOperationException e) {
-                warnInvalidity(action, e.getMessage());
+                warnInvalidity(action, e.getMessage(), players);
                 continue;
             }
 
@@ -60,17 +63,18 @@ public class Game {
     }
 
 
-    private void warnInvalidity(Action action, String errorMessage) {
-        System.out.println(action.getType());
-        if (action.getType() == SELECT_SET) {
-            try {
-                tellPlayer((PlayerAction)action, errorMessage);
-            } catch (IOException e) {
-                // TODO: If the player doesn't receive the errorMessage, handle it - implement re-join game if connection cuts - deadletter queue
-                return;
+    private void warnInvalidity(Action action, String errorMessage, Players players) {
+        try {
+            if (action.getType() == SELECT_SET) {
+                tellPlayer((PlayerAction) action, errorMessage);
+            } else if (action.getType() == SHOW_SET){
+                sendErrorMessageToPlayers(errorMessage, players);
+            } else {
+                System.out.println(errorMessage);
             }
-        } else {
-            System.out.println(errorMessage);
+        } catch (IOException e) {
+            // TODO: If the player doesn't receive the errorMessage, handle it - implement re-join game if connection cuts - deadletter queue
+            return;
         }
     }
 
