@@ -6,6 +6,10 @@ import src.cardCollection.deck.Deck;
 import static src.cardCollection.board.Board.BASE_BOARD_SIZE;
 import static src.cardCollection.board.Board.MAX_BOARD_SIZE;
 
+/**
+ * @author dylanblecher
+ * Constructs board.
+ */
 public class Dealer {
     // class should not be instantiatable, hence private
     // creates compilation error

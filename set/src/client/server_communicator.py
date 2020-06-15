@@ -1,3 +1,10 @@
+# Helpers used to interract with Java backend by serialising and deserialising proto
+# according to Google's Protobuf
+# Play Set
+# Dylan Blecher
+# blecher.dylan@gmail.com
+# April-June 2020
+
 from typing import List, Type, TypeVar
 
 from google.protobuf.message import Message
@@ -6,24 +13,20 @@ from google.protobuf.internal.decoder import _DecodeVarint  # type: ignore
 
 from socket import socket
 
-# T = TypeVar("T", bound=Message)
-# P = TypeVar("P", bound=ProtoBacked[Any])
-
-# I changed this to be proto instead of a ProtoBacked object...
-# def _send_message(self, message: ProtoBacked[T]) -> None:
-def _send_message(clientSocket, message):
+# serialise and send message to backend
+def send_message(clientSocket, message):
     data = message.SerializeToString()
-    size = _encode_varint(len(data))
+    size = encode_varint(len(data))
     clientSocket.sendall(size + data)
 
-# def _receive_message(self, message_type: Type[P]) -> P:
-def _receive_message(clientSocket, protoClass):
+# receive and deserialise message to backend
+def receive_message(clientSocket, protoClass):
     # Receive the size of the message data
     data = b""
     while True:
         try:
             data += clientSocket.recv(1)
-            size = _decode_varint(data)
+            size = decode_varint(data)
             break
         except IndexError:
             pass
@@ -51,7 +54,7 @@ def _receive_message(clientSocket, protoClass):
 proto helpers
 from https://krpc.github.io/krpc/communication-protocols/tcpip.html
 """
-def _encode_varint(num_bytes: int) -> bytes:
+def encode_varint(num_bytes: int) -> bytes:
     """
     Encode an int as protobuf varint
     """
@@ -60,7 +63,7 @@ def _encode_varint(num_bytes: int) -> bytes:
     return encoded
 
 
-def _decode_varint(data: bytes) -> int:
+def decode_varint(data: bytes) -> int:
     """
     Decode a protobuf varint to an int
     """

@@ -8,6 +8,10 @@ import src.card.attributes.Shape;
 
 import static src.cardCollection.deck.Deck.INITIAL_DECK_SIZE;
 
+/**
+ * @author dylanblecher
+ * Constructs deck.
+ */
 public class DeckBuilder {
     // class should not be instantiatable, hence private
     // creates compilation error

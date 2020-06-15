@@ -13,6 +13,14 @@ import java.util.Set;
 
 import static src.action.ActionType.*;
 
+/**
+ * @author dylanblecher
+ * ConsensusManager is used to manage the agreements for requestType actions.
+ * For example, we will only draw three cards when all players have requested draw three.
+ * The same applies for showing a set.
+ * For each requestType action (requestShowSet and requestDrawThree), we store
+ * each player who has requested that action.
+ */
 // static class for managing moves that require consensus to be enacted
 public class ConsensusManager {
     // map from MoveType to a list of players in consensus for that move
@@ -21,14 +29,21 @@ public class ConsensusManager {
     // class should not be instantiatable
     private ConsensusManager() throws UnsupportedOperationException {
         // creates runtime error if reflection is used to bypass private
-        throw new UnsupportedOperationException("Kindly stop using reflection to get around this being private xo");
+        throw new UnsupportedOperationException("Kindly stop using reflection to get around this being private");
     }
 
+    /**
+     * Setup ConsensusManager on game startup for every action that requires consensuse to be enacted.
+     * The set of players will initially be empty, of course.
+     */
     static {
         for (ActionType actionType: getMoveTypesThatRequireConsensus())
             playersAgreeingToMove.put(actionType, new HashSet<>());
     }
 
+    /**
+     * @param action takes in an action and updates the state of the ConsensusManager based on it.
+     */
     public static void update(Action action) {
         ActionType actionType = action.getType();
         switch(action.getType()) {
@@ -49,7 +64,9 @@ public class ConsensusManager {
         }
     }
 
-    // TODO: This can probably be better implemented with a listener on when these lists become full
+    /**
+     * Adds actions to enact the request, if all players have agreed to the request.
+     */
     public static void updateMoveQueue(int nActivePlayers, SynchronisedActionQueue actions) {
         if (isConsensus(REQUEST_DRAW_THREE, nActivePlayers)) actions.addAction(new Action(DRAW_THREE));
         if (isConsensus(REQUEST_SHOW_SET, nActivePlayers)) actions.addAction(new Action(SHOW_SET));
@@ -59,6 +76,10 @@ public class ConsensusManager {
         playersAgreeingToMove.get(actionType).add(playerID);
     }
 
+    /**
+     * @param playerID the ID of the player who no longer agrees to a request.
+     *                 Useful if the player changes their mind or leaves the game.
+     */
     private static void removePlayer(int playerID) {
         for (ActionType moveType: playersAgreeingToMove.keySet())
             playersAgreeingToMove.get(moveType).remove(playerID);
@@ -85,6 +106,9 @@ public class ConsensusManager {
         return playersAgreeingToMove.get(actionType).size();
     }
 
+    /**
+     * Convert the ConsensusManager into a seralisable proto using Google's Protobuf
+     */
     public static AllProtos.Consensuses getConsensusesProto(int nActivePlayers) {
         return AllProtos.Consensuses
                 .newBuilder()

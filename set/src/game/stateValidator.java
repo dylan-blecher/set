@@ -13,7 +13,10 @@ import static src.cardCollection.board.Board.MAX_BOARD_SIZE;
 import static src.cardCollection.set.Set.SET_SIZE;
 import static src.cardCollection.set.Set.isSet;
 
-// TODO: This is a bit gross because Set is a thing in Java.util so I'm overriding :/
+/**
+ * @author dylanblecher
+ * Given an action, validate it or throw an exception if it's an invalid action.
+ */
 
 public class stateValidator {
     // class should not be instantiatable
@@ -21,18 +24,26 @@ public class stateValidator {
         // creates runtime error if reflection is used to bypass private
         throw new UnsupportedOperationException("Kindly stop using reflection to get around this being private xo");
     }
-
-    // TODO: not sure if this belongs in the referee.. will be reused by action...
     public static boolean setExists(Board board) {
         return findSet(board) != null;
     }
 
+    /**
+     * @param board
+     * @return a set found on the board (mapping from the position on the board to the card itself for all 3 cards)
+     * @returns null if no sets are on the board
+     *
+     * Currently we are using brute force, which is pretty fast because the number of cards is small.
+     * According to Wikipedia, this is an NP-hard problem.
+     * https://en.wikipedia.org/wiki/Set_(card_game)#Complexity
+     *
+     * Ideas for optimisation:
+        * Might choose one set over another based on how many more it leaves on the board.
+        * Create groups of cards based on features (e.g. put all cards with 1 shape on them together...)
+     */
     // returns a map (position --> card) containing 3 items
-    // TODO: not sure if this belongs in the referee.. will be reused by AI...
     public static Map<Integer, Card> findSet(Board board) {
-        // TODO: brute force, optimise later! Might choose one set over another based on how many more it leaves on the board... or that's up to AI
-        //       there's got to be a smart way by considering which 3 cards are new... DOn't need to compare them with all surely?
-//        TODO: check if this gives me null cards as well!
+
         for (int i = 0; i < MAX_BOARD_SIZE; i++) {
             for (int j = i + 1; j < MAX_BOARD_SIZE; j++) {
                 for (int k = j + 1; k < MAX_BOARD_SIZE; k++) {

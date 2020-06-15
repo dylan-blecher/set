@@ -5,6 +5,11 @@ import src.proto.AllProtos;
 
 import java.util.*;
 
+/**
+ * @author dylanblecher
+ * Results to display at the end of the game
+ * Protobacked according to Google's Protobuf
+ */
 public class Result {
     // descendingly sorted by value (i.e. nSets) each player found.
     // key: playerID, value: player

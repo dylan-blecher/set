@@ -6,6 +6,11 @@ import src.card.attributes.Number;
 import src.card.attributes.Shape;
 import src.proto.AllProtos;
 
+/**
+ * @author dylanblecher
+ * Card in the game, which has a Colour, Fill, Number and Shape
+ * Proto-backed according to Google's Protobuf.
+ */
 public class Card {
     public final AllProtos.Card proto;
 
@@ -37,8 +42,4 @@ public class Card {
     public Number getNumber() {
         return Number.fromProto(proto.getNumber());
     }
-
-//    public AllProtos.Card getProto() {
-//        return proto;
-//    }
 }

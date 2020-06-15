@@ -1,3 +1,9 @@
+# Use flask socketio to interract with front end Javascript - see script.js
+# Play Set
+# Dylan Blecher
+# blecher.dylan@gmail.com
+# April-June 2020
+
 import eventlet
 # overrides sleep from standard library (puts eventlet - thread - to sleep instead of all threads (i.e. process))
 eventlet.monkey_patch() 
@@ -43,13 +49,8 @@ def connect():
 
 @socketio.on('select_set')
 def handle_select_set(cardPositions):
-    #     elif actionType == ActionType.REQUEST_SHOW_SET or actionType == ActionType.LEAVE_GAME or actionType == ActionType.REQUEST_DRAW_THREE:
-    # showSetAction = PlayerAction.build(ActionType.REQUEST_SHOW_SET, 0)
     select_set_action = PlayerActionSelectSet.build(ActionType.SELECT_SET, playerRunner.getPlayerID(), cardPositions)
     playerRunner.addActionToQueue(select_set_action)
-    # playerRunner.addActionToQueue(showSetAction)
-
-    # emit('update value', message, broadcast=True)
 
 @socketio.on('draw_cards')
 def handle_draw_cards():

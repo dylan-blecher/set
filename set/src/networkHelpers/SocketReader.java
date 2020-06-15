@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+/**
+ * @author dylanblecher
+ * See Interactor.java
+ * This handles the reading from client side.
+ */
 public class SocketReader {
     BufferedReader reader;
     Socket socket;

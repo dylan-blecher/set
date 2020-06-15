@@ -3,17 +3,15 @@ package src.cardCollection.board;
 import src.card.Card;
 import src.cardCollection.CardCollection;
 
+/**
+ * @author dylanblecher
+ * The communal board where players look for sets.
+ */
 public class Board extends CardCollection {
     public static final int BASE_BOARD_SIZE = 12;
     // you are guaranteed to have a set on the board with 20 cards, according to Wikipedia
     // https://en.wikipedia.org/wiki/Set_(card_game)#Basic_combinatorics_of_Set
     public static final int MAX_BOARD_SIZE = 20;
-
-    public Board(Card[] cards) {
-        super(cards);
-        if (cards.length != BASE_BOARD_SIZE)
-            throw new UnsupportedOperationException("You are trying to create a board of incorrect size.");
-    }
 
     public Board(int nCards) {
         super(nCards);
@@ -21,6 +19,10 @@ public class Board extends CardCollection {
             throw new UnsupportedOperationException("You are trying to create a board of incorrect size.");
     }
 
+    /**
+     * Used to display the board for a terminal game.
+     * Not used in the online version.
+     */
     public void display() {
         int cardNum = 0;
         for (Card card: getCards()) {

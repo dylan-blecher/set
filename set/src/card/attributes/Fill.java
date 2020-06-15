@@ -5,6 +5,11 @@ import src.proto.AllProtos;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author dylanblecher
+ * Fill attribute of a card
+ * Proto-backed according to Google's Protobuf.
+ */
 public enum Fill {
     OPEN(AllProtos.CardFill.OPEN),
     STRIPED(AllProtos.CardFill.STRIPED),

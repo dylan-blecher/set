@@ -20,9 +20,15 @@ import static src.game.stateValidator.setExists;
 import static src.game.stateValidator.validateAction;
 import static src.server.Server.*;
 
+/**
+ * @author dylanblecher
+ * blecher.dylan@gmail.com
+ * April-June 2020
+ * Set is a multi-player real-time card game designed by Marsha Falco in 1974.
+ * Checkout the rules here:
+ * https://en.wikipedia.org/wiki/Set_(card_game)
+ */
 public class Game {
-    // TODO: change this players array to be a map from ID to player structure
-//  TODO:  maybe players should be refactored to be a static class
     private Players players;
     private Board board;
     private Deck deck;
@@ -32,8 +38,12 @@ public class Game {
          setupGame(activePlayers, actions);
     }
 
-    // the reason this is not immediately initialised with the attributes above is
-    // in case I want to add replay() functionality, where it sets up a new game :)
+    /**
+     * @param activePlayers players connected to the server
+     * @param actions       queue of actions to read action from
+     * The reason this is not immediately initialised with the attributes above is
+     * in case I want to add replay() functionality, where it sets up a new game :)
+     */
     private void setupGame(Map<Integer, Player> activePlayers, SynchronisedActionQueue actions) {
         this.players          = new Players(activePlayers);
         this.deck             = buildDeck();
@@ -41,9 +51,11 @@ public class Game {
         this.actions          = actions;
     }
 
+    /**
+     * run the game
+     */
     public void run() {
         while (gameIsNotOver()) {
-//            TODO: might want to send the move instead of the board...
             sendStateForDisplay(board, players);
 
             Action action = actions.getNext();
@@ -62,7 +74,12 @@ public class Game {
         sendResultToPlayers(result, players);
     }
 
-
+    /**
+     * Warn the player(s) that the action was invalid.
+     * @param action the action that was invalid
+     * @param errorMessage  the reason the action was invalid
+     * @param players the players to send the message to
+     */
     private void warnInvalidity(Action action, String errorMessage, Players players) {
         try {
             if (action.getType() == SELECT_SET) {
@@ -73,31 +90,16 @@ public class Game {
                 System.out.println(errorMessage);
             }
         } catch (IOException e) {
-            // TODO: If the player doesn't receive the errorMessage, handle it - implement re-join game if connection cuts - deadletter queue
+            // TODO: If the player doesn't receive the errorMessage, handle it -
+            //  implement re-join game if connection cuts - deadletter queue.
             return;
         }
     }
 
+    /**
+     * @return if the game can continue or not
+     */
     private boolean gameIsNotOver() {
         return (deck.nCards() > 0 || setExists(board)) && players.getNActivePlayers() > 0;
     }
 }
-
-//    TODO:
-// look through all code and check if there are places where i'm passing the oG reference but i should be passing a copy, if i were to have responsibiities correct
-// actionQueue class - has a queue. pass to queue which is private. part of game runner, not player. it's own package
-// serialised = packing and unpacking
-//    write AI's that are correct a percentage of the time and has delays
-// action queue, players making their own moves, then threads
-// change END_GAME to be DROP_OUT
-// players communicate with eachother through the game (send request for 3 more)
-// similar can't find set for SHOW_SET, no one gets it - discard pile
-// all other players agree
-// byzantine generals problem - timeouts - accept request if not in 10 seconds
-// mutual exclusion for move Making
-// how to add fixes without fucking the system'
-// 2 threads, 1 queue per player - one player thread adds job, one player thread sends job to server
-// queue is size 1 for now because we don't have blocking problem (waiting for server)
-// protobuf (google product to send information to a server - serialisation library)
-// graphics
-// move should have a playerID field.

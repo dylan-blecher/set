@@ -21,39 +21,16 @@ import static src.action.ActionType.LEAVE_GAME;
 import static src.player.PlayerInteractor.farewellPlayer;
 import static src.player.PlayerInteractor.readPlayerName;
 
+/**
+ * @author dylanblecher
+ * Unused code for running the game in the terminal, rather than online.
+ */
 
 public class PlayerClient {
     private final static int GAME_PORT = 9090;
     private final static SynchronisedActionQueue actions = new SynchronisedActionQueue();
 
     public static void main(String[] args) throws IOException, InterruptedException {
-
-        /*
-        List<Integer> cardIds = List.of(42, 69, 420);
-        ActionProtos.Action protoAction = ActionProtos.Action.newBuilder()
-            .setType(ActionProtos.ActionType.SELECT_SET)
-            .setPlayerID(1337)
-            .addAllCardIDs(cardIds)
-            .build();
-        System.out.println("raw proto");
-        System.out.println(protoAction);
-        System.out.println("raw proto to string");
-        System.out.println(protoAction.toString());
-        System.out.println("serialised proto");
-        System.out.println(protoAction.toByteArray());
-        try (FileOutputStream stream = new FileOutputStream("proto_out")) {
-            stream.write(protoAction.toByteArray());
-        }*/
-
-//        try (FileInputStream stream = new FileInputStream("proto_out")) {
-//            byte[] serializedProto = stream.readAllBytes();
-//            ActionProtos.Action protoAction = ActionProtos.Action.parseFrom(serializedProto);
-//            System.out.println("from bytes");
-//            System.out.println(protoAction);
-//        }
-
-
-
         Optional<Integer> playerID = Optional.empty();
         SocketReader fromServer;
         SocketWriter toServer;
@@ -121,8 +98,6 @@ public class PlayerClient {
                 }
             }
         }
-        // TODO: call this when above loop ain't infinite t.join();
-        // TODO: close() (my function close) reader and writer and
     }
 }
 

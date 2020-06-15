@@ -9,6 +9,10 @@ import src.cardCollection.CardCollection;
 
 import java.util.HashSet;
 
+/**
+ * @author dylanblecher
+ * Collection of cards representing a set found by a player or AI (i.e. gameValidator)
+ */
 public class Set extends CardCollection {
     public static final int SET_SIZE = 3;
 
@@ -19,9 +23,15 @@ public class Set extends CardCollection {
         }
     }
 
-    // To check if 3 cards make a Set, use a mathematical set to find out how many of each unique versions of
-    // each attribute is present. i.e. create a dictionary which maps each enum (e.g. Colour) to a number.
-    // If the number is 1 or 3, it's a set. Otherwise, it's not.
+    /**
+     * @param potentialSet
+     * @return if potentialSet is a set or not
+     *
+     * Method:
+     * To check if 3 cards make a Set, use a mathematical set to find out how many of each unique versions of
+     * each attribute is present. i.e. create a dictionary which maps each enum (e.g. Colour) to a number.
+     * If the number is 1 or 3, it's a set. Otherwise, it's not.
+     */
     public static boolean isSet(Card[] potentialSet) {
         if (potentialSet.length != SET_SIZE) return false;
 
@@ -71,6 +81,10 @@ public class Set extends CardCollection {
         return enum_set.size() == 1 || enum_set.size() == 3;
     }
 
+    /**
+     * Used to display the board for a terminal game.
+     * Not used in the online version.
+     */
     public void display() {
         for (Card card: getCards()) {
             System.out.println("---------------");

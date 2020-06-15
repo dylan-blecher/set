@@ -1,7 +1,13 @@
-// Establishing connection with the server hosted at domain:port
+// Play Set
+// Dylan Blecher
+// blecher.dylan@gmail.com
+// April-June 2020
+// Interacts with flask socketio - see launchPlayer.py
+
 const SET_DISPLAY_TIME = 2500
 
 $(document).ready(function() {
+    // connect to Flask Socketio and setup listeners to player moves
     var socket = io.connect('http://' + document.domain + ':' + location.port);
     
     var cardElsSelected = [];

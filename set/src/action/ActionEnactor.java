@@ -15,9 +15,26 @@ import static src.cardCollection.set.Set.SET_SIZE;
 import static src.game.stateValidator.findSet;
 import static src.server.Server.sendRevealedSet;
 
+/**
+ * @author dylanblecher
+ * Responsible for enacting a given action
+ * We can assume the action is valid, since the validator is called on the action first.
+ */
 public class ActionEnactor {
-    // TODO: ENFORCE THAT THIS AND CONSENSUS MANAGER CANNOT BE INSTANTIATED WITH PRIVATE CONSTRUCTOR
-    // TODO: not sure if i like the fact that I'm passing players around here!
+    // make ActionEnactor uninstantiable
+    private ActionEnactor() throws UnsupportedOperationException {
+        // creates runtime error if reflection is used to bypass private
+        throw new UnsupportedOperationException("Kindly stop using reflection to get around this being private");
+    }
+
+    /**
+     *
+     * @param action    the action to enact
+     * @param board     the board to make changes on based on the action
+     * @param deck      the remaining deck of cards to make changes on based on the action
+     * @param players   the players in the game (active and inactive)
+     * @param actions   the queue of actions to add the action to
+     */
     public static void enact(Action action, Board board, Deck deck, Players players, SynchronisedActionQueue actions) {
         ActionType actionType = action.getType();
         switch (actionType) {
@@ -41,13 +58,7 @@ public class ActionEnactor {
 
     private static void enactLeaveGame(PlayerAction playerAction, Players players) {
         int playerID = playerAction.getPlayerID();
-        String name = players.getPlayer(playerID).getName();
         players.dropPlayerFromGame(playerID);
-        int nPlayers = players.getNActivePlayers();
-
-//        System.out.printf("%s (player %d) has left. %d ", name, playerID + 1, nPlayers);
-//        System.out.println(nPlayers == 1 ? "player remains." : "players remain.");
-
     }
 
     private static void enactShowSet(Board board, Players players, Deck deck) {
@@ -59,7 +70,6 @@ public class ActionEnactor {
 
     private static void enactSelectSet(PlayerActionSelectSet action, Board board, Deck deck, Players players) {
         Set set = removeSetFromBoard(action.getCardPositions(), board);
-        System.out.println("PLAYERID: " + action.getPlayerID());
         players.getPlayer(action.getPlayerID()).collectSet(set);
         replenishBoard(board, deck);
     }
@@ -72,6 +82,10 @@ public class ActionEnactor {
         return new Set(setCards);
     }
 
+    /**
+     * Tries to refill the board to the base size after cards have been removedd.
+     * If the deck is empty or the board is not below baseSize, there is nothing to do.
+     */
     private static void replenishBoard(Board board, Deck deck) {
         if (board.nCards() < BASE_BOARD_SIZE && deck.nCards() >= 0) {
             int nEmptyBaseSlots = BASE_BOARD_SIZE - board.nCards();
@@ -80,6 +94,9 @@ public class ActionEnactor {
         }
     }
 
+    /**
+     * Adds 3 cards (or fills up the board if less than 3 slots are available)
+     */
     private static void enactDrawThree(Board board, Deck deck) {
         int nCardsToAdd = min(board.nEmptySpots(), SET_SIZE);
         addToBoardFromDeck(nCardsToAdd, board, deck);

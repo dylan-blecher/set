@@ -3,6 +3,11 @@ package src.player;
 import src.cardCollection.set.Set;
 import src.proto.AllProtos;
 
+/**
+ * @author dylanblecher
+ * Player of the game.
+ * Proto-backed according to Google's protobuf.
+ */
 public class Player {
     public final AllProtos.Player proto;
 

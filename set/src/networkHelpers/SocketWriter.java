@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
+/**
+ * @author dylanblecher
+ * See Interactor.java
+ * This handles the writing to client side.
+ */
 public class SocketWriter {
     BufferedWriter writer;
     Socket socket;
@@ -13,7 +18,6 @@ public class SocketWriter {
         writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
     }
 
-    // TODO: is new line still necessary?
     public void write(String s) throws IOException {
         writer.write(s + "\n");
         writer.flush();

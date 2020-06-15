@@ -7,6 +7,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author dylanblecher
+ * Manage active and inactive players in the game.
+ * We generally get a player by mapping from their ID, which is just an integer.
+ */
 public class Players {
     private Map<Integer, Player> activePlayers;
     private Map<Integer, Player> inactivePlayers = new HashMap<>();

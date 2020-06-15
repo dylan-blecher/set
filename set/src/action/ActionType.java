@@ -5,7 +5,12 @@ import src.proto.AllProtos;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO: create end game option where it just prints out the current winner summary
+/**
+ * @author dylanblecher
+ * Defining all types of Actions in the game.
+ * Proto-backed according to Google's Protobuf.
+ * Uses a map to convert from proto ActionTypes to native ActionTypes
+ */
 public enum ActionType {
     SELECT_SET(AllProtos.ActionType.SELECT_SET),
     REQUEST_SHOW_SET(AllProtos.ActionType.REQUEST_SHOW_SET),
@@ -38,6 +43,9 @@ public enum ActionType {
         return map.get(AllProtos.ActionType.forNumber(moveType));
     }
 
+    /**
+     * Converts from a proto ActionType to a native ActionType
+     */
     public static ActionType fromProto(AllProtos.ActionType actionType) {
         return map.get(actionType);
     }

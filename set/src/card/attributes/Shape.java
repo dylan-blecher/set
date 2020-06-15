@@ -5,6 +5,11 @@ import src.proto.AllProtos;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author dylanblecher
+ * Shape attribute of a card
+ * Proto-backed according to Google's Protobuf.
+ */
 public enum Shape {
     DIAMOND(AllProtos.CardShape.DIAMOND),
     SQUIGGLE(AllProtos.CardShape.SQUIGGLE),

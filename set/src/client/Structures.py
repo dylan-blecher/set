@@ -1,3 +1,9 @@
+# Create structures used for serialising and deserialising according to Google's protobuf
+# Play Set
+# Dylan Blecher
+# blecher.dylan@gmail.com
+# April-June 2020
+
 from enum import Enum
 from typing import List
 
@@ -23,7 +29,7 @@ ACTION_TYPE_TO_PROTO = {
 }
 
 
-def _action_type_to_proto(action_type: ActionType) -> ActionTypeProto:
+def action_type_to_proto(action_type: ActionType) -> ActionTypeProto:
 	return ACTION_TYPE_TO_PROTO[action_type]
 
 
@@ -31,8 +37,6 @@ class PlayerAction:
 	def __init__(self, proto: ActionProto) -> None:
 		self.proto = proto
 
-	# can't overload __init__ in python, so we do the below to create the class with 
-	# different parameters
 	@classmethod
 	def build(
 		cls,
@@ -42,7 +46,7 @@ class PlayerAction:
 		return cls(
 			ClientRequestProto(
 				action=ActionProto(
-					type=_action_type_to_proto(actionType),
+					type=action_type_to_proto(actionType),
 					playerID=playerID
 				)
 			)
@@ -66,7 +70,7 @@ class PlayerActionSelectSet(PlayerAction):
 		return cls(
 			ClientRequestProto(
 				action=ActionProto(
-					type=_action_type_to_proto(actionType),
+					type=action_type_to_proto(actionType),
 					playerID=playerID,
 					cardPositions=cardPositions
 				)

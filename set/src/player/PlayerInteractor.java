@@ -12,6 +12,11 @@ import java.util.Scanner;
 
 import static src.cardCollection.set.Set.SET_SIZE;
 
+/**
+ * @author dylanblecher
+ * Interact with player to get their actions.
+ * Used in the terminal version of the game but not online, since prompts are obvious online.
+ */
 public class PlayerInteractor {
     private static Scanner scanner = new Scanner(System.in);
 
@@ -50,7 +55,6 @@ public class PlayerInteractor {
         return action;
     }
 
-    // TODO: various types of actions... one would be to display 3 more cards... allow this indefinitely? yes. but also show if they ask if there is a possible set :) but wait... can i display a board that big?
     private static PlayerAction getSelectSet(int playerID, ActionType actionType) {
         System.out.println("Enter the 3 cards in your set. ");
 

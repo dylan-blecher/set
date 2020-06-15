@@ -20,6 +20,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 
+/**
+ * @author dylanblecher
+ * Run the server for Set for the clients to communicate with
+ */
+
 public class Server {
     private final static int GAME_PORT = 9090;
     private final int N_PLAYERS = 2;
@@ -30,39 +35,24 @@ public class Server {
         SynchronisedActionQueue actions    = new SynchronisedActionQueue();
         Map<Integer, Player> activePlayers = new HashMap<>();
 
-        // this is used only temporarily to setup
+        // this is used only temporarily to setup the game
         Map<Integer, Socket> toPlayerClientWriters = new HashMap<>();
 
-        // open a port and accept message on it
+        // Keep opening ports and accept messages on it until we have enough players
         try (ServerSocket serverSocket = new ServerSocket(GAME_PORT)) {
-            System.out.println("serverSocket");
             int newPlayerID = 0;
             int nPlayers = 0;
             while (nPlayers < N_PLAYERS) {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("ANOTHER clientSocket");
 
-//                ByteBuffer bf = ByteBuffer.allocate(1024);
-//                BufferedInputStream fromClient = new BufferedInputStream(clientSocket.getInputStream());
-//                while (true) {
-//                    int b = fromClient.read();
-//                    if (b == 0) {
-//                        break;
-//                    }
-//                    bf.put((byte)b);
-//                }
-//                bf.flip();
-
+                // read message from client (deserialise from proto)
+                // it will either be the player requesting to join, or confirming joining
                 AllProtos.ClientRequest request = readClientRequest(clientSocket.getInputStream());
-                System.out.println(request);
-                // could use the following to get the proto message type, but this won't work in Python:
-                // request.getDescriptorForType().getName()
-                System.out.println((request.getDescriptorForType().getName()));
                 if (request.hasJoinGame()) {
+                    // initial request to join game from client
                     AllProtos.ServerResponse sendPlayerIDProto = buildSendPlayerIDProto(newPlayerID);
                     OutputStream streamToClient = clientSocket.getOutputStream();
                     writeServerResponse(sendPlayerIDProto, streamToClient);
-                    System.out.println("sent player ID");
                     toPlayerClientWriters.put(newPlayerID, clientSocket);
 
                     String playerName = request.getJoinGame().getName();
@@ -71,8 +61,7 @@ public class Server {
 
                     newPlayerID++;
                 } else if (request.hasConfirmPlayerID()) {
-                    System.out.println("client confirmed their playerID");
-                    // playerClient sent a playerID
+                    // final request to join game from client, confirm receipt of their ID
                     int playerID = request.getConfirmPlayerID().getPlayerID();
 
                     if (!toPlayerClientWriters.containsKey(playerID)) {
@@ -83,22 +72,21 @@ public class Server {
                     Socket toPlayerSocket = toPlayerClientWriters.remove(playerID);
                     Interactor playerInteractor = new Interactor(clientSocket.getInputStream(), toPlayerSocket.getOutputStream());
                     playerClientSockets.put(playerID, playerInteractor);
+
+                    // Create a thread to run communication with each player in a separate thread.
                     Thread t = new Thread(new ClientCommunicator(playerID, toPlayerSocket.getOutputStream(), clientSocket.getInputStream(), actions));
                     t.start();
                     playerListeners.add(t);
                     nPlayers++;
                 }
-//                System.out.println(action.proto);
-//                int x = 3;
-//                while (x != 4) continue;
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
         cleanUpFailedClients(toPlayerClientWriters, activePlayers);
-        // get moves from players
-        System.out.println("run game now");
+
+        // Run the game once all players are in.
         Game game = new Game(activePlayers, actions);
         game.run();
 
@@ -143,6 +131,10 @@ public class Server {
 
         toPlayerClients = null;
     }
+
+    /**
+     * The helper functions below construct and send messages (protos) to the players
+     */
 
     public static void tellPlayer(PlayerAction action, String errorMessage) throws IOException {
         int playerID = action.getPlayerID();
@@ -225,6 +217,9 @@ public class Server {
     }
 }
 
+/**
+ * Interact with 1 player in a thread to receive player actions and send responses (e.g. the board)
+ */
 class ClientCommunicator implements Runnable {
     private final int playerId;
     private final OutputStream streamToClient;
@@ -241,14 +236,12 @@ class ClientCommunicator implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("started a new thread");
         while (true) {
             try {
                 // deserialize action and add to action queue
                 AllProtos.ClientRequest request = Server.readClientRequest(streamFromClient);
 
                 if (! request.hasAction()) {
-                    // TODO: instead, send response saying you needa send an action and ya didn't
                     continue;
                 }
                 Action action = null;
@@ -266,15 +259,7 @@ class ClientCommunicator implements Runnable {
 
                 assert(action != null);
 
-                System.out.println("player interactor about to take control of actions");
                 actions.addAction(action);
-
-                // TODO: the bqelow if statement breaks the player process with an infinite null loop... why? because there are 2 threads in the player process that are still running even after connection is shut off... fix this!
-//                if (action.getType() == LEAVE_GAME) {
-//                    toPlayerClient.close();
-//                        fromPlayerClient.close();
-//                    break;
-//                }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
